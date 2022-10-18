@@ -4,6 +4,7 @@ import Footer from './Components/Footer'
 import Nav from './Components/Nav'
 import Tasks from './Components/Tasks'
 
+import GlobalStyle from './globalStyles';
 import './App.css'
 
 const Main = styled.main`
@@ -19,6 +20,7 @@ const Main = styled.main`
 function App() {
   return (
     <div className="App">
+      <GlobalStyle />
       <Nav />
       <Main>
         <Tasks />

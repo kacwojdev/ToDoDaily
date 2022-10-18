@@ -6,9 +6,9 @@ import TasksBox from '../TasksBox'
 const Tasks = () => {
   return (
     <>
-        <TasksBox title="To do" />
-        <TasksBox title="Progress" />
-        <TasksBox title="Done" />
+        <TasksBox title="To do" type="todo" />
+        <TasksBox title="Progress" type="progress" />
+        <TasksBox title="Done" type="done" />
     </>
   )
 }
