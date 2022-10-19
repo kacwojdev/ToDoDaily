@@ -1,6 +1,6 @@
 ## ToDoDaily
 
--
+ToDoDaily an app made for cleaning your daily mess.
 
 ## Links
 
