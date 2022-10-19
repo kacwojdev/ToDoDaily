@@ -1,50 +1,53 @@
-import React, { useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import { removeElementAtIndex } from '../../helpers'
 import styled from 'styled-components'
 
+import optionsIcon from '../../Assets/options.png'
+
+const TasksContainer = styled.div`
+    margin-top: 50px;
+    padding: 10px 10px;
+    margin-right: 50px;
+    background: #222a38;
+    border-radius: 25px;
+`
+
+const TasksCategoryName = styled.h2`
+    color: grey;
+`
+
+const NewTaskButton = styled.button`
+    width: 100%;
+    padding: 10px;
+    color: #d5d5d5;
+    font-weight: 700;
+    background: #579357;
+    border: none;
+    border-radius: 15px;
+    transition: .1s ease-in;
+
+    &:hover {
+        background-color: #77bf77;
+        color: white;
+    }
+`
+
 const TasksBox = ({title, type}) => {
 
-    const TasksContainer = styled.div`
-        padding: 10px;
-        border: 2px solid #262626;
-    `
-
-    const TasksCategoryName = styled.h2`
-        color: grey;
-    `
-
-    const NewTaskButton = styled.button`
-        padding: 25px;
-        color: white;
-        background: green;
-        border: none;
-        border-radius: 25px;
-    `
-
     const defaultTasks = [{
-        title: "Lorem",
-        desc: "Lorem ipsum dolor sit amet. qafasdf 2  awsfaef 2 2 ",
-        date: new Date().toLocaleTimeString(),
-    },
-    {
-        title: "Lorem 2",
-        desc: "Lorem ipsum dolor sit amet. asd q we r23 2 23 2 af a",
-        date: new Date().toLocaleTimeString(),
-    },
-    {
-        title: "Lorem 3",
-        desc: "Lorem ipsum dolor sit amet. asdf wewq sad fqwe fqw ",
-        date: new Date().toLocaleTimeString(),
-    },
-    {
-        title: "Lorem 4",
-        desc: "Lorem ipsum dolor sit amet. asdfas sadf ",
+        title: "Your favourite title goes here",
+        desc: "Create yours first task here. Edit this or create the new one :D",
         date: new Date().toLocaleTimeString(),
     }]
-    localStorage.setItem(`tasks-${type}`,JSON.stringify(defaultTasks))
-    const taskDataFromLocaleStorage = JSON.parse(localStorage.getItem(`tasks-${type}`))
 
-    const [listOfTasks, setListOfTasks] = useState(taskDataFromLocaleStorage)
+    const [listOfTasks, setListOfTasks] = useState([])
+
+    useEffect(() => {
+        console.log('use effect')
+        let taskDataFromLocaleStorage = []
+        JSON.parse(localStorage.getItem('tasks-${type}')) == null ? taskDataFromLocaleStorage = JSON.parse(localStorage.getItem(`tasks-${type}`)) : taskDataFromLocaleStorage = defaultTasks
+        setListOfTasks(taskDataFromLocaleStorage)
+    }, [])
 
     const createNewTask = () => {
         const newTask = {
@@ -68,6 +71,13 @@ const TasksBox = ({title, type}) => {
         console.log('r u sure wanna delete task od id ', taskId, ' ?')
     }
 
+    const handleSavingTask = (taskId, newTaskData) => {
+        const newArray = listOfTasks;
+        newArray[taskId] = newTaskData;
+        setListOfTasks([...newArray])
+        localStorage.setItem(`tasks-${type}`, JSON.stringify(listOfTasks));
+    }
+
     return (
         <TasksContainer>
             <TasksCategoryName>{title}</TasksCategoryName>
@@ -79,50 +89,101 @@ const TasksBox = ({title, type}) => {
                                                 date={singleTask.date} 
                                                 editing={false}
                                                 handleRemoveTask={handleRemoveTask}
+                                                handleSavingTask={handleSavingTask}
                                                  />)} 
             <NewTaskButton onClick={() => createNewTask()}>New task</NewTaskButton>  
         </TasksContainer>
     )
 }
 
-const SingleTask = ({dataKey, title, description, date, editing, handleRemoveTask}) => {
+const SingleTaskContainer = styled.div`
+    margin: 10px 0;
+    padding: 10px;
+    background: ${props => props.bgColor};
+    color: grey;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    transition: .1s ease-in;
 
-    const SingleTaskContainer = styled.div`
-        margin: 10px 0;
-        padding: 10px;
-        background: white;
-        color: grey;
-        border-radius: 15px;
-        display: flex;
-        flex-direction: column;
-    `
+    &:hover {
+        background-color:#e5e5e5;
+    }
+`
 
-    const SingleTaskHeader = styled.h3`
-        margin: 0;
-    `
+const SingleTaskHeader = styled.h3`
+    margin: 0;
+`
 
-    const SingleTaskDescription = styled.p`
-        margin: 10px 0;
-    `
+const SingleTaskDescription = styled.p`
+    margin: 10px 0;
+`
 
-    const ActionButton = styled.button`
-        background: grey;
-        color: white;
-        padding: 15px 30px;
-        width: max-content;
-    `
+const ActionButton = styled.button`
+    width: max-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    border: none;
+    border-radius: 50px;
+    background: ${props => props.bgColor};
+    color: white;
+    transition: .1s ease-in;
 
-    const ActionsContainer = styled.div`
-        display: flex;
-        flex-direction: row-reversed;
-        justify-content: space-between;
-    `
+    &:hover {
+        background: #dfdfdf;
+    }
+`
 
-    const [taskData, setTaskData] = useState({title: title, desc: description, date: date})
+const ActionsContainer = styled.div`
+    display: flex;
+    flex-direction: row-reversed;
+    justify-content: space-between;
+`
+
+const TitleInput = styled.input`
+    padding: 5px;
+    border: none;
+    background: #e5e5e5;
+    border-radius: 10px;
+
+    &:hover {
+        background:#dbd9d9;
+    }
+
+    &:active {
+        background:#dbd9d9;
+        border: none;
+    }
+`
+
+const DescTextArea = styled.textarea`
+    padding: 5px;
+    border: none;
+    background: #e5e5e5;
+    border-radius: 10px;
+
+    &:hover {
+        background:#dbd9d9;
+    }
+
+    &:active {
+        background:#dbd9d9;
+        border: none;
+    }
+`
+
+const SingleTask = ({dataKey, title, description, date, editing, handleRemoveTask, handleSavingTask}) => {
+
     const [isEditing, setEditingState] = useState(editing)
+    const [taskDesc, setTaskDesc] = useState(description)
+    const [taskTitle, setTaskTitle] = useState(title)
 
-    const saveTask = () => {
-        console.log('saving task with values', taskData)
+    const saveTask = taskId => {
+        handleSavingTask(taskId, {title: taskTitle, desc: taskDesc, date: date})
+        console.log('saving task with values', {title: taskTitle, desc: taskDesc, date: date})
         setEditingState(false)
     }
 
@@ -134,35 +195,19 @@ const SingleTask = ({dataKey, title, description, date, editing, handleRemoveTas
         handleRemoveTask(taskId)
     }
 
-    const handleDataChange = (event) => {
-
-
-        if (event.target.tagName === "INPUT") {
-            setTaskData({title: event.target.value, desc: taskData.desc, date: taskData.date})
-        } else if (event.target.tagName === "TEXTAREA") {
-            setTaskData({title: taskData.value, desc: event.target.value, data: taskData.date})
-        } else {
-            console.log('Something went wrong with task changing data function');
-        }
-
-        console.log(`new task data: title - ${taskData.title}, desc - ${taskData.desc}, date - ${taskData.date}`)
-    }
-
 
     return isEditing ? (
-        <SingleTaskContainer>
-            <input value={taskData.title} onChange={handleDataChange} />
-            <textarea value={taskData.desc} onChange={handleDataChange}>
-
-            </textarea>
+        <SingleTaskContainer bgColor="#e5e5e5">
+            <TitleInput value={taskTitle} onChange={event => setTaskTitle(event.target.value)} />
+            <DescTextArea value={taskDesc} onChange={event => setTaskDesc(event.target.value)}></DescTextArea>
             <ActionsContainer>
                 <span>{date}</span>
-                <ActionButton onClick={() => saveTask({})}>Save</ActionButton>
-                <ActionButton onClick={() => deleteTask(dataKey)}>Delete</ActionButton>
+                <ActionButton bgColor="#579357" onClick={() => saveTask(dataKey)}>Save</ActionButton>
+                <ActionButton bgColor="#b55959" onClick={() => deleteTask(dataKey)}>Delete</ActionButton>
             </ActionsContainer>
         </SingleTaskContainer>
     ) : (
-        <SingleTaskContainer>
+        <SingleTaskContainer bgColor="white">
             <SingleTaskHeader>
                 {title}
             </SingleTaskHeader>
@@ -171,7 +216,9 @@ const SingleTask = ({dataKey, title, description, date, editing, handleRemoveTas
             </SingleTaskDescription>
             <ActionsContainer>
                 <span>{date}</span>
-                <ActionButton onClick={() => editTask()}>Edit</ActionButton>
+                <ActionButton bgColor="none" onClick={() => editTask()}>
+                    <img src={optionsIcon} alt="Options" />
+                </ActionButton>
             </ActionsContainer>
         </SingleTaskContainer>
     )

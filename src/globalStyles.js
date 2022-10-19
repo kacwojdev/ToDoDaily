@@ -14,7 +14,13 @@ const GlobalStyle = createGlobalStyle`
         background-color: rgb(22, 28, 37);
     }
 
+    textarea, input {
+        font-family: 'Playfair Display', serif;
+        font-size: 1rem;
+    }
+
     button {
+        font-family: 'Playfair Display', serif;
         cursor: pointer;
     }
 `

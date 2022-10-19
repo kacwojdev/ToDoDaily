@@ -11,7 +11,7 @@ const Main = styled.main`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-items: baseline;
   width: 100%;
   height: 100%;
   padding: auto 50px;
