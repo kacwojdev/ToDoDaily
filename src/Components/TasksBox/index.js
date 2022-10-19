@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState} from 'react'
 import { removeElementAtIndex } from '../../helpers'
 import styled from 'styled-components'
 
@@ -45,7 +45,6 @@ const TasksBox = ({title, type}) => {
     const taskDataFromLocaleStorage = JSON.parse(localStorage.getItem(`tasks-${type}`))
 
     const [listOfTasks, setListOfTasks] = useState(taskDataFromLocaleStorage)
-    const [num, increment] = useState(0);
 
     const createNewTask = () => {
         const newTask = {
@@ -62,8 +61,8 @@ const TasksBox = ({title, type}) => {
     const handleRemoveTask = (taskId) => {
 
         const newArray = removeElementAtIndex(listOfTasks, taskId)
-        setListOfTasks(newArray)
-        increment(num+1)
+        setListOfTasks([...newArray])
+
         localStorage.setItem(`tasks-${type}`, JSON.stringify(listOfTasks))
 
         console.log('r u sure wanna delete task od id ', taskId, ' ?')
