@@ -44,7 +44,7 @@ const TasksBox = ({title, type}) => {
 
     useEffect(() => {
         console.log('use effect')
-        let taskDataFromLocaleStorage = []
+        let taskDataFromLocaleStorage = [defaultTasks]
         JSON.parse(localStorage.getItem('tasks-${type}')) == null ? taskDataFromLocaleStorage = JSON.parse(localStorage.getItem(`tasks-${type}`)) : taskDataFromLocaleStorage = defaultTasks
         setListOfTasks(taskDataFromLocaleStorage)
     }, [])
@@ -81,7 +81,7 @@ const TasksBox = ({title, type}) => {
     return (
         <TasksContainer>
             <TasksCategoryName>{title}</TasksCategoryName>
-            {listOfTasks.map((singleTask, index)  => <SingleTask 
+            {listOfTasks != null ? listOfTasks.map((singleTask, index)  => <SingleTask 
                                                 key={index}
                                                 dataKey={index}
                                                 title={singleTask.title}
@@ -90,7 +90,7 @@ const TasksBox = ({title, type}) => {
                                                 editing={false}
                                                 handleRemoveTask={handleRemoveTask}
                                                 handleSavingTask={handleSavingTask}
-                                                 />)} 
+                                                 />) : "Something went wrong with fetching data.."} 
             <NewTaskButton onClick={() => createNewTask()}>New task</NewTaskButton>  
         </TasksContainer>
     )
