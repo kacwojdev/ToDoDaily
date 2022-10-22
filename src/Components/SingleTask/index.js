@@ -102,23 +102,6 @@ const SingleTask = ({dataKey, title, description, date, editing, handleRemoveTas
         handleRemoveTask(taskId)
     }
 
-    const handleDragStart = event => {
-        //  console.log('drag start', event.target)
-    }
-
-    const handleDragEnd = event => {
-        console.log('drag end', event.target)
-    }
-
-    const handleDragOver = event => {
-        console.log('drag over', event.target)
-    }
-
-    const handleDragEnter = event => {
-        console.log('entered element', event.target)
-    }
-
-
     return isEditing ? (
         <SingleTaskContainer bgColor="#e5e5e5">
             <TitleInput value={taskTitle} onChange={event => setTaskTitle(event.target.value)} />
@@ -131,11 +114,6 @@ const SingleTask = ({dataKey, title, description, date, editing, handleRemoveTas
         </SingleTaskContainer>
     ) : (
         <SingleTaskContainer 
-            draggable={true} 
-            onDrag={handleDragStart} 
-            onDragEnd={handleDragEnd} 
-            onDragOver={handleDragOver}
-            onDragEnter={handleDragEnter}
             bgColor="white">
             <SingleTaskHeader>
                 {title}

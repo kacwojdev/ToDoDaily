@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 const TasksGroupContainer = styled.div`
@@ -22,7 +23,9 @@ const TasksGroupContainer = styled.div`
 const TasksGroup = ({title}) => {
   return (
     <TasksGroupContainer>
-        <h3>{title}</h3>
+        <Link to={`/group/${title}`}>
+            <h3>{title}</h3>
+        </Link>
     </TasksGroupContainer>
   )
 }

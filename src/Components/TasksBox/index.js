@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import { removeElementAtIndex } from '../../helpers'
 import styled from 'styled-components'
 
@@ -42,6 +43,7 @@ const TasksBox = ({title, type}) => {
     }]
 
     const [listOfTasks, setListOfTasks] = useState([])
+    const {groupId} = useParams()
 
     useEffect(() => {
         console.log('use effect', defaultTasks, type)
@@ -82,7 +84,7 @@ const TasksBox = ({title, type}) => {
 
     return (
         <TasksContainer>
-            <TasksCategoryName>{title}</TasksCategoryName>
+            <TasksCategoryName>{groupId}</TasksCategoryName>
             {listOfTasks != null ? listOfTasks.map((singleTask, index)  => <SingleTask 
                                                 key={index}
                                                 dataKey={index}

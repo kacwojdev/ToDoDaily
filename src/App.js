@@ -1,9 +1,11 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import styled from 'styled-components'
 
 import Footer from './Components/Footer'
 import Nav from './Components/Nav'
 import Tasks from './Components/Tasks'
+import TasksBox from './Components/TasksBox'
 
 import GlobalStyle from './globalStyles';
 
@@ -16,12 +18,17 @@ const AppContainer = styled.div`
 function App() {
   return (
     <AppContainer className="App">
+      <Router  basename="/ToDoDaily/">
       <GlobalStyle />
       <Nav />
       <main>
-        <Tasks />
+        <Routes>
+          <Route exact path="/" element={<Tasks />} />
+          <Route path="/group/:groupId" element={<TasksBox />} />
+        </Routes>
       </main>
       <Footer />
+      </Router>
     </AppContainer>
   );
 }
