@@ -45,7 +45,7 @@ const TasksBox = ({title, type}) => {
     useEffect(() => {
         console.log('use effect')
         let taskDataFromLocaleStorage = [defaultTasks]
-        JSON.parse(localStorage.getItem('tasks-${type}')) == null ? taskDataFromLocaleStorage = JSON.parse(localStorage.getItem(`tasks-${type}`)) : taskDataFromLocaleStorage = defaultTasks
+        JSON.parse(localStorage.getItem(`tasks-${type}`)) == null ? taskDataFromLocaleStorage = JSON.parse(localStorage.getItem(`tasks-${type}`)) : taskDataFromLocaleStorage = defaultTasks
         setListOfTasks(taskDataFromLocaleStorage)
     }, [])
 
