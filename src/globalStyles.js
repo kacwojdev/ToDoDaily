@@ -23,6 +23,10 @@ const GlobalStyle = createGlobalStyle`
         font-family: 'Playfair Display', serif;
         cursor: pointer;
     }
+
+    *, *::after, *::before {
+        box-sizing: border-box;
+    }
 `
 
 export default GlobalStyle
