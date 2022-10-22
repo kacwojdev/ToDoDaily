@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/ToDoDaily/static/css/main.0891f22b.css",
-    "main.js": "/ToDoDaily/static/js/main.b7c1c40f.js",
+    "main.css": "/ToDoDaily/static/css/main.8871f5b4.css",
+    "main.js": "/ToDoDaily/static/js/main.b4718252.js",
     "index.html": "/ToDoDaily/index.html",
-    "main.0891f22b.css.map": "/ToDoDaily/static/css/main.0891f22b.css.map",
-    "main.b7c1c40f.js.map": "/ToDoDaily/static/js/main.b7c1c40f.js.map"
+    "main.8871f5b4.css.map": "/ToDoDaily/static/css/main.8871f5b4.css.map",
+    "main.b4718252.js.map": "/ToDoDaily/static/js/main.b4718252.js.map"
   },
   "entrypoints": [
-    "static/css/main.0891f22b.css",
-    "static/js/main.b7c1c40f.js"
+    "static/css/main.8871f5b4.css",
+    "static/js/main.b4718252.js"
   ]
 }
