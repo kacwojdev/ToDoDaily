@@ -43,10 +43,11 @@ const TasksBox = ({title, type}) => {
     const [listOfTasks, setListOfTasks] = useState([])
 
     useEffect(() => {
-        console.log('use effect')
+        console.log('use effect', defaultTasks, type)
         let taskDataFromLocaleStorage = [defaultTasks]
-        JSON.parse(localStorage.getItem(`tasks-${type}`)) == null ? taskDataFromLocaleStorage = JSON.parse(localStorage.getItem(`tasks-${type}`)) : taskDataFromLocaleStorage = defaultTasks
+        JSON.parse(localStorage.getItem(`tasks-${type}`)) != null ? taskDataFromLocaleStorage = JSON.parse(localStorage.getItem(`tasks-${type}`)) : taskDataFromLocaleStorage = defaultTasks
         setListOfTasks(taskDataFromLocaleStorage)
+        // eslint-disable-next-line
     }, [])
 
     const createNewTask = () => {
