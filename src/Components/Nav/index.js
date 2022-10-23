@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 const NavigationBox = styled.nav`
@@ -44,7 +45,7 @@ const Nav = () => {
     <NavigationBox>
         <BrandBox>
             <SiteTitle>
-                TodoDaily
+                <Link to="/">TodoDaily</Link>
             </SiteTitle>
             <SiteQuote>Clean up your daily mess.</SiteQuote>
         </BrandBox>

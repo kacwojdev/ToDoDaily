@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
-import TasksBox from '../TasksBox'
 import TasksGroup from '../TasksGroup'
+import AddTasksGroupButton from '../AddTasksGroupButton'
 
 const Header = styled.h2`
   font-size: 3rem;
@@ -26,14 +26,20 @@ const SectionBox = styled.div`
 `
 
 const Tasks = () => {
+
+  const [groupList, addNewGroup] = useState([{groupName: "Sport"}, {groupName: "Work"}, {groupName: "Company duties"}, {groupName: "School"}])
+
+  const createNewGroup = () => {
+    const groupName = prompt("please enter group name")
+    addNewGroup([...groupList, {groupName: groupName}])
+  }
+
   return (
     <SectionBox>
       <Header>Your groups</Header>
+      <AddTasksGroupButton handleCreatingNewGroup={createNewGroup} />
       <TasksConatiner>
-          <TasksGroup title="Work" />
-          <TasksGroup title="Company duties" />
-          <TasksGroup title="School" />
-          <TasksGroup title="Sport" />
+        {groupList.map( ({groupName}) => <TasksGroup title={groupName} />)}
       </TasksConatiner>
     </SectionBox>
   )

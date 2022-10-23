@@ -7,30 +7,44 @@ import SingleTask from '../SingleTask/index'
 
 
 const TasksContainer = styled.div`
-    margin-top: 50px;
-    padding: 10px 10px;
-    margin-right: 50px;
+    margin: 50px;
+    padding: 25px;
     background: #222a38;
     border-radius: 25px;
 `
 
+const TasksContainerBody = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: left;
+    align-items: baseline;
+`
+
 const TasksCategoryName = styled.h2`
-    color: grey;
+    font-size: 3rem;
+    font-weight: 700;
+    padding-bottom: 50px;
+    border-bottom: 2px solid rgb(22,28,37);
 `
 
 const NewTaskButton = styled.button`
-    width: 100%;
-    padding: 10px;
-    color: #d5d5d5;
-    font-weight: 700;
-    background: #579357;
-    border: none;
-    border-radius: 15px;
+    height: max-content;
+    width: 200px;
+    margin-bottom: 40px;
+    border: 2px solid rgb(29,48,69);
+    border-radius: 20px;
+    padding: 5px 15px;
+    color: rgb(29,48,69);
+    box-shadow: 0px 5px 0 rgb(22,28,37);
     transition: .1s ease-in;
 
     &:hover {
-        background-color: #77bf77;
-        color: white;
+        transform: translate(0, 10px);
+        box-shadow: 0px 0px 0 rgb(112, 181, 131);
+        border-color: rgb(112, 181, 131);
+        color: rgb(112, 181, 131);
+        cursor: pointer;
     }
 `
 
@@ -85,17 +99,21 @@ const TasksBox = ({title, type}) => {
     return (
         <TasksContainer>
             <TasksCategoryName>{groupId}</TasksCategoryName>
-            {listOfTasks != null ? listOfTasks.map((singleTask, index)  => <SingleTask 
-                                                key={index}
-                                                dataKey={index}
-                                                title={singleTask.title}
-                                                description={singleTask.desc}
-                                                date={singleTask.date} 
-                                                editing={false}
-                                                handleRemoveTask={handleRemoveTask}
-                                                handleSavingTask={handleSavingTask}
-                                                 />) : "Something went wrong with fetching data.."} 
-            <NewTaskButton onClick={() => createNewTask()}>New task</NewTaskButton>  
+            <NewTaskButton onClick={() => createNewTask()}>
+                <h3>New task</h3>
+            </NewTaskButton>  
+            <TasksContainerBody>
+                {listOfTasks != null ? listOfTasks.map((singleTask, index)  => <SingleTask 
+                                                    key={index}
+                                                    dataKey={index}
+                                                    title={singleTask.title}
+                                                    description={singleTask.desc}
+                                                    date={singleTask.date} 
+                                                    editing={false}
+                                                    handleRemoveTask={handleRemoveTask}
+                                                    handleSavingTask={handleSavingTask}
+                                                    />) : "Something went wrong with fetching data.."} 
+            </TasksContainerBody>
         </TasksContainer>
     )
 }

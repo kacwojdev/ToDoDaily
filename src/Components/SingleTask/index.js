@@ -1,85 +1,98 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
-import optionsIcon from '../../Assets/options.png'
+import { OptionsIcon } from '../../Assets/index'
 
 const SingleTaskContainer = styled.div`
-margin: 10px 0;
-padding: 10px;
-background: ${props => props.bgColor};
-color: grey;
-border-radius: 15px;
-display: flex;
-flex-direction: column;
-transition: .1s ease-in;
-
-&:hover {
-    background-color:#e5e5e5;
-}
+    max-width: 400px;
+    margin: 10px 20px 0 0;
+    padding: 10px;
+    background: ${props => props.bgColor};
+    color: grey;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 5px 0 rgb(22,28,37);
+    transition: .1s ease-in;
+    
+    &:hover {
+        background-color:#e5e5e5;
+        box-shadow: 0 5px 0 rgb(52, 186, 235);
+        cursor: pointer;
+    }
 `
 
 const SingleTaskHeader = styled.h3`
-margin: 0;
+    margin: 0;
 `
 
 const SingleTaskDescription = styled.p`
-margin: 10px 0;
+    margin: 10px 0;
 `
 
 const ActionButton = styled.button`
-width: max-content;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-padding: 5px;
-border: none;
-border-radius: 50px;
-background: ${props => props.bgColor};
-color: white;
-transition: .1s ease-in;
+    width: max-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    border: none;
+    border-radius: 50px;
+    background: ${props => props.bgColor};
+    color: white;
+    transition: .1s ease-in;
 
-&:hover {
-    background: #dfdfdf;
-}
+    &:hover {
+        background: #dfdfdf;
+    }
 `
 
 const ActionsContainer = styled.div`
-display: flex;
-flex-direction: row-reversed;
-justify-content: space-between;
+    display: flex;
+    flex-direction: row-reversed;
+    justify-content: space-between;
+    align-items: baseline;
+
+    & span {
+        font-size: 0.7em;
+    }
 `
 
 const TitleInput = styled.input`
-padding: 5px;
-border: none;
-background: #e5e5e5;
-border-radius: 10px;
-
-&:hover {
-    background:#dbd9d9;
-}
-
-&:active {
-    background:#dbd9d9;
+    padding: 5px;
     border: none;
-}
+    background: #e5e5e5;
+    border-radius: 10px;
+
+    &:hover {
+        background:#dbd9d9;
+    }
+
+    &:active {
+        background:#dbd9d9;
+        border: none;
+    }
 `
 
 const DescTextArea = styled.textarea`
-padding: 5px;
-border: none;
-background: #e5e5e5;
-border-radius: 10px;
-
-&:hover {
-    background:#dbd9d9;
-}
-
-&:active {
-    background:#dbd9d9;
+    height: max-content;
+    width: 100%;
+    overflow: auto;
+    padding: 5px;
     border: none;
-}
+    background: #e5e5e5;
+    border-radius: 10px;
+    resize: none;
+
+    &:hover {
+        background:#dbd9d9;
+    }
+
+    &:active {
+        background:#dbd9d9;
+        border: none;
+    }
 `
 
 const SingleTask = ({dataKey, title, description, date, editing, handleRemoveTask, handleSavingTask}) => {
@@ -124,7 +137,7 @@ const SingleTask = ({dataKey, title, description, date, editing, handleRemoveTas
             <ActionsContainer>
                 <span>{date}</span>
                 <ActionButton bgColor="none" onClick={() => editTask()}>
-                    <img src={optionsIcon} alt="Options" />
+                    <img src={OptionsIcon} alt="Options" />
                 </ActionButton>
             </ActionsContainer>
         </SingleTaskContainer>
