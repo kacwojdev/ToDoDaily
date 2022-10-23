@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/ToDoDaily/static/js/main.32bce1df.js",
+    "main.js": "/ToDoDaily/static/js/main.ff933288.js",
     "index.html": "/ToDoDaily/index.html",
-    "main.32bce1df.js.map": "/ToDoDaily/static/js/main.32bce1df.js.map"
+    "main.ff933288.js.map": "/ToDoDaily/static/js/main.ff933288.js.map"
   },
   "entrypoints": [
-    "static/js/main.32bce1df.js"
+    "static/js/main.ff933288.js"
   ]
 }
