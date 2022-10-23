@@ -9,19 +9,24 @@ const GlobalStyle = createGlobalStyle`
     body {
         margin: 0;
         padding: 0;
-        font-family: 'Playfair Display', serif;
+        font-family: 'Montserrat', sans-serif;
         color: white;
         background-color: rgb(22, 28, 37);
     }
 
     textarea, input {
-        font-family: 'Playfair Display', serif;
+        font-family: 'Montserrat', sans-serif;
         font-size: 1rem;
     }
 
     button {
-        font-family: 'Playfair Display', serif;
+        font-family: 'Montserrat', sans-serif;
         cursor: pointer;
+    }
+
+    a {
+        text-decoration: none;
+        color: white;
     }
 
     *, *::after, *::before {

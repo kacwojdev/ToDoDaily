@@ -18,15 +18,20 @@ const TasksGroupContainer = styled.div`
         box-shadow: 0px 0px 0 white;
         cursor: pointer;
     }
+
+    @media (max-width: 550px) {
+        width: 100%;
+        margin-right: 0;
+    }
 `
 
 const TasksGroup = ({title}) => {
   return (
-    <TasksGroupContainer>
-        <Link to={`/group/${title}`}>
+    <Link to={`/group/${title}`}>
+      <TasksGroupContainer>
             <h3>{title}</h3>
-        </Link>
-    </TasksGroupContainer>
+      </TasksGroupContainer>
+    </Link>
   )
 }
 

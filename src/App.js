@@ -18,7 +18,7 @@ const AppContainer = styled.div`
 function App() {
   return (
     <AppContainer className="App">
-      <Router  basename="/ToDoDaily/">
+      <Router  basename="/ToDoDaily">
       <GlobalStyle />
       <Nav />
       <main>
