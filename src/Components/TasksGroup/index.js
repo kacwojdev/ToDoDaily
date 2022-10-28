@@ -27,11 +27,11 @@ const TasksGroupContainer = styled.div`
 
 const TasksGroup = ({title}) => {
   return (
-    <Link to={`/group/${title}`}>
-      <TasksGroupContainer>
-            <h3>{title}</h3>
-      </TasksGroupContainer>
-    </Link>
+    <TasksGroupContainer>
+      <Link to={`/group/${title}`}>
+          <h3>{title}</h3>
+      </Link>
+    </TasksGroupContainer>
   )
 }
 

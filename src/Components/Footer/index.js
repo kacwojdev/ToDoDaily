@@ -6,6 +6,10 @@ const FooterBox = styled.footer`
     flex-direction: row;
     justify-content: space-between;
     padding: 15px 50px;
+
+    @media (max-width: 550px) {
+      flex-direction: column;
+    }
 `
 
 
