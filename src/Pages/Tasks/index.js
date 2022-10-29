@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
-import TasksGroup from '../TasksGroup'
-import AddTasksGroupButton from '../AddTasksGroupButton'
+import TasksGroup from '../../Components/TasksGroup'
+import AddTasksGroupButton from '../../Components/AddTasksGroupButton'
 
 const Header = styled.h2`
   font-size: 3rem;

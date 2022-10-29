@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { removeElementAtIndex } from '../../helpers'
+import { removeElementAtIndex } from '../../Utils/helpers'
 import styled from 'styled-components'
 
-import SingleTask from '../SingleTask/index'
+import SingleTask from '../../Components/SingleTask/index'
 
 
 const TasksContainer = styled.div`

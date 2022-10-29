@@ -2,14 +2,14 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import styled from 'styled-components'
 
-import Footer from './Components/Footer'
-import Login from './Components/Login'
-import Register from './Components/Register'
-import Nav from './Components/Nav'
-import Tasks from './Components/Tasks'
-import TasksBox from './Components/TasksBox'
+import Footer from './Components/ui/Footer'
+import Nav from './Components/ui/Nav'
+import Login from './Pages/Login'
+import Register from './Pages/Register'
+import Tasks from './Pages/Tasks'
+import TasksBox from './Pages/TasksBox'
 
-import GlobalStyle from './globalStyles'
+import GlobalStyle from './Utils/globalStyles'
 
 const AppContainer = styled.div`
     min-height: 100%;
