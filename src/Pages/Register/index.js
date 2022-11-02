@@ -61,49 +61,56 @@ class Register extends React.Component {
             isRePswdValid: true,
             isNameValid: true,
             user: null,
-            error: null
+            error: null,
+            isLoading: false,
         }
     }
 
     handleSubmit = async (e) => {
         e.preventDefault()
+        if (!this.state.isLoading) {
 
-        await this.setState({
-            isNameValid: nameValidator(this.fullNameRef.current.value),
-            isEmailValid: emailValidator(this.emailAddressRef.current.value),
-            isPswdValid: pswdValidator(this.pswdRef.current.value),
-            isRePswdValid: this.pswdRef.current.value === this.rePswdRef.current.value,
-        })
-
-        console.log(this.state.isEmailValid && this.state.isPswdValid && this.state.isNameValid && this.state.isRePswdValid)
-        if (this.state.isEmailValid && this.state.isPswdValid && this.state.isNameValid && this.state.isRePswdValid) {
-            console.log('user auth loading ...')
-            const auth = getAuth();
-            createUserWithEmailAndPassword(auth, this.emailAddressRef.current.value, this.pswdRef.current.value)
-            .then((userCredential) => {
-                const user = userCredential.user;
-
-                this.setState({user: user})
-
+            this.setState({isLoading: true})
+            
+            await this.setState({
+                isNameValid: nameValidator(this.fullNameRef.current.value),
+                isEmailValid: emailValidator(this.emailAddressRef.current.value),
+                isPswdValid: pswdValidator(this.pswdRef.current.value),
+                isRePswdValid: this.pswdRef.current.value === this.rePswdRef.current.value,
             })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-
-                this.setState({error: errorMessage})
-
-            });
+    
+            console.log(this.state.isEmailValid && this.state.isPswdValid && this.state.isNameValid && this.state.isRePswdValid)
+            if (this.state.isEmailValid && this.state.isPswdValid && this.state.isNameValid && this.state.isRePswdValid) {
+                console.log('user auth loading ...')
+                const auth = getAuth();
+                createUserWithEmailAndPassword(auth, this.emailAddressRef.current.value, this.pswdRef.current.value)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+    
+                    this.setState({user: user, isLoading: false})
+    
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+    
+                    this.setState({error: errorMessage, isLoading: false})
+    
+                });
+            } else {
+                this.setState({isLoading: false})
+            }
+    
+            console.log('RESULTS')
+            console.log('name', this.fullNameRef.current.value, this.state.isNameValid)
+            console.log('email', this.emailAddressRef.current.value, this.state.isEmailValid)
+            console.log('pswd', this.pswdRef.current.value, this.state.isPswdValid)
+            console.log('rePswd', this.rePswdRef.current.value, this.state.isRePswdValid)
         }
-
-        console.log('RESULTS')
-        console.log('name', this.fullNameRef.current.value, this.state.isNameValid)
-        console.log('email', this.emailAddressRef.current.value, this.state.isEmailValid)
-        console.log('pswd', this.pswdRef.current.value, this.state.isPswdValid)
-        console.log('rePswd', this.rePswdRef.current.value, this.state.isRePswdValid)
     }
 
     render() {
-        const {user, error } = this.state
+        const {user, error, isLoading} = this.state
         return (
             <RegisterContainer>
                 {error && <p>{error.message}</p>}
@@ -119,7 +126,7 @@ class Register extends React.Component {
                         <FormArea dataType="pswd" ref={this.pswdRef}  type="password" label="Password" isValid={this.state.isPswdValid} notValidMsg={"Password must contain small, capital, 8 letters and special character!"} />
                         <FormArea dataType="repswd" ref={this.rePswdRef} type="password" label="Repeat your password" isValid={this.state.isRePswdValid} notValidMsg={"Passwords are not identical!"} />
 
-                        <SubmitButton label="Register"/>
+                        <SubmitButton label="Register" isLoading={isLoading}/>
                     </Form>            
                 </RegisterBox>
             </RegisterContainer>

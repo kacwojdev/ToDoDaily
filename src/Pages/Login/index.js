@@ -54,7 +54,8 @@ class Login extends React.Component  {
             isEmailValid: true,
             isPswdValid: true,
             user: null,
-            error: null
+            error: null,
+            isLoading: false,
         }
     }
 
@@ -63,29 +64,34 @@ class Login extends React.Component  {
 
         this.setState({isEmailValid: true, isPswdValid: true})
 
-        const auth = getAuth();
-        signInWithEmailAndPassword(auth, this.emailAddressRef.current.value, this.pswdRef.current.value)
-        .then((userCredential) => {
-            const user = userCredential.user;
-            this.setState({user: user})
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            if (errorCode == 'auth/invalid-email' || errorCode == 'auth/user-not-found') {
-                this.setState({isEmailValid: false})
-            } else if (errorCode == 'auth/wrong-password') {
-                this.setState({isPswdValid: false})
-            }
-            console.log("Error Code: ", errorCode, "Error Msg: ", errorMessage)
-            this.setState({error: errorMessage})
-        });
-        console.log('sign in submit')
+        if(!this.state.isLoading) {
+
+            this.setState({isLoading: true})
+
+            const auth = getAuth();
+            signInWithEmailAndPassword(auth, this.emailAddressRef.current.value, this.pswdRef.current.value)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                this.setState({user: user, isLoading: false})
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                if (errorCode == 'auth/invalid-email' || errorCode == 'auth/user-not-found') {
+                    this.setState({isEmailValid: false})
+                } else if (errorCode == 'auth/wrong-password') {
+                    this.setState({isPswdValid: false})
+                }
+                console.log("Error Code: ", errorCode, "Error Msg: ", errorMessage)
+                this.setState({error: errorMessage, isLoading: false})
+            });
+            console.log('sign in submit')
+        }
     }
 
     render () {
         const {error, user} = this.state
-        const {isEmailValid, isPswdValid} = this.state
+        const {isEmailValid, isPswdValid, isLoading} = this.state
         return (
             <LoginContainer>
                 {error && (
@@ -101,7 +107,7 @@ class Login extends React.Component  {
                         <FormArea dataType="email" ref={this.emailAddressRef} type="email" label="Email Address" isValid={isEmailValid} notValidMsg={"Icorrect email address!"} />
                         <FormArea dataType="pswd" ref={this.pswdRef} type="password" label="Password" isValid={isPswdValid} notValidMsg={"Incorrect password!"} />
 
-                        <SubmitButton label="Sign in"/>
+                        <SubmitButton label="Sign in" isLoading={isLoading}/>
                     </Form>            
                 </LoginBox>
             </LoginContainer>
