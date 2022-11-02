@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.js": "/ToDoDaily/static/js/main.3ede0ca6.js",
+    "main.js": "/ToDoDaily/static/js/main.36e20a80.js",
     "static/media/register-bg.png": "/ToDoDaily/static/media/register-bg.4a13de6569f5bda32bb9.png",
     "index.html": "/ToDoDaily/index.html",
-    "main.3ede0ca6.js.map": "/ToDoDaily/static/js/main.3ede0ca6.js.map"
+    "main.36e20a80.js.map": "/ToDoDaily/static/js/main.36e20a80.js.map"
   },
   "entrypoints": [
-    "static/js/main.3ede0ca6.js"
+    "static/js/main.36e20a80.js"
   ]
 }
