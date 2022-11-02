@@ -1,4 +1,6 @@
 import React, {useState, useEffect} from 'react'
+import {Navigate} from 'react-router-dom'
+import {getAuth, signInWithEmailAndPassword} from 'firebase/auth'
 import styled from 'styled-components';
 import FormArea from '../../Components/form/FormArea';
 import SubmitButton from '../../Components/form/SubmitButton';
@@ -45,27 +47,59 @@ class Login extends React.Component  {
     constructor(props) {
         super(props)
 
+        this.emailAddressRef = React.createRef()
+        this.pswdRef = React.createRef()
+
         this.state = {
             isEmailValid: true,
             isPswdValid: true,
+            user: null,
+            error: null
         }
     }
 
    handleSubmit = (e) => {
         e.preventDefault()
 
+        this.setState({isEmailValid: true, isPswdValid: true})
+
+        const auth = getAuth();
+        signInWithEmailAndPassword(auth, this.emailAddressRef.current.value, this.pswdRef.current.value)
+        .then((userCredential) => {
+            const user = userCredential.user;
+            this.setState({user: user})
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            if (errorCode == 'auth/invalid-email' || errorCode == 'auth/user-not-found') {
+                this.setState({isEmailValid: false})
+            } else if (errorCode == 'auth/wrong-password') {
+                this.setState({isPswdValid: false})
+            }
+            console.log("Error Code: ", errorCode, "Error Msg: ", errorMessage)
+            this.setState({error: errorMessage})
+        });
         console.log('sign in submit')
     }
 
     render () {
+        const {error, user} = this.state
+        const {isEmailValid, isPswdValid} = this.state
         return (
             <LoginContainer>
+                {error && (
+                    <p>{error.message}</p>
+                )}
+                {user && (
+                    <Navigate to="/" replace={true} />
+                )}
                 <LoginBox>
                     <Form onSubmit={this.handleSubmit}>
                         <LoginHeader>Sign in to your account</LoginHeader>
 
-                        <FormArea dataType="email" type="email" label="Email Address" isValid={true} notValidMsg={"Icorrect email address!"} />
-                        <FormArea dataType="pswd" type="password" label="Password" isValid={true} notValidMsg={"Incorrect password!"} />
+                        <FormArea dataType="email" ref={this.emailAddressRef} type="email" label="Email Address" isValid={isEmailValid} notValidMsg={"Icorrect email address!"} />
+                        <FormArea dataType="pswd" ref={this.pswdRef} type="password" label="Password" isValid={isPswdValid} notValidMsg={"Incorrect password!"} />
 
                         <SubmitButton label="Sign in"/>
                     </Form>            

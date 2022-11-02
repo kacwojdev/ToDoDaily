@@ -64,7 +64,6 @@ const TasksBox = ({title, type}) => {
         let taskDataFromLocaleStorage = [defaultTasks]
         JSON.parse(localStorage.getItem(`tasks-${type}`)) != null ? taskDataFromLocaleStorage = JSON.parse(localStorage.getItem(`tasks-${type}`)) : taskDataFromLocaleStorage = defaultTasks
         setListOfTasks(taskDataFromLocaleStorage)
-        // eslint-disable-next-line
     }, [])
 
     const createNewTask = () => {

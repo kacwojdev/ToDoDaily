@@ -1,5 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react'
+import { Navigate } from 'react-router-dom'
 import styled from 'styled-components'
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 import FormArea from '../../Components/form/FormArea'
 import SubmitButton from '../../Components/form/SubmitButton'
@@ -57,7 +59,9 @@ class Register extends React.Component {
             isEmailValid: true,
             isPswdValid: true,
             isRePswdValid: true,
-            isNameValid: true
+            isNameValid: true,
+            user: null,
+            error: null
         }
     }
 
@@ -71,6 +75,26 @@ class Register extends React.Component {
             isRePswdValid: this.pswdRef.current.value === this.rePswdRef.current.value,
         })
 
+        console.log(this.state.isEmailValid && this.state.isPswdValid && this.state.isNameValid && this.state.isRePswdValid)
+        if (this.state.isEmailValid && this.state.isPswdValid && this.state.isNameValid && this.state.isRePswdValid) {
+            console.log('user auth loading ...')
+            const auth = getAuth();
+            createUserWithEmailAndPassword(auth, this.emailAddressRef.current.value, this.pswdRef.current.value)
+            .then((userCredential) => {
+                const user = userCredential.user;
+
+                this.setState({user: user})
+
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+
+                this.setState({error: errorMessage})
+
+            });
+        }
+
         console.log('RESULTS')
         console.log('name', this.fullNameRef.current.value, this.state.isNameValid)
         console.log('email', this.emailAddressRef.current.value, this.state.isEmailValid)
@@ -79,8 +103,13 @@ class Register extends React.Component {
     }
 
     render() {
+        const {user, error } = this.state
         return (
             <RegisterContainer>
+                {error && <p>{error.message}</p>}
+                {user && (
+                    <Navigate to="/" replace={true} />
+                )}
                 <RegisterBox>
                     <Form onSubmit={this.handleSubmit}>
                         <RegisterHeader>Register</RegisterHeader>

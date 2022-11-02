@@ -1,6 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, redirect } from 'react-router-dom'
+import { getAuth, signOut } from 'firebase/auth'
 import styled from 'styled-components'
+
+import { UserContext } from '../../../App'
 
 const NavigationBox = styled.nav`
     display: flex;
@@ -80,25 +83,43 @@ const LoginBtn = styled.button`
     }
 `
 
-const Nav = () => {
-  return (
-    <NavigationBox>
-        <BrandBox>
-            <SiteTitle>
-                <Link to="/">TodoDaily</Link>
-            </SiteTitle>
-            <SiteQuote>Clean up your daily mess.</SiteQuote>
-        </BrandBox>
-        <ButtonsBox>
-            <Link to="/user/login">
-                <LoginBtn>Sign in</LoginBtn>
-            </Link>
-            <Link to="/user/register">
-                <RegisterBtn>Register</RegisterBtn>
-            </Link>
-        </ButtonsBox>
-    </NavigationBox>
-  )
+const Nav = ({signedUser}) => {
+    
+    const logOutUser = () => {
+        const auth = getAuth()
+        signOut(auth).then(() => {
+            console.log('signed out successfully!')
+            redirect('/')
+        }).catch(error => {
+            console.error(error.message)
+        })
+    }
+
+    return (
+        <NavigationBox>
+            <BrandBox>
+                <SiteTitle>
+                    <Link to="/">TodoDaily</Link>
+                </SiteTitle>
+                <SiteQuote>Clean up your daily mess.</SiteQuote>
+            </BrandBox>
+            {signedUser ? (
+                <div>
+                    <p>Signed as <Link to={`/user/${signedUser.uid}`}>{signedUser.email}</Link></p>
+                    <button onClick={logOutUser}>Log out</button>
+                </div>
+            ) : (
+                <ButtonsBox>
+                    <Link to="/user/login">
+                        <LoginBtn>Sign in</LoginBtn>
+                    </Link>
+                    <Link to="/user/register">
+                        <RegisterBtn>Register</RegisterBtn>
+                    </Link>
+                </ButtonsBox>  
+            )}
+        </NavigationBox>
+    )
 }
 
 export default Nav
