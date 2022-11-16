@@ -1,22 +1,100 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+//
+// userID -> [{groups}]
+// {groupId; groupName; tasks: [{}]}
+// task: {title, desc} 
+//
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyAcqRo02_wweexMiSgC2deX3a_ukRSNf_s",
-  authDomain: "tododaily-f11d3.firebaseapp.com",
-  projectId: "tododaily-f11d3",
-  storageBucket: "tododaily-f11d3.appspot.com",
-  messagingSenderId: "522835857796",
-  appId: "1:522835857796:web:7e01fd71660793cb884dd1",
-  measurementId: "G-YJT6VS8QG6"
-};
+import { getRandomKeyFor } from "./helpers"
 
-export const configureApp = () => {
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
+export const getCurrentListOfGroups = () => {
+  let l = JSON.parse(localStorage.getItem('todoDaily_data'))
+  if (l) {
+    return l.groups
+  } else {
+    return null
+  }
+} 
+
+export const getGroupOfId = id => {
+  let l = JSON.parse(localStorage.getItem('todoDaily_data')) 
+  let g = l.groups.filter( group => group.groupId == id )
+  return g[0]
+}
+
+export const getCurrentListOfTasks = (groupId) => {
+  let l = JSON.parse(localStorage.getItem('todoDaily_data'))
+  return l.groupId.tasks
+}
+
+export const createNewGroup = (newName) => {
+  let currentList = getCurrentListOfGroups('todoDaily_data')
+  let updatedList = []
+  if (currentList) {
+    updatedList = [{groupId: getRandomKeyFor('group') ,groupName: newName, tasks: []},  ...currentList]
+  } else {
+    updatedList = [{groupId: getRandomKeyFor('group') ,groupName: newName, tasks: []}]
+  }
+  localStorage.setItem('todoDaily_data', JSON.stringify({groups: updatedList}))
+}
+
+export const removeGroupOfId = (groupId) => {
+  let currentList = getCurrentListOfGroups('todoDaily_data')
+  let indexToRemove = 0
+  for (let element of currentList) {
+    if (!(element.groupId == groupId)) {
+      indexToRemove += 1
+    } else {
+      break
+    } 
+  }
+
+  currentList.shift(indexToRemove, 1)
+  localStorage.setItem('todoDaily_data', currentList)
+}
+
+export const updateGroup = (groupId, newGroupName) => {
+  let currentList = getCurrentListOfGroups('todoDaily_data')
+  let indexToUpdate = 0
+  for (let element of currentList) {
+    if (!(element.groupId == groupId)) {
+      this.indexToUpdate += 1
+    } else {
+      break
+    } 
+  }
+  currentList[indexToUpdate] = {groupName: newGroupName, ...currentList[indexToUpdate]}
+  localStorage.setItem('todoDaily_data', currentList)
+}
+
+export const createTaskInGroupOfId = (id) => {
+
+  const defaultTask = [{
+    title: "Your favourite title goes here",
+    desc: "Create yours first task here. Edit this or create the new one :D",
+    date: new Date().toLocaleTimeString(),
+  }]
+
+  let l = JSON.parse(localStorage.getItem('todoDaily_data'))
+  let g = l.groups.filter( group => group.groupId == id )
+  let t = []
+  if (g.tasks) {
+    t = [defaultTask, ...g.tasks]
+  } else {
+    t = [defaultTask]
+  }
+  g.tasks = t
+  let index = 0
+  for (let element of l.groups) {
+    if (element.groupId != id) {
+      index += 1
+    } else {
+      break
+    }
+  }
+  l.groups[index] = g
+  console.log(index)
+  console.log(l)
+  console.log(g)
+
+  localStorage.setItem('todoDaily_data', JSON.stringify(l))
 }

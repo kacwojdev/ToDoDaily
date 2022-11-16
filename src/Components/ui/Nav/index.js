@@ -1,9 +1,6 @@
 import React from 'react'
 import { Link, redirect } from 'react-router-dom'
-import { getAuth, signOut } from 'firebase/auth'
 import styled from 'styled-components'
-
-import { UserContext } from '../../../App'
 
 const NavigationBox = styled.nav`
     display: flex;
@@ -48,52 +45,8 @@ const BrandBox = styled.div`
     }
 `
 
-const ButtonsBox = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-`
 
-const RegisterBtn = styled.button`
-    border: none;
-    border-radius: 15px;
-    background: #3ca0f7;
-    padding: 15px 20px;
-    color: white;
-    font-size: 1.2rem;
-    box-shadow: 0 5px 0 white;
-    transition: .1s ease-in;
-
-    &:hover {
-        transform: translateY(5px);
-        box-shadow: 0 0 0 white;
-        background: #148bf3;
-    }
-`
-const LoginBtn = styled.button`
-    margin-right: 20px; 
-    border: none;
-    background: none;
-    color: white;
-    font-size: 1.2rem;
-    transition: .1s ease-in;
-
-    &:hover {
-        color: grey;
-    }
-`
-
-const Nav = ({signedUser}) => {
-    
-    const logOutUser = () => {
-        const auth = getAuth()
-        signOut(auth).then(() => {
-            console.log('signed out successfully!')
-            redirect('/')
-        }).catch(error => {
-            console.error(error.message)
-        })
-    }
+const Nav = () => {
 
     return (
         <NavigationBox>
@@ -103,21 +56,6 @@ const Nav = ({signedUser}) => {
                 </SiteTitle>
                 <SiteQuote>Clean up your daily mess.</SiteQuote>
             </BrandBox>
-            {signedUser ? (
-                <div>
-                    <p>Signed as <Link to={`/user/${signedUser.uid}`}>{signedUser.email}</Link></p>
-                    <button onClick={logOutUser}>Log out</button>
-                </div>
-            ) : (
-                <ButtonsBox>
-                    <Link to="/user/login">
-                        <LoginBtn>Sign in</LoginBtn>
-                    </Link>
-                    <Link to="/user/register">
-                        <RegisterBtn>Register</RegisterBtn>
-                    </Link>
-                </ButtonsBox>  
-            )}
         </NavigationBox>
     )
 }

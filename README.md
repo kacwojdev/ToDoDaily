@@ -11,4 +11,3 @@ https://kacwojdev.github.io/ToDoDaily/
 - create new task 
 - delete task
 - edit title and description
-- saving task in localStorage

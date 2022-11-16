@@ -25,11 +25,14 @@ const TasksGroupContainer = styled.div`
     }
 `
 
-const TasksGroup = ({title}) => {
+const TasksGroup = (props) => {
+
+  const {groupData} = props
+
   return (
     <TasksGroupContainer>
-      <Link to={`/group/${title}`}>
-          <h3>{title}</h3>
+      <Link to={`/group/${groupData}`}>
+          <h3>{groupData}</h3>
       </Link>
     </TasksGroupContainer>
   )

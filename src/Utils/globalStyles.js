@@ -7,6 +7,7 @@ const GlobalStyle = createGlobalStyle`
     }
 
     body {
+        position: relative;
         margin: 0;
         padding: 0;
         font-family: 'Montserrat', sans-serif;

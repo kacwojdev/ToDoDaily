@@ -26,3 +26,20 @@ export const nameValidator = (fullName) => {
 
     return isValid
 }
+
+export const USER_TYPE_CODE = '001'
+export const TASK_TYPE_CODE = '002'
+export const GROUP_TYPE_CODE = '003'
+
+const _getRandomValue = () => {
+    const values = 'qwertyuiopasdfghjklzxcvbnm1234567890'
+    let code = []
+    for (let i = 0; i<16; i++) {
+        code.push(values[Math.floor(Math.random() * values.length)])
+    }
+    return `${code.join('')}`
+}
+
+export const getRandomKeyFor = (keyType) => {
+    return `${keyType}__${_getRandomValue()}`
+}
