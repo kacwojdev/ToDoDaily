@@ -10,19 +10,13 @@ const GlobalStyle = createGlobalStyle`
         position: relative;
         margin: 0;
         padding: 0;
-        font-family: 'Montserrat', sans-serif;
+        font-family: 'Rubik', sans-serif;
         color: white;
         background-color: rgb(22, 28, 37);
     }
 
-    textarea, input {
-        font-family: 'Montserrat', sans-serif;
-        font-size: 1rem;
-    }
-
-    button {
-        font-family: 'Montserrat', sans-serif;
-        cursor: pointer;
+    button, inout, textarea {
+        font: inherit;
     }
 
     a {
