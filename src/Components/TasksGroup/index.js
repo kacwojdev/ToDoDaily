@@ -1,40 +1,18 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-
-const TasksGroupContainer = styled.div`
-    height: max-content;
-    width: 200px;
-    margin-right: 25px;
-    margin-bottom: 40px;
-    border: 2px solid white;
-    border-radius: 20px;
-    padding: 5px 15px;
-    box-shadow: 0px 5px 0 white;
-    transition: .1s ease-in;
-
-    &:hover {
-        transform: translate(0, 10px);
-        box-shadow: 0px 0px 0 white;
-        cursor: pointer;
-    }
-
-    @media (max-width: 550px) {
-        width: 100%;
-        margin-right: 0;
-    }
-`
+import { CardGroup } from '../styledComponents'
 
 const TasksGroup = (props) => {
 
   const {groupData} = props
 
   return (
-    <TasksGroupContainer>
+    <CardGroup>
       <Link to={`/group/${groupData}`}>
           <h3>{groupData}</h3>
       </Link>
-    </TasksGroupContainer>
+    </CardGroup>
   )
 }
 

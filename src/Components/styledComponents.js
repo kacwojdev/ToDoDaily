@@ -37,3 +37,16 @@ export const PageHeader = styled.h2`
     font-size: 1.5rem;
     font-weight: 700;
 `
+
+const _Card = styled.div`
+    margin: 0 .5rem .7rem 0;
+    border-radius: 1rem;
+    padding: 0.5rem 0.5rem;
+    border: .2rem solid black;
+    transition: .1s ease-in-out;
+    cursor: pointer;    
+`
+
+export const CardGroup = styled(_Card)`
+
+`
