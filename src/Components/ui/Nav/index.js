@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 const NavigationBox = styled.nav`
@@ -13,17 +13,6 @@ const NavigationBox = styled.nav`
     @media (max-width: 550px) {
         flex-direction: column;
     }
-`
-
-const StatusButtons = styled.button`
-    background-color: ${props => props.done ? 'rgb(66, 245, 155)' : (props.todo ? 'rgb(245, 72, 66)' : 'rgb(242, 228, 24)')};
-
-    padding: 5px 15px;
-    border-radius: 10px;
-    color: white;
-    font-size: 1rem;
-    font-family: 'Playfair Display', serif;
-    cursor: pointer;
 `
 
 const SiteTitle = styled.h1`

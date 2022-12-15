@@ -11,8 +11,8 @@ const GlobalStyle = createGlobalStyle`
         margin: 0;
         padding: 0;
         font-family: 'Rubik', sans-serif;
-        color: white;
-        background-color: rgb(22, 28, 37);
+        color: black;
+        background-color: white;
     }
 
     button, inout, textarea {
