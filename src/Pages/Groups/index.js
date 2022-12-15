@@ -1,17 +1,11 @@
 import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
+import { PageHeader, HeaderBar } from '../../Components/styledComponents'
 
 import TasksGroup from '../../Components/TasksGroup'
 import AddTasksGroupButton from '../../Components/AddTasksGroupButton'
 
 // import { getCurrentListOfGroups } from '../../Utils/configureApp'
-
-const Header = styled.h2`
-  font-size: 3rem;
-  font-weight: 700;
-  padding-bottom: 50px;
-  border-bottom: 2px solid rgb(29,48,69);
-`
 
 const TasksConatiner = styled.div`
   display: flex;
@@ -20,7 +14,6 @@ const TasksConatiner = styled.div`
   justify-content: left;
   width: 100%;
   height: 100%;
-  padding: auto 50px;
 `
 
 const SectionBox = styled.div`
@@ -53,8 +46,10 @@ const Groups = (props) => {
   return (
     <>
       <SectionBox>
-        <Header>Your groups</Header>
-        <AddTasksGroupButton handleCreatingNewGroup={handleCreatingNewGroup} />
+        <HeaderBar>
+          <PageHeader>Your groups</PageHeader>
+          <AddTasksGroupButton handleCreatingNewGroup={handleCreatingNewGroup} />
+        </HeaderBar>
         <TasksConatiner>
           {groupList.length != 0 ? (<GroupsList list={groupList} />) : (<p>You dont have any group.</p>)}
         </TasksConatiner>

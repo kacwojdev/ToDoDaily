@@ -15,13 +15,13 @@ const NavigationBox = styled.nav`
     }
 `
 
-const SiteTitle = styled.h1`
-    font-size: 2rem;
-    cursor: pointer;
+const SiteTitle = styled.span`
     margin-right: 1rem;
+    font-size: 1.2rem;
+    cursor: pointer;
 `
 const SiteQuote = styled.p`
-    color: rgb(75 97 102);
+    color: inherit;
 `
 
 const BrandBox = styled.div`
@@ -40,9 +40,11 @@ const Nav = () => {
     return (
         <NavigationBox>
             <BrandBox>
-                <SiteTitle>
-                    <Link to="/">TodoDaily</Link>
-                </SiteTitle>
+                <h1>
+                    <Link to="/">
+                        <SiteTitle>TodoDaily</SiteTitle>
+                    </Link>
+                </h1>
                 <SiteQuote>Clean up your daily mess.</SiteQuote>
             </BrandBox>
         </NavigationBox>
