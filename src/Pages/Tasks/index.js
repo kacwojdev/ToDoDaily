@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
-import { HeaderBar, PageHeader,  } from '../../Components/styledComponents'
+import { HeaderBar, PageHeader, HeaderBarGroup, GroupLabel } from '../../Components/styledComponents'
 
 import SingleTask from '../../Components/SingleTask/index'
-import {AddTaskButton} from '../../Components/AddButtons'
+import {AddTaskButton, AddTasksGroupButton} from '../../Components/AddButtons'
 
 const TasksContainer = styled.div`
     margin: 50px;
@@ -48,19 +48,6 @@ const NewTaskButton = styled.button`
     }
 `
 
-
-const GroupNameLabelBox = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: baseline;
-    gap: 10px;
-`
-
-const GroupLabel = styled.div`
-    font-size: .7rem;
-    color: rgb(112 112 112);
-`
-
 const Tasks = () => {
 
    
@@ -92,13 +79,18 @@ const Tasks = () => {
     return (
         <div>
             <HeaderBar>
-                <GroupNameLabelBox>
+                <HeaderBarGroup>
                     <GroupLabel>GROUP / </GroupLabel>
                     <PageHeader>{params.groupId}</PageHeader>
-                </GroupNameLabelBox>
-                <AddTaskButton>
-                    + Create new task
-                </AddTaskButton>
+                </HeaderBarGroup>
+                <HeaderBarGroup>
+                    <AddTasksGroupButton>
+                        + Create new group
+                    </AddTasksGroupButton>
+                    <AddTaskButton>
+                        + Create new task
+                    </AddTaskButton>
+                </HeaderBarGroup>
             </HeaderBar>
             <TasksContainer>
                 <NewTaskButton onClick={() => createNewTask()}>

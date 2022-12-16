@@ -40,6 +40,18 @@ export const PageHeader = styled.h2`
     font-weight: 700;
 `
 
+export const HeaderBarGroup = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 10px;
+`
+
+export const GroupLabel = styled.span`
+    font-size: .7rem;
+    color: rgb(112 112 112);
+`
+
 export const MainContentContainer = styled.div`
     width: 100%;
     height: 100%;

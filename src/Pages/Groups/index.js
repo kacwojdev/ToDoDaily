@@ -1,9 +1,16 @@
 import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
-import { PageHeader, HeaderBar, MainContentContainer, DarkenButton, PrimaryButton } from '../../Components/styledComponents'
+import { 
+  PageHeader,
+  HeaderBar,
+  MainContentContainer, 
+  DarkenButton,
+  PrimaryButton,
+  HeaderBarGroup,
+} from '../../Components/styledComponents'
 
 import TasksGroup from '../../Components/TasksGroup'
-import {AddTasksGroupButton} from '../../Components/AddButtons'
+import {AddTasksGroupButton, AddTaskButton} from '../../Components/AddButtons'
 
 // import { getCurrentListOfGroups } from '../../Utils/configureApp'
 
@@ -40,10 +47,17 @@ const Groups = (props) => {
     <>
       <div>
         <HeaderBar>
-          <PageHeader>Your groups</PageHeader>
-          <AddTasksGroupButton handleCreatingNewGroup={handleCreatingNewGroup}>
-            + Create new group
-          </AddTasksGroupButton>
+          <HeaderBarGroup>
+              <PageHeader>Home</PageHeader>
+          </HeaderBarGroup>
+          <HeaderBarGroup>
+              <AddTasksGroupButton>
+                  + Create new group
+              </AddTasksGroupButton>
+              <AddTaskButton>
+                  + Create new task
+              </AddTaskButton>
+          </HeaderBarGroup>
         </HeaderBar>
         <TasksConatiner>
           {groupList.length != 0 ? (<GroupsList list={groupList} />) : (<p>You dont have any group.</p>)}
