@@ -1,23 +1,16 @@
 import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
-import { PageHeader, HeaderBar } from '../../Components/styledComponents'
+import { PageHeader, HeaderBar, MainContentContainer, DarkenButton, PrimaryButton } from '../../Components/styledComponents'
 
 import TasksGroup from '../../Components/TasksGroup'
 import AddTasksGroupButton from '../../Components/AddTasksGroupButton'
 
 // import { getCurrentListOfGroups } from '../../Utils/configureApp'
 
-const TasksConatiner = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: left;
-  width: 100%;
-  height: 100%;
-`
-
-const SectionBox = styled.div`
-  margin: auto 50px;
+const TasksConatiner = styled(MainContentContainer)`
+  display: grid;
+  grid-gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
 `
 
 const ModalBlurred = styled.div`
@@ -45,7 +38,7 @@ const Groups = (props) => {
 
   return (
     <>
-      <SectionBox>
+      <div>
         <HeaderBar>
           <PageHeader>Your groups</PageHeader>
           <AddTasksGroupButton handleCreatingNewGroup={handleCreatingNewGroup} />
@@ -53,7 +46,7 @@ const Groups = (props) => {
         <TasksConatiner>
           {groupList.length != 0 ? (<GroupsList list={groupList} />) : (<p>You dont have any group.</p>)}
         </TasksConatiner>
-      </SectionBox>
+      </div>
       { modalVisibilty ? <ModalBlurred></ModalBlurred> : null }
       <GroupNameModal visible={modalVisibilty} handleSetVisibility={setVisibility} handleCreatingNewGroup={addNewGroup} />
     </>
@@ -82,7 +75,6 @@ const ModalBox = styled.div`
 `
 
 const ModalInput = styled.input`
-  margin-bottom: 20px;
   border-radius: 20px;
   padding: 10px 30px;
   color: black;
@@ -107,17 +99,36 @@ const ModalButton = styled.button`
   }
 `
 
+const CorrectionInfo = styled.span`
+  color: rgb(222 35 35);
+  margin-top: 1rem;
+`
+
+const ButtonsGroup = styled.div`
+  margin-top: 1rem;
+`
+
 const GroupNameModal = ({visible, handleSetVisibility, handleCreatingNewGroup}) => {
 
   const [inputValue, setInput] = useState("")
+  const [correctInput, setInputValidation] = useState(true)
 
   const confirmAction = () => {
-    handleSetVisibility(false)
-    console.log(inputValue)
-    handleCreatingNewGroup((prevValues) => {
-      return [inputValue,...prevValues]
-    })
+    if (inputValue !== "") {
+      handleSetVisibility(false)
+      handleCreatingNewGroup((prevValues) => {
+        return [inputValue,...prevValues]
+      })
+      setInputValidation(true)
+      setInput('')
+    } else {
+      setInputValidation(false)
+    }
+  }
 
+  const cancelAction = () => {
+    handleSetVisibility(false)
+    setInputValidation(true)
     setInput('')
   }
 
@@ -131,7 +142,11 @@ const GroupNameModal = ({visible, handleSetVisibility, handleCreatingNewGroup}) 
         <ModalBox>
           <h3>Type group name:</h3>
           <ModalInput value={inputValue} onChange={handleInputChange}></ModalInput>
-          <ModalButton onClick={confirmAction}>Done</ModalButton>
+          {correctInput ? null : <CorrectionInfo>your group name is incorrect...</CorrectionInfo>}
+          <ButtonsGroup>
+            <DarkenButton onClick={confirmAction}>Done</DarkenButton>
+            <PrimaryButton onClick={cancelAction}>Cancel</PrimaryButton>
+          </ButtonsGroup>
         </ModalBox>
       ) : null}
     </>

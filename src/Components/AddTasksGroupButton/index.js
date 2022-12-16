@@ -23,7 +23,7 @@ const AddTasksGroupButtonBox = styled.button`
 const AddTasksGroupButton = ({handleCreatingNewGroup}) => {
   return (
     <DarkenButton onClick={() => handleCreatingNewGroup()}>
-        <h3>Create new group +</h3>
+        Create new group +
     </DarkenButton>
   )
 }

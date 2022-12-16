@@ -7,8 +7,7 @@ const NavigationBox = styled.nav`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 50px;
-    border-bottom: 2px solid rgb(29, 48, 69);
+    padding: .5rem 3rem;
     
     @media (max-width: 550px) {
         flex-direction: column;
