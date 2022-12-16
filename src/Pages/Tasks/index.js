@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
+import { HeaderBar, PageHeader,  } from '../../Components/styledComponents'
 
 import SingleTask from '../../Components/SingleTask/index'
-
+import {AddTaskButton} from '../../Components/AddButtons'
 
 const TasksContainer = styled.div`
     margin: 50px;
@@ -47,6 +48,19 @@ const NewTaskButton = styled.button`
     }
 `
 
+
+const GroupNameLabelBox = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 10px;
+`
+
+const GroupLabel = styled.div`
+    font-size: .7rem;
+    color: rgb(112 112 112);
+`
+
 const Tasks = () => {
 
    
@@ -76,24 +90,34 @@ const Tasks = () => {
     }
 
     return (
-        <TasksContainer>
-            <TasksCategoryName>{params.groupId}</TasksCategoryName>
-            <NewTaskButton onClick={() => createNewTask()}>
-                <h3>New task</h3>
-            </NewTaskButton>  
-            <TasksContainerBody>
-                {listOfTasks != null ? listOfTasks.map((singleTask, index)  => <SingleTask 
-                                                    key={index}
-                                                    dataKey={index}
-                                                    title={singleTask.title}
-                                                    description={singleTask.desc}
-                                                    date={singleTask.date} 
-                                                    editing={false}
-                                                    handleRemoveTask={handleRemoveTask}
-                                                    handleSavingTask={handleSavingTask}
-                                                    />) : "Something went wrong with fetching data.."} 
-            </TasksContainerBody>
-        </TasksContainer>
+        <div>
+            <HeaderBar>
+                <GroupNameLabelBox>
+                    <GroupLabel>GROUP / </GroupLabel>
+                    <PageHeader>{params.groupId}</PageHeader>
+                </GroupNameLabelBox>
+                <AddTaskButton>
+                    + Create new task
+                </AddTaskButton>
+            </HeaderBar>
+            <TasksContainer>
+                <NewTaskButton onClick={() => createNewTask()}>
+                    <h3>New task</h3>
+                </NewTaskButton>  
+                <TasksContainerBody>
+                    {listOfTasks != null ? listOfTasks.map((singleTask, index)  => <SingleTask 
+                                                        key={index}
+                                                        dataKey={index}
+                                                        title={singleTask.title}
+                                                        description={singleTask.desc}
+                                                        date={singleTask.date} 
+                                                        editing={false}
+                                                        handleRemoveTask={handleRemoveTask}
+                                                        handleSavingTask={handleSavingTask}
+                                                        />) : "Something went wrong with fetching data.."} 
+                </TasksContainerBody>
+            </TasksContainer>
+        </div>
     )
 }
 

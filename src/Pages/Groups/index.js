@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { PageHeader, HeaderBar, MainContentContainer, DarkenButton, PrimaryButton } from '../../Components/styledComponents'
 
 import TasksGroup from '../../Components/TasksGroup'
-import AddTasksGroupButton from '../../Components/AddTasksGroupButton'
+import {AddTasksGroupButton} from '../../Components/AddButtons'
 
 // import { getCurrentListOfGroups } from '../../Utils/configureApp'
 
@@ -41,7 +41,9 @@ const Groups = (props) => {
       <div>
         <HeaderBar>
           <PageHeader>Your groups</PageHeader>
-          <AddTasksGroupButton handleCreatingNewGroup={handleCreatingNewGroup} />
+          <AddTasksGroupButton handleCreatingNewGroup={handleCreatingNewGroup}>
+            + Create new group
+          </AddTasksGroupButton>
         </HeaderBar>
         <TasksConatiner>
           {groupList.length != 0 ? (<GroupsList list={groupList} />) : (<p>You dont have any group.</p>)}
