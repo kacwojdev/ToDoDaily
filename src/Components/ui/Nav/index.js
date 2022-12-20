@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
 
 const NavigationBox = styled.nav`
     display: flex;
@@ -35,7 +37,6 @@ const BrandBox = styled.div`
 
 
 const Nav = () => {
-
     return (
         <NavigationBox>
             <BrandBox>
@@ -46,6 +47,9 @@ const Nav = () => {
                 </h1>
                 <SiteQuote>Clean up your daily mess.</SiteQuote>
             </BrandBox>
+            {/* <div>
+                <FontAwesomeIcon style={{marginLeft: '10px'}} icon={faUser} />
+            </div> */}
         </NavigationBox>
     )
 }

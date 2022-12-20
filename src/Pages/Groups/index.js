@@ -51,12 +51,9 @@ const Groups = (props) => {
               <PageHeader>Home</PageHeader>
           </HeaderBarGroup>
           <HeaderBarGroup>
-              <AddTasksGroupButton>
+              <AddTasksGroupButton handleCreatingNewGroup={handleCreatingNewGroup}>
                   + Create new group
               </AddTasksGroupButton>
-              <AddTaskButton>
-                  + Create new task
-              </AddTaskButton>
           </HeaderBarGroup>
         </HeaderBar>
         <TasksConatiner>

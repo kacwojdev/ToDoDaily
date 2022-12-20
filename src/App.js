@@ -6,7 +6,6 @@ import Footer from './Components/ui/Footer'
 import Nav from './Components/ui/Nav'
 import Groups from './Pages/Groups'
 import Tasks from './Pages/Tasks'
-import Intro from './Pages/Intro'
 
 import GlobalStyle from './Utils/globalStyles'
 

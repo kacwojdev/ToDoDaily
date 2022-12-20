@@ -1,52 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
-import { OptionsIcon } from '../../Assets/index'
-
-const SingleTaskContainer = styled.div`
-    max-width: 400px;
-    margin: 10px 20px 0 0;
-    padding: 10px;
-    background: ${props => props.bgColor};
-    color: grey;
-    border-radius: 15px;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 5px 0 rgb(22,28,37);
-    transition: .1s ease-in;
-    
-    &:hover {
-        background-color:#e5e5e5;
-        box-shadow: 0 5px 0 rgb(52, 186, 235);
-        cursor: pointer;
-    }
-`
-
-const SingleTaskHeader = styled.h3`
-    margin: 0;
-`
-
-const SingleTaskDescription = styled.p`
-    margin: 10px 0;
-`
-
-const ActionButton = styled.button`
-    width: max-content;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 5px;
-    border: none;
-    border-radius: 50px;
-    background: ${props => props.bgColor};
-    color: white;
-    transition: .1s ease-in;
-
-    &:hover {
-        background: #dfdfdf;
-    }
-`
+import { DarkenButton, CardTask } from '../styledComponents'
 
 const ActionsContainer = styled.div`
     display: flex;
@@ -60,10 +15,12 @@ const ActionsContainer = styled.div`
 `
 
 const TitleInput = styled.input`
-    padding: 5px;
+    padding: .7rem .5rem;
     border: none;
-    background: #e5e5e5;
     border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: inherit;
 
     &:hover {
         background:#dbd9d9;
@@ -79,11 +36,11 @@ const DescTextArea = styled.textarea`
     height: max-content;
     width: 100%;
     overflow: auto;
-    padding: 5px;
+    padding: .7rem .5rem;
     border: none;
-    background: #e5e5e5;
     border-radius: 10px;
     resize: none;
+    
 
     &:hover {
         background:#dbd9d9;
@@ -95,52 +52,38 @@ const DescTextArea = styled.textarea`
     }
 `
 
+const SaveBtn = styled(DarkenButton)`
+    background-color: #579357;
+`
+
+const CancelBtn = styled(DarkenButton)`
+    background-color: red;
+`
+
 const SingleTask = ({dataKey, title, description, date, editing, handleRemoveTask, handleSavingTask}) => {
 
-    const [isEditing, setEditingState] = useState(editing)
     const [taskDesc, setTaskDesc] = useState(description)
     const [taskTitle, setTaskTitle] = useState(title)
 
     const saveTask = taskId => {
         handleSavingTask(taskId, {title: taskTitle, desc: taskDesc, date: date})
         console.log('saving task with values', {title: taskTitle, desc: taskDesc, date: date})
-        setEditingState(false)
-    }
-
-    const editTask = () => {
-        setEditingState(true)
     }
 
     const deleteTask = (taskId) => {
         handleRemoveTask(taskId)
     }
 
-    return isEditing ? (
-        <SingleTaskContainer bgColor="#e5e5e5">
+    return (
+        <CardTask>
             <TitleInput value={taskTitle} onChange={event => setTaskTitle(event.target.value)} />
             <DescTextArea value={taskDesc} onChange={event => setTaskDesc(event.target.value)}></DescTextArea>
             <ActionsContainer>
                 <span>{date}</span>
-                <ActionButton bgColor="#579357" onClick={() => saveTask(dataKey)}>Save</ActionButton>
-                <ActionButton bgColor="#b55959" onClick={() => deleteTask(dataKey)}>Delete</ActionButton>
+                <SaveBtn bgColor="#579357" onClick={() => saveTask(dataKey)}>Save</SaveBtn>
+                <CancelBtn bgColor="#b55959" onClick={() => deleteTask(dataKey)}>Delete</CancelBtn>
             </ActionsContainer>
-        </SingleTaskContainer>
-    ) : (
-        <SingleTaskContainer 
-            bgColor="white">
-            <SingleTaskHeader>
-                {title}
-            </SingleTaskHeader>
-            <SingleTaskDescription>
-                {description}
-            </SingleTaskDescription>
-            <ActionsContainer>
-                <span>{date}</span>
-                <ActionButton bgColor="none" onClick={() => editTask()}>
-                    <img src={OptionsIcon} alt="Options" />
-                </ActionButton>
-            </ActionsContainer>
-        </SingleTaskContainer>
+        </CardTask>
     )
 }
 

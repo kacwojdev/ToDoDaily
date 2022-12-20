@@ -79,3 +79,14 @@ export const CardGroup = styled(_Card)`
         background-color: rgb(237 237 237);
     }
 `
+
+export const CardTask = styled(_Card)`
+    min-width: 18vw;
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 48px;
+    justify-content: left;
+    gap: 10px;
+    border: .1rem solid rgb(237 237 237);
+    border-radius: 10px;
+`
