@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBell, faImage, faBoxArchive, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
 import { DarkenButton, CardTask } from '../styledComponents'
 
 const ActionsContainer = styled.div`
@@ -60,18 +61,23 @@ const CancelBtn = styled(DarkenButton)`
     background-color: red;
 `
 
-const SingleTask = ({dataKey, title, description, date, editing, handleRemoveTask, handleSavingTask}) => {
+const SingleTask = ({data, handleRemoveTask, handleSavingTask}) => {
 
-    const [taskDesc, setTaskDesc] = useState(description)
-    const [taskTitle, setTaskTitle] = useState(title)
+    const [taskDesc, setTaskDesc] = useState(data.content.description)
+    const [taskTitle, setTaskTitle] = useState(data.content.title)
+    const [taskBackground, setTaskBackground] = useState(data.background)
+    const [lastModified, setNewLastModified] = useState(data.lastModified)
+    const [isArchivied, setArchivied] = useState(data.archivied)
+    const [isDone, setDone] = useState(data.done)
+    const [taskDateGoal, setTaskDateGoal] = useState(data.dateGoal)
+
 
     const saveTask = taskId => {
-        handleSavingTask(taskId, {title: taskTitle, desc: taskDesc, date: date})
-        console.log('saving task with values', {title: taskTitle, desc: taskDesc, date: date})
+        
     }
 
     const deleteTask = (taskId) => {
-        handleRemoveTask(taskId)
+       
     }
 
     return (
@@ -79,11 +85,32 @@ const SingleTask = ({dataKey, title, description, date, editing, handleRemoveTas
             <TitleInput value={taskTitle} onChange={event => setTaskTitle(event.target.value)} />
             <DescTextArea value={taskDesc} onChange={event => setTaskDesc(event.target.value)}></DescTextArea>
             <ActionsContainer>
-                <span>{date}</span>
-                <SaveBtn bgColor="#579357" onClick={() => saveTask(dataKey)}>Save</SaveBtn>
-                <CancelBtn bgColor="#b55959" onClick={() => deleteTask(dataKey)}>Delete</CancelBtn>
+                {/* <ReminderBtn />
+                <BackgroundBtn />
+                <ArchiveBtn />
+                <MoreOptionsBtn /> */}
+                <ActionButton>
+                    <FontAwesomeIcon icon={faBell} />
+                </ActionButton>
+                <ActionButton>
+                    <FontAwesomeIcon icon={faImage} />
+                </ActionButton>
+                <ActionButton>
+                    <FontAwesomeIcon icon={faBoxArchive} />
+                </ActionButton>
+                <ActionButton>
+                    <FontAwesomeIcon icon={faEllipsisVertical} />
+                </ActionButton>
             </ActionsContainer>
         </CardTask>
+    )
+}
+
+const ActionButton = (props) => {
+    return (
+        <button>
+            {props.children}   
+        </button>
     )
 }
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { HeaderBar, PageHeader, HeaderBarGroup, GroupLabel, MainContentContainer } from '../../Components/styledComponents'
-
+import { tasksData } from '../../Utils/task'
 import SingleTask from '../../Components/SingleTask/index'
 import {AddTaskButton} from '../../Components/AddButtons'
 
@@ -18,7 +18,7 @@ const TasksView = styled.div`
 const Tasks = () => {
 
    
-    const [listOfTasks, setListOfTasks] = useState([])
+    const [listOfTasks, setListOfTasks] = useState(tasksData)
     const params = useParams()
 
     const createNewTask = id => {
@@ -58,16 +58,7 @@ const Tasks = () => {
             </HeaderBar>
             <MainContentContainer>
                 <TasksView>
-                    {listOfTasks != null ? listOfTasks.map((singleTask, index)  => <SingleTask 
-                                                        key={index}
-                                                        dataKey={index}
-                                                        title={singleTask.title}
-                                                        description={singleTask.desc}
-                                                        date={singleTask.date} 
-                                                        editing={false}
-                                                        handleRemoveTask={handleRemoveTask}
-                                                        handleSavingTask={handleSavingTask}
-                                                        />) : "Something went wrong with fetching data.."} 
+                    {listOfTasks != null ? listOfTasks.map((singleTask)  => <SingleTask key={singleTask.id} data={singleTask} handleRemoveTask={handleRemoveTask} handleSavingTask={handleSavingTask} />) : "Something went wrong with fetching data.."} 
                 </TasksView>
             </MainContentContainer>
         </div>
