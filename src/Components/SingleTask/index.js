@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, forwardRef, createRef } from 'react'
 import styled from 'styled-components'
+import ContentEditable from 'react-contenteditable'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBell, faImage, faBoxArchive, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
-import { DarkenButton, CardTask } from '../styledComponents'
+import { faBell, faImage, faBoxArchive, faEllipsisVertical, faDropletSlash, faTrashCan } from '@fortawesome/free-solid-svg-icons'
+import { DarkenButton, CardTask, TaskOptionsButton } from '../styledComponents'
 
 const ActionsContainer = styled.div`
     display: flex;
@@ -15,53 +16,66 @@ const ActionsContainer = styled.div`
     }
 `
 
-const TitleInput = styled.input`
-    padding: .7rem .5rem;
-    border: none;
+const BgModalStyled = styled.div`
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    background: white;
+    padding: .5rem;
     border-radius: 10px;
-    font-size: 1rem;
-    font-weight: 700;
-    font-family: inherit;
+    box-shadow: 0 0 10px rgb(0 0 0 / 26%);
+`
+
+const OptionsModalStyled = styled.div`
+    background: white;
+    padding: 0.5rem 0;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgb(0 0 0 / 26%);
+
+    button {
+        border: none;
+        padding: .5rem 1rem;
+        background: white;
+        cursor: pointer;
+        color: grey;
+        transition: all .2s ease-in;
+    }
+
+    button:hover {
+        color: black;
+        background: rgb(241 241 241);
+    }
+`
+
+const ColorCircle = styled.div`
+    height: 36px;
+    width: 36px;
+    border-radius: 50%;
+    background: red;
 
     &:hover {
-        background:#dbd9d9;
-    }
-
-    &:active {
-        background:#dbd9d9;
-        border: none;
+        border: 2px solid black;
     }
 `
 
-const DescTextArea = styled.textarea`
-    height: max-content;
-    width: 100%;
-    overflow: auto;
-    padding: .7rem .5rem;
-    border: none;
-    border-radius: 10px;
-    resize: none;
-    
+const NoColorCircle = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    height: 36px;
+    width: 36px;
+    border-radius: 50%;
 
     &:hover {
-        background:#dbd9d9;
+        border: 2px solid black;
     }
-
-    &:active {
-        background:#dbd9d9;
-        border: none;
-    }
-`
-
-const SaveBtn = styled(DarkenButton)`
-    background-color: #579357;
-`
-
-const CancelBtn = styled(DarkenButton)`
-    background-color: red;
 `
 
 const SingleTask = ({data, handleRemoveTask, handleSavingTask}) => {
+
+    const optionsModalBtnRef = createRef()
+    const bgModalBtnRef = createRef()
 
     const [taskDesc, setTaskDesc] = useState(data.content.description)
     const [taskTitle, setTaskTitle] = useState(data.content.title)
@@ -70,7 +84,25 @@ const SingleTask = ({data, handleRemoveTask, handleSavingTask}) => {
     const [isArchivied, setArchivied] = useState(data.archivied)
     const [isDone, setDone] = useState(data.done)
     const [taskDateGoal, setTaskDateGoal] = useState(data.dateGoal)
+    const [bgModalOpened, setBgModalOpened] = useState(false)
+    const [optionsModalOpened, setOptionsModalOpened] = useState(false)
+    const [optionsModalPos, setOptionsModalPos] = useState({})
+    const [bgModalPos, setBgModalPos] = useState({})
 
+    useEffect(() => {
+        setOptionsModalPos({
+            top: optionsModalBtnRef.current.getBoundingClientRect().bottom,
+            left: optionsModalBtnRef.current.getBoundingClientRect().right
+        })
+        
+        setBgModalPos({
+            top: bgModalBtnRef.current.getBoundingClientRect().bottom,
+            left: bgModalBtnRef.current.getBoundingClientRect().right
+        })
+
+        console.log(optionsModalPos)
+        console.log(bgModalPos)
+    }, [])
 
     const saveTask = taskId => {
         
@@ -80,37 +112,154 @@ const SingleTask = ({data, handleRemoveTask, handleSavingTask}) => {
        
     }
 
+    const handleBgModalOpen = () => {
+        console.log('open  bg modal')
+        setBgModalOpened(!bgModalOpened);
+    }
+
+    const handleOptionsModalOpen = () => {
+        console.log('open options modal')
+        setOptionsModalOpened(!optionsModalOpened);
+    }
+
+    const handleAddReminder = () => {
+        console.log('adding new reminder')
+    }
+
+    const handleArchive = () => {
+        console.log('task added to archive')
+    }
+
     return (
-        <CardTask>
-            <TitleInput value={taskTitle} onChange={event => setTaskTitle(event.target.value)} />
-            <DescTextArea value={taskDesc} onChange={event => setTaskDesc(event.target.value)}></DescTextArea>
+        <CardTask style={{backgroundColor: taskBackground.color}}>
+            <TaskTitleArea content={taskTitle} />
+            <TaskDescriptionArea content={taskDesc} />
+            <span>Due time: {taskDateGoal}</span>
+            <span>Last modified: {lastModified}</span>
             <ActionsContainer>
-                {/* <ReminderBtn />
-                <BackgroundBtn />
-                <ArchiveBtn />
-                <MoreOptionsBtn /> */}
-                <ActionButton>
+                <ActionButton action={handleAddReminder}>
                     <FontAwesomeIcon icon={faBell} />
                 </ActionButton>
-                <ActionButton>
+                <ActionButton ref={bgModalBtnRef} action={handleBgModalOpen}>
                     <FontAwesomeIcon icon={faImage} />
                 </ActionButton>
-                <ActionButton>
+                <ActionButton action={handleArchive}>
                     <FontAwesomeIcon icon={faBoxArchive} />
                 </ActionButton>
-                <ActionButton>
+                <ActionButton ref={optionsModalBtnRef} action={handleOptionsModalOpen}>
                     <FontAwesomeIcon icon={faEllipsisVertical} />
                 </ActionButton>
             </ActionsContainer>
+            <BgModal style={{
+                position: 'absolute',
+                top: bgModalPos.top,
+                left: bgModalPos.left,
+                transition: 'all .2s ease-in-out'
+            }} opened={bgModalOpened} />
+            <OptionsModal style={{
+                position: 'absolute',
+                top: optionsModalPos.top,
+                left: optionsModalPos.left,
+                transition: 'all .2s ease-in-out'
+            }}  opened={optionsModalOpened} />
         </CardTask>
     )
 }
 
-const ActionButton = (props) => {
+const ActionButton = forwardRef((props, ref) => {
+
     return (
-        <button>
+        <TaskOptionsButton ref={ref} onClick={props.action}>
             {props.children}   
-        </button>
+        </TaskOptionsButton>
+    )
+})
+
+class TaskDescriptionArea extends React.Component {
+    constructor(props) {
+        super(props)
+        this.contentEditable = React.createRef();
+        this.state = {html: props.content}
+    }
+
+    handleChange = event => {
+        this.setState({html: event.target.value})
+    }
+
+    render() {
+        return (
+            <ContentEditable
+                style={{
+                    minHeight: '50px',
+                    width: '100%',
+                    fontSize: '1rem',
+                }}
+                innerRef={this.contentEditable}
+                html={this.state.html}
+                disabled={false}
+                onChange={this.handleChange} />
+        )
+    }
+}
+
+class TaskTitleArea extends React.Component {
+    constructor(props) {
+        super(props)
+        this.contentEditable = React.createRef()
+        this.state = {html: props.content}
+    }
+
+    handleChange = event => {
+        this.setState({html: event.target.value})
+    }
+
+    render() {
+        return (
+            <ContentEditable
+                style={{
+                    width: '100%',
+                    fontWeight: 'bold',
+                }}
+                innerRef={this.contentEditable}
+                html={this.state.html}
+                disabled={false}
+                onChange={this.handleChange} />
+        )
+    }
+}
+
+const OptionsModal = (props) => {
+    return props.opened && (
+        <OptionsModalStyled {...props}>
+            <button style={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                gap: '10px'
+            }}>
+                <FontAwesomeIcon icon={faTrashCan} />
+                Remove task
+            </button>
+        </OptionsModalStyled>
+    )
+}
+
+const BgModal = (props) => {
+    return props.opened && (
+        <BgModalStyled {...props}>
+            <NoColorCircle>
+                <FontAwesomeIcon icon={faDropletSlash} />
+            </NoColorCircle>
+            <ColorCircle></ColorCircle>
+            <ColorCircle></ColorCircle>
+            <ColorCircle></ColorCircle>
+            <ColorCircle></ColorCircle>
+            <ColorCircle></ColorCircle>
+            <ColorCircle></ColorCircle>
+            <ColorCircle></ColorCircle>
+            <ColorCircle></ColorCircle>
+        </BgModalStyled>
     )
 }
 

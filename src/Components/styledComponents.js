@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { FolderBg } from '../Assets'
 
 const _Button = styled.button`
     padding: .5rem 1rem;
@@ -22,6 +21,21 @@ export const DarkenButton = styled(_Button)`
 
     &:hover {
         box-shadow: 0 0 10px rgb(0,0,0,0.6);
+    }
+`
+export const TaskOptionsButton = styled.button`
+    min-height: 32px;
+    min-width: 32px;
+    border: none;
+    border-radius: 50%;
+    background: white;
+    font-size: .8rem;
+    color: grey;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+
+    &:hover {
+        background-color: rgb(232 232 232);
     }
 `
 
