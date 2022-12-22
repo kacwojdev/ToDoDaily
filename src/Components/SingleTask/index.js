@@ -2,7 +2,7 @@ import React, { useState, useEffect, forwardRef, createRef } from 'react'
 import styled from 'styled-components'
 import ContentEditable from 'react-contenteditable'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBell, faImage, faBoxArchive, faEllipsisVertical, faDropletSlash, faTrashCan } from '@fortawesome/free-solid-svg-icons'
+import { faBell, faImage, faBoxArchive, faEllipsisVertical, faDropletSlash, faTrashCan, faTag } from '@fortawesome/free-solid-svg-icons'
 import { DarkenButton, CardTask, TaskOptionsButton } from '../styledComponents'
 
 const ActionsContainer = styled.div`
@@ -52,7 +52,7 @@ const ColorCircle = styled.div`
     height: 36px;
     width: 36px;
     border-radius: 50%;
-    background: red;
+    background: ${props => props.color || 'white'};
 
     &:hover {
         border: 2px solid black;
@@ -88,6 +88,23 @@ const SingleTask = ({data, handleRemoveTask, handleSavingTask}) => {
     const [optionsModalOpened, setOptionsModalOpened] = useState(false)
     const [optionsModalPos, setOptionsModalPos] = useState({})
     const [bgModalPos, setBgModalPos] = useState({})
+
+    useEffect(() => {
+        function handleWindowResize() {
+            setOptionsModalPos({
+                top: optionsModalBtnRef.current.getBoundingClientRect().bottom,
+                left: optionsModalBtnRef.current.getBoundingClientRect().right
+            })
+            
+            setBgModalPos({
+                top: bgModalBtnRef.current.getBoundingClientRect().bottom,
+                left: bgModalBtnRef.current.getBoundingClientRect().right
+            })
+        }
+
+        
+        window.addEventListener('resize', handleWindowResize)
+    })
 
     useEffect(() => {
         setOptionsModalPos({
@@ -130,6 +147,13 @@ const SingleTask = ({data, handleRemoveTask, handleSavingTask}) => {
         console.log('task added to archive')
     }
 
+    const handleChangeColor = color => {
+        setTaskBackground({
+            color: color,
+            image: null
+        })
+    }
+
     return (
         <CardTask style={{backgroundColor: taskBackground.color}}>
             <TaskTitleArea content={taskTitle} />
@@ -155,7 +179,7 @@ const SingleTask = ({data, handleRemoveTask, handleSavingTask}) => {
                 top: bgModalPos.top,
                 left: bgModalPos.left,
                 transition: 'all .2s ease-in-out'
-            }} opened={bgModalOpened} />
+            }} opened={bgModalOpened} handleChangeColor={handleChangeColor} />
             <OptionsModal style={{
                 position: 'absolute',
                 top: optionsModalPos.top,
@@ -232,6 +256,7 @@ const OptionsModal = (props) => {
     return props.opened && (
         <OptionsModalStyled {...props}>
             <button style={{
+                width: '100%',
                 display: 'flex',
                 flexDirection: 'row',
                 justifyContent: 'space-between',
@@ -241,24 +266,36 @@ const OptionsModal = (props) => {
                 <FontAwesomeIcon icon={faTrashCan} />
                 Remove task
             </button>
+            <button style={{
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                gap: '10px'
+            }}>
+                <FontAwesomeIcon icon={faTag} />
+                Add label
+            </button>
         </OptionsModalStyled>
     )
 }
 
 const BgModal = (props) => {
+
+    // colors that user could change task background
+    const colors = ['#f28b82', '#fbbc04', '#fff475', '#ccff90', '#a7ffeb', '#cbf0f8', '#aecbfa', '#fdcfe8']
+
+    const changeColor = color => {
+        props.handleChangeColor(color)
+    }
+
     return props.opened && (
         <BgModalStyled {...props}>
-            <NoColorCircle>
+            <NoColorCircle onClick={() => changeColor('white')}>
                 <FontAwesomeIcon icon={faDropletSlash} />
             </NoColorCircle>
-            <ColorCircle></ColorCircle>
-            <ColorCircle></ColorCircle>
-            <ColorCircle></ColorCircle>
-            <ColorCircle></ColorCircle>
-            <ColorCircle></ColorCircle>
-            <ColorCircle></ColorCircle>
-            <ColorCircle></ColorCircle>
-            <ColorCircle></ColorCircle>
+            { colors.map(color => <ColorCircle onClick={() => changeColor(color)} color={color} />)}
         </BgModalStyled>
     )
 }
