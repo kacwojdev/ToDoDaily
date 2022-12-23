@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components'
 import { 
   PageHeader,
@@ -7,12 +7,11 @@ import {
   DarkenButton,
   PrimaryButton,
   HeaderBarGroup,
-} from '../../Components/styledComponents'
+} from '../../styledComponents'
 
 import TasksGroup from '../../Components/TasksGroup'
-import {AddTasksGroupButton, AddTaskButton} from '../../Components/AddButtons'
-
-// import { getCurrentListOfGroups } from '../../Utils/configureApp'
+import {AddTasksGroupButton} from '../../Components/AddButtons'
+import { groups } from '../../Utils/groups'
 
 const TasksConatiner = styled(MainContentContainer)`
   display: grid;
@@ -30,16 +29,10 @@ const ModalBlurred = styled.div`
 `
 
 const Groups = (props) => {
-  const [groupList, addNewGroup] = useState([])
+  const [groupList, addNewGroup] = useState(groups)
   const [modalVisibilty, setVisibility] = useState(false)
 
   const handleCreatingNewGroup = () => {
-
-    setVisibility(!modalVisibilty)
-
-  }
-
-  const handleModalVisibilty = () => {
     setVisibility(!modalVisibilty)
   }
 
@@ -50,14 +43,12 @@ const Groups = (props) => {
           <HeaderBarGroup>
               <PageHeader>Home</PageHeader>
           </HeaderBarGroup>
-          <HeaderBarGroup>
-              <AddTasksGroupButton handleCreatingNewGroup={handleCreatingNewGroup}>
-                  + Create new group
-              </AddTasksGroupButton>
-          </HeaderBarGroup>
         </HeaderBar>
+        <AddTasksGroupButton handleCreatingNewGroup={handleCreatingNewGroup}>
+            + Create new group
+        </AddTasksGroupButton>
         <TasksConatiner>
-          {groupList.length != 0 ? (<GroupsList list={groupList} />) : (<p>You dont have any group.</p>)}
+          {groupList.length !== 0 ? (<GroupsList list={groupList} />) : (<p>You dont have any group.</p>)}
         </TasksConatiner>
       </div>
       { modalVisibilty ? <ModalBlurred></ModalBlurred> : null }
@@ -92,24 +83,6 @@ const ModalInput = styled.input`
   padding: 10px 30px;
   color: black;
   font-size: 1.2rem;
-`
-
-const ModalButton = styled.button`
-  width: 200px;
-  border: 2px solid rgb(29,48,69);
-  border-radius: 20px;
-  padding: 15px 15px;
-  color: white;
-  background-color: rgb(112, 181, 131);
-  box-shadow: 0px 5px 0 rgb(22,28,37);
-  transition: .1s ease-in;
-
-  &:hover {
-      transform: translate(0, 10px);
-      box-shadow: 0px 0px 0 rgb(112, 181, 131);
-      border-color: rgb(112, 181, 131);
-      cursor: pointer;
-  }
 `
 
 const CorrectionInfo = styled.span`

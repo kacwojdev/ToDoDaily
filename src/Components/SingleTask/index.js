@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import ContentEditable from 'react-contenteditable'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBell, faImage, faBoxArchive, faEllipsisVertical, faDropletSlash, faTrashCan, faTag } from '@fortawesome/free-solid-svg-icons'
-import { DarkenButton, CardTask, TaskOptionsButton } from '../styledComponents'
+import { DarkenButton, CardTask, TaskOptionsButton } from '../../styledComponents'
 
 const ActionsContainer = styled.div`
     display: flex;
@@ -88,6 +88,7 @@ const SingleTask = ({data, handleRemoveTask, handleSavingTask}) => {
     const [optionsModalOpened, setOptionsModalOpened] = useState(false)
     const [optionsModalPos, setOptionsModalPos] = useState({})
     const [bgModalPos, setBgModalPos] = useState({})
+    const [isTaskHover, setTaskHover] = useState(false)
 
     useEffect(() => {
         function handleWindowResize() {
@@ -107,15 +108,30 @@ const SingleTask = ({data, handleRemoveTask, handleSavingTask}) => {
     })
 
     useEffect(() => {
-        setOptionsModalPos({
-            top: optionsModalBtnRef.current.getBoundingClientRect().bottom,
-            left: optionsModalBtnRef.current.getBoundingClientRect().right
-        })
+        if (optionsModalBtnRef.current.getBoundingClientRect().right > window.innerWidth) {
+            setOptionsModalPos({
+                top: optionsModalBtnRef.current.getBoundingClientRect().bottom,
+                right: "50px"
+            })
+        } else {
+            setOptionsModalPos({
+                top: optionsModalBtnRef.current.getBoundingClientRect().bottom,
+                left: optionsModalBtnRef.current.getBoundingClientRect().right
+            })
+        }
+
+        if (bgModalBtnRef.current.getBoundingClientRect().right > window.innerWidth) {
+            setBgModalPos({
+                top: bgModalBtnRef.current.getBoundingClientRect().bottom,
+                right: "50px"
+            })
+        } else {
+            setBgModalPos({
+                top: bgModalBtnRef.current.getBoundingClientRect().bottom,
+                left: bgModalBtnRef.current.getBoundingClientRect().right
+            })
+        }
         
-        setBgModalPos({
-            top: bgModalBtnRef.current.getBoundingClientRect().bottom,
-            left: bgModalBtnRef.current.getBoundingClientRect().right
-        })
 
         console.log(optionsModalPos)
         console.log(bgModalPos)
@@ -160,7 +176,7 @@ const SingleTask = ({data, handleRemoveTask, handleSavingTask}) => {
             <TaskDescriptionArea content={taskDesc} />
             <span>Due time: {taskDateGoal}</span>
             <span>Last modified: {lastModified}</span>
-            <ActionsContainer>
+            <ActionsContainer isHover={isTaskHover}>
                 <ActionButton action={handleAddReminder}>
                     <FontAwesomeIcon icon={faBell} />
                 </ActionButton>
@@ -210,6 +226,10 @@ class TaskDescriptionArea extends React.Component {
         this.setState({html: event.target.value})
     }
 
+    handleBlur = event => {
+        console.log('save title with value: ', this.state.html)
+    }
+
     render() {
         return (
             <ContentEditable
@@ -221,7 +241,8 @@ class TaskDescriptionArea extends React.Component {
                 innerRef={this.contentEditable}
                 html={this.state.html}
                 disabled={false}
-                onChange={this.handleChange} />
+                onChange={this.handleChange} 
+                onBlur={this.handleBlur}/>
         )
     }
 }
@@ -237,6 +258,10 @@ class TaskTitleArea extends React.Component {
         this.setState({html: event.target.value})
     }
 
+    handleBlur = event => {
+        console.log('save title with value: ', this.state.html)
+    }
+
     render() {
         return (
             <ContentEditable
@@ -247,7 +272,8 @@ class TaskTitleArea extends React.Component {
                 innerRef={this.contentEditable}
                 html={this.state.html}
                 disabled={false}
-                onChange={this.handleChange} />
+                onChange={this.handleChange}
+                onBlur={this.handleBlur} />
         )
     }
 }
@@ -295,7 +321,7 @@ const BgModal = (props) => {
             <NoColorCircle onClick={() => changeColor('white')}>
                 <FontAwesomeIcon icon={faDropletSlash} />
             </NoColorCircle>
-            { colors.map(color => <ColorCircle onClick={() => changeColor(color)} color={color} />)}
+            { colors.map(color => <ColorCircle onClick={() => changeColor(color)} color={color} key={color}/>)}
         </BgModalStyled>
     )
 }

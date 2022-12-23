@@ -6,8 +6,11 @@ import Footer from './Components/ui/Footer'
 import Nav from './Components/ui/Nav'
 import Groups from './Pages/Groups'
 import Tasks from './Pages/Tasks'
-
+import Archive from './Pages/Tasks/Archive'
+import Labels from './Pages/Tasks/Labels'
+import TasksView from './Pages/Tasks/TasksView';
 import GlobalStyle from './Utils/globalStyles'
+
 
 const AppContainer = styled.div`
     min-height: 100%;
@@ -40,7 +43,11 @@ class App extends React.Component {
           <main>
             <Routes>
               <Route path="/" element={<Groups />} />
-              <Route path="/group/:groupId" element={<Tasks />} />
+              <Route path="/group/:groupId" element={<Tasks />}>
+                <Route path="tasks" element={<TasksView />} />
+                <Route path="archive" element={<Archive />} />
+                <Route path="labels" element={<Labels />} />
+              </Route>
             </Routes>
           </main>
           <Footer />

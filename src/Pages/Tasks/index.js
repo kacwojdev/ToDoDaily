@@ -1,46 +1,32 @@
-import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-import styled from 'styled-components'
-import { HeaderBar, PageHeader, HeaderBarGroup, GroupLabel, MainContentContainer } from '../../Components/styledComponents'
-import { tasksData } from '../../Utils/task'
-import SingleTask from '../../Components/SingleTask/index'
-import {AddTaskButton} from '../../Components/AddButtons'
-
-const TasksView = styled.div`
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: left;
-    align-items: baseline;
-    gap: 18px;
-`
+import React, { useState } from 'react'
+import { NavLink, useParams, Outlet } from 'react-router-dom'
+import { HeaderBar, PageHeader, HeaderBarGroup, GroupLabel, MainContentContainer } from '../../styledComponents'
+import { groups } from '../../Utils/groups'
 
 const Tasks = () => {
-
-   
-    const [listOfTasks, setListOfTasks] = useState(tasksData)
     const params = useParams()
 
-    const createNewTask = id => {
-        const newTask = {
-            title: "Task title",
-            desc: "Task description",
-            date: new Date().toLocaleTimeString(),
-        }
-        setListOfTasks(listOfTasks.concat([newTask]));
+    const navLinkStyle = {
+        marginRight: '10px',
+        padding: '.5rem 1rem',
+        border: 'none',
+        borderRadius: '1rem',
+        fontSize: '.7rem',
+        fontWeight: '400',
+        cursor: 'pointer',
+        transition: 'all 0.3s ease-in-out',
     }
 
-    const handleRemoveTask = (taskId) => {
-        console.log(taskId)
-        const newArray = listOfTasks
-        newArray.splice(taskId, 1)
-        setListOfTasks([...newArray])
-    }
-
-    const handleSavingTask = (taskId, newTaskData) => {
-        const newArray = listOfTasks;
-        newArray[taskId] = newTaskData;
-        setListOfTasks([...newArray])
+    const activeStyle = {
+        marginRight: '10px',
+        padding: '.5rem 1rem',
+        border: 'none',
+        borderRadius: '1rem',
+        fontSize: '.7rem',
+        fontWeight: '400',
+        cursor: 'pointer',
+        transition: 'all 0.3s ease-in-out',
+        backgroundColor: '#d0d0d0'
     }
 
     return (
@@ -51,15 +37,21 @@ const Tasks = () => {
                     <PageHeader>{params.groupId}</PageHeader>
                 </HeaderBarGroup>
                 <HeaderBarGroup>
-                    <AddTaskButton handleCreatingNewTask={() => createNewTask('1')}>
-                        + Create new task
-                    </AddTaskButton>
+                    <nav>
+                        <NavLink to={`tasks`} style={({isActive}) => isActive ? activeStyle : navLinkStyle}>
+                                Tasks
+                        </NavLink>
+                        <NavLink to={`archive`}  style={({isActive}) => isActive ? activeStyle : navLinkStyle}>
+                                Archive
+                        </NavLink>
+                        <NavLink to={`labels`}  style={({isActive}) => isActive ? activeStyle : navLinkStyle}>
+                                Labels
+                        </NavLink>
+                    </nav>
                 </HeaderBarGroup>
             </HeaderBar>
             <MainContentContainer>
-                <TasksView>
-                    {listOfTasks != null ? listOfTasks.map((singleTask)  => <SingleTask key={singleTask.id} data={singleTask} handleRemoveTask={handleRemoveTask} handleSavingTask={handleSavingTask} />) : "Something went wrong with fetching data.."} 
-                </TasksView>
+                <Outlet />
             </MainContentContainer>
         </div>
     )
