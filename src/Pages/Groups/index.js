@@ -13,10 +13,11 @@ import TasksGroup from '../../Components/TasksGroup'
 import {AddTasksGroupButton} from '../../Components/AddButtons'
 import { groups } from '../../Utils/groups'
 
-const TasksConatiner = styled(MainContentContainer)`
+const GroupsViewContainer = styled.div`
   display: grid;
   grid-gap: 16px;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  margin-top: 1rem;
 `
 
 const ModalBlurred = styled.div`
@@ -44,12 +45,14 @@ const Groups = (props) => {
               <PageHeader>Home</PageHeader>
           </HeaderBarGroup>
         </HeaderBar>
-        <AddTasksGroupButton handleCreatingNewGroup={handleCreatingNewGroup}>
-            + Create new group
-        </AddTasksGroupButton>
-        <TasksConatiner>
-          {groupList.length !== 0 ? (<GroupsList list={groupList} />) : (<p>You dont have any group.</p>)}
-        </TasksConatiner>
+        <MainContentContainer>
+          <AddTasksGroupButton handleCreatingNewGroup={handleCreatingNewGroup}>
+              + Create new group
+          </AddTasksGroupButton>
+          <GroupsViewContainer>
+            {groupList.length !== 0 ? (<GroupsList list={groupList} />) : (<p>You dont have any group.</p>)}
+          </GroupsViewContainer>
+        </MainContentContainer>
       </div>
       { modalVisibilty ? <ModalBlurred></ModalBlurred> : null }
       <GroupNameModal visible={modalVisibilty} handleSetVisibility={setVisibility} handleCreatingNewGroup={addNewGroup} />
