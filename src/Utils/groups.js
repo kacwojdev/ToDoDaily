@@ -15,7 +15,7 @@ export let groups = [
                     image: null
                 },
                 done: false,
-                archive: false,
+                archive: true,
                 dateGoal : null
             },
             {

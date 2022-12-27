@@ -1,9 +1,9 @@
-import React, { useState, useEffect, forwardRef, createRef } from 'react'
+import React, { useState, forwardRef, useRef, createRef, useLayoutEffect } from 'react'
 import styled from 'styled-components'
 import ContentEditable from 'react-contenteditable'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBell, faImage, faBoxArchive, faEllipsisVertical, faDropletSlash, faTrashCan, faTag } from '@fortawesome/free-solid-svg-icons'
-import { DarkenButton, CardTask, TaskOptionsButton } from '../../styledComponents'
+import { CardTask, TaskOptionsButton } from '../../styledComponents'
 
 const ActionsContainer = styled.div`
     display: flex;
@@ -17,21 +17,29 @@ const ActionsContainer = styled.div`
 `
 
 const BgModalStyled = styled.div`
-    display: flex;
-    flex-direction: row;
+    z-index: 999;
     gap: 10px;
     align-items: center;
     background: white;
     padding: .5rem;
     border-radius: 10px;
     box-shadow: 0 0 10px rgb(0 0 0 / 26%);
+    position: absolute;
+    display: ${({opened}) => opened ? 'flex' : 'none'};
+    max-width: ${({parentWidth}) => parentWidth + 'px'}
+    flex-direction: row;
+    flex-wrap: wrap;
 `
 
 const OptionsModalStyled = styled.div`
+    z-index: 999;
+    position: absolute;
     background: white;
     padding: 0.5rem 0;
     border-radius: 10px;
     box-shadow: 0 0 10px rgb(0 0 0 / 26%);
+    display: ${({opened}) => opened ? 'flex' : 'none'};
+    flex-direction: column;
 
     button {
         border: none;
@@ -74,8 +82,11 @@ const NoColorCircle = styled.div`
 
 const SingleTask = ({data, handleRemoveTask, handleSavingTask}) => {
 
+    const optionsModalRef = createRef()
     const optionsModalBtnRef = createRef()
+    const bgModalRef = createRef()
     const bgModalBtnRef = createRef()
+    const selfRef = useRef(null)
 
     const [taskDesc, setTaskDesc] = useState(data.content.description)
     const [taskTitle, setTaskTitle] = useState(data.content.title)
@@ -87,54 +98,11 @@ const SingleTask = ({data, handleRemoveTask, handleSavingTask}) => {
     const [bgModalOpened, setBgModalOpened] = useState(false)
     const [optionsModalOpened, setOptionsModalOpened] = useState(false)
     const [optionsModalPos, setOptionsModalPos] = useState({})
-    const [bgModalPos, setBgModalPos] = useState({})
     const [isTaskHover, setTaskHover] = useState(false)
+    const [selfWidth, setSelfWidth] = useState(0)
 
-    useEffect(() => {
-        function handleWindowResize() {
-            setOptionsModalPos({
-                top: optionsModalBtnRef.current.getBoundingClientRect().bottom,
-                left: optionsModalBtnRef.current.getBoundingClientRect().right
-            })
-            
-            setBgModalPos({
-                top: bgModalBtnRef.current.getBoundingClientRect().bottom,
-                left: bgModalBtnRef.current.getBoundingClientRect().right
-            })
-        }
-
-        
-        window.addEventListener('resize', handleWindowResize)
-    })
-
-    useEffect(() => {
-        if (optionsModalBtnRef.current.getBoundingClientRect().right > window.innerWidth) {
-            setOptionsModalPos({
-                top: optionsModalBtnRef.current.getBoundingClientRect().bottom,
-                right: "50px"
-            })
-        } else {
-            setOptionsModalPos({
-                top: optionsModalBtnRef.current.getBoundingClientRect().bottom,
-                left: optionsModalBtnRef.current.getBoundingClientRect().right
-            })
-        }
-
-        if (bgModalBtnRef.current.getBoundingClientRect().right > window.innerWidth) {
-            setBgModalPos({
-                top: bgModalBtnRef.current.getBoundingClientRect().bottom,
-                right: "50px"
-            })
-        } else {
-            setBgModalPos({
-                top: bgModalBtnRef.current.getBoundingClientRect().bottom,
-                left: bgModalBtnRef.current.getBoundingClientRect().right
-            })
-        }
-        
-
-        console.log(optionsModalPos)
-        console.log(bgModalPos)
+    useLayoutEffect(() => {
+        setSelfWidth(selfRef.current.offsetWidth)
     }, [])
 
     const saveTask = taskId => {
@@ -146,12 +114,10 @@ const SingleTask = ({data, handleRemoveTask, handleSavingTask}) => {
     }
 
     const handleBgModalOpen = () => {
-        console.log('open  bg modal')
         setBgModalOpened(!bgModalOpened);
     }
 
     const handleOptionsModalOpen = () => {
-        console.log('open options modal')
         setOptionsModalOpened(!optionsModalOpened);
     }
 
@@ -171,7 +137,7 @@ const SingleTask = ({data, handleRemoveTask, handleSavingTask}) => {
     }
 
     return (
-        <CardTask style={{backgroundColor: taskBackground.color}}>
+        <CardTask ref={selfRef} style={{backgroundColor: taskBackground.color}}>
             <TaskTitleArea content={taskTitle} />
             <TaskDescriptionArea content={taskDesc} />
             <span>Due time: {taskDateGoal}</span>
@@ -190,18 +156,22 @@ const SingleTask = ({data, handleRemoveTask, handleSavingTask}) => {
                     <FontAwesomeIcon icon={faEllipsisVertical} />
                 </ActionButton>
             </ActionsContainer>
-            <BgModal style={{
-                position: 'absolute',
-                top: bgModalPos.top,
-                left: bgModalPos.left,
-                transition: 'all .2s ease-in-out'
-            }} opened={bgModalOpened} handleChangeColor={handleChangeColor} />
-            <OptionsModal style={{
-                position: 'absolute',
-                top: optionsModalPos.top,
-                left: optionsModalPos.left,
-                transition: 'all .2s ease-in-out'
-            }}  opened={optionsModalOpened} />
+            <BgModal 
+                ref={bgModalRef} 
+                style={{
+                    top: '100%',
+                    left: 0,
+                    maxWidth: selfWidth
+                }} 
+                opened={bgModalOpened} 
+                handleChangeColor={handleChangeColor} 
+            />
+            <OptionsModal ref={optionsModalRef} style={{
+                    top: '100%',
+                    right: 0,
+                }} 
+                opened={optionsModalOpened}
+            />
         </CardTask>
     )
 }
@@ -278,9 +248,9 @@ class TaskTitleArea extends React.Component {
     }
 }
 
-const OptionsModal = (props) => {
-    return props.opened && (
-        <OptionsModalStyled {...props}>
+const OptionsModal = forwardRef((props, ref) => {
+    return (
+        <OptionsModalStyled ref={ref} {...props}>
             <button style={{
                 width: '100%',
                 display: 'flex',
@@ -305,25 +275,25 @@ const OptionsModal = (props) => {
             </button>
         </OptionsModalStyled>
     )
-}
+})
 
-const BgModal = (props) => {
+const BgModal = forwardRef((props, ref) => {
 
     // colors that user could change task background
-    const colors = ['#f28b82', '#fbbc04', '#fff475', '#ccff90', '#a7ffeb', '#cbf0f8', '#aecbfa', '#fdcfe8']
+    const colors = ['#f28b82', '#fbbc04', '#fff475', '#ccff90', '#a7ffeb',]
 
     const changeColor = color => {
         props.handleChangeColor(color)
     }
 
-    return props.opened && (
-        <BgModalStyled {...props}>
+    return (
+        <BgModalStyled ref={ref} {...props} >
             <NoColorCircle onClick={() => changeColor('white')}>
                 <FontAwesomeIcon icon={faDropletSlash} />
             </NoColorCircle>
             { colors.map(color => <ColorCircle onClick={() => changeColor(color)} color={color} key={color}/>)}
         </BgModalStyled>
     )
-}
+})
 
 export default SingleTask

@@ -2,19 +2,8 @@ import React, {useState} from 'react'
 import SingleTask from '../../../Components/SingleTask'
 import styled from 'styled-components'
 import { AddTaskButton } from '../../../Components/AddButtons'
+import { TasksViewStyled } from '../../../styledComponents'
 import { groups } from '../../../Utils/groups'
-
-
-
-const TasksViewStyled = styled.div`
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: left;
-    align-items: baseline;
-    gap: 18px;
-    margin-top: 1rem;
-`
 
 const TasksView = () => {
 
@@ -26,7 +15,7 @@ const TasksView = () => {
                 + Create new task
             </AddTaskButton>
             <TasksViewStyled>
-                {listOfTasks != null ? listOfTasks.map((singleTask)  => <SingleTask key={singleTask.id} data={singleTask} />) : "Something went wrong with fetching data.."} 
+                {listOfTasks != null ? listOfTasks.filter(task => task.archive == false).map(task  => <SingleTask key={task.id} data={task} />) : "Something went wrong with fetching data.."} 
             </TasksViewStyled>
         </div>
     )

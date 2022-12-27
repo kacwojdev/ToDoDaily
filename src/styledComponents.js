@@ -95,7 +95,6 @@ export const CardGroup = styled(_Card)`
 `
 
 export const CardTask = styled(_Card)`
-    min-width: 18vw;
     display: flex;
     flex-direction: column;
     flex: 0 0 48px;
@@ -103,4 +102,13 @@ export const CardTask = styled(_Card)`
     gap: 10px;
     border: .1rem solid rgb(237 237 237);
     border-radius: 10px;
+    position: relative;
+`
+
+
+export const TasksViewStyled = styled.div`
+    display: grid;
+    grid-gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    margin-top: 1rem;
 `
