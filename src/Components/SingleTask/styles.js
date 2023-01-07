@@ -51,6 +51,12 @@ export const OptionsModalStyled = styled.div`
     }
 `
 
+export const ReminderModalStyled = styled.div`
+    z-index: 999;
+    position: absolute;
+    display: ${({ opened }) => (opened ? 'flex' : 'none')};
+`
+
 export const ColorCircle = styled.div`
     height: 36px;
     width: 36px;
@@ -73,4 +79,24 @@ export const NoColorCircle = styled.div`
     &:hover {
         border: 2px solid black;
     }
+`
+export const OptionsModalBtn = styled.button`
+    width: 100%;
+    display: flex;
+    flexdirection: row;
+    justifycontent: space-between;
+    alignitems: center;
+    gap: 10px;
+`
+export const DueTimeLabel = styled.div`
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    padding: 0.4rem 0.6rem;
+    background: #dfdfdf;
+    color: #5e5e5e;
+    font-size: 0.7rem;
 `

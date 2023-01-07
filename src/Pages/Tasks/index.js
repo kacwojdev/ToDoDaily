@@ -1,7 +1,12 @@
 import React, { useState } from 'react'
 import { NavLink, useParams, Outlet } from 'react-router-dom'
-import { HeaderBar, PageHeader, HeaderBarGroup, GroupLabel, MainContentContainer } from '../../styledComponents'
-import { groups } from '../../Utils/groups'
+import {
+    HeaderBar,
+    PageHeader,
+    HeaderBarGroup,
+    GroupLabel,
+    MainContentContainer
+} from '../../styledComponents'
 
 const Tasks = () => {
     const params = useParams()
@@ -14,7 +19,7 @@ const Tasks = () => {
         fontSize: '.7rem',
         fontWeight: '400',
         cursor: 'pointer',
-        transition: 'all 0.3s ease-in-out',
+        transition: 'all 0.3s ease-in-out'
     }
 
     const activeStyle = {
@@ -38,14 +43,23 @@ const Tasks = () => {
                 </HeaderBarGroup>
                 <HeaderBarGroup>
                     <nav>
-                        <NavLink to={`tasks`} style={({isActive}) => isActive ? activeStyle : navLinkStyle}>
-                                Tasks
+                        <NavLink
+                            to={`tasks`}
+                            style={({ isActive }) => (isActive ? activeStyle : navLinkStyle)}
+                        >
+                            Tasks
                         </NavLink>
-                        <NavLink to={`archive`}  style={({isActive}) => isActive ? activeStyle : navLinkStyle}>
-                                Archive
+                        <NavLink
+                            to={`archive`}
+                            style={({ isActive }) => (isActive ? activeStyle : navLinkStyle)}
+                        >
+                            Archive
                         </NavLink>
-                        <NavLink to={`labels`}  style={({isActive}) => isActive ? activeStyle : navLinkStyle}>
-                                Labels
+                        <NavLink
+                            to={`labels`}
+                            style={({ isActive }) => (isActive ? activeStyle : navLinkStyle)}
+                        >
+                            Labels
                         </NavLink>
                     </nav>
                 </HeaderBarGroup>

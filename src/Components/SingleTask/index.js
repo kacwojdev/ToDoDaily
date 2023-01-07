@@ -1,5 +1,6 @@
 import React, { useState, forwardRef, useRef, createRef, useLayoutEffect } from 'react'
 import styled from 'styled-components'
+import Calendar from 'react-calendar'
 import ContentEditable from 'react-contenteditable'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -9,7 +10,8 @@ import {
     faEllipsisVertical,
     faDropletSlash,
     faTrashCan,
-    faTag
+    faTag,
+    faClock
 } from '@fortawesome/free-solid-svg-icons'
 import { CardTask, TaskOptionsButton } from '../../styledComponents'
 import OutsideClickHandler from 'react-outside-click-handler'
@@ -18,7 +20,10 @@ import {
     BgModalStyled,
     OptionsModalStyled,
     ColorCircle,
-    NoColorCircle
+    NoColorCircle,
+    OptionsModalBtn,
+    DueTimeLabel,
+    ReminderModalStyled
 } from './styles'
 
 const SingleTask = ({ data, handleRemoveTask, handleSavingTask }) => {
@@ -33,9 +38,11 @@ const SingleTask = ({ data, handleRemoveTask, handleSavingTask }) => {
     const [taskDateGoal, setTaskDateGoal] = useState(data.dateGoal)
     const [bgModalOpened, setBgModalOpened] = useState(false)
     const [optionsModalOpened, setOptionsModalOpened] = useState(false)
+    const [reminderModalOpened, setReminderModalOpened] = useState(false)
     const [optionsModalPos, setOptionsModalPos] = useState({})
     const [isTaskHover, setTaskHover] = useState(false)
     const [selfWidth, setSelfWidth] = useState(0)
+    const [calendarValue, setCalendarValue] = useState(new Date())
 
     useLayoutEffect(() => {
         setSelfWidth(selfRef.current.offsetWidth)
@@ -53,8 +60,8 @@ const SingleTask = ({ data, handleRemoveTask, handleSavingTask }) => {
         setOptionsModalOpened(value)
     }
 
-    const handleAddReminder = () => {
-        console.log('adding new Reminder')
+    const handleReminderModalOpen = value => {
+        setReminderModalOpened(value)
     }
 
     const handleArchive = () => {
@@ -73,11 +80,13 @@ const SingleTask = ({ data, handleRemoveTask, handleSavingTask }) => {
             <TaskTitleArea content={taskTitle} />
             <TaskDescriptionArea content={taskDesc} />
             <div>
-                <span>Due time: {taskDateGoal}</span>
-                <span>Last modified: {lastModified}</span>
+                <DueTimeLabel>
+                    <FontAwesomeIcon style={{ marginRight: '10px' }} icon={faClock} />
+                    <span>{taskDateGoal}</span>
+                </DueTimeLabel>
             </div>
             <ActionsContainer isHover={isTaskHover}>
-                <ActionButton action={handleAddReminder}>
+                <ActionButton action={() => handleReminderModalOpen(true)}>
                     <FontAwesomeIcon icon={faBell} />
                 </ActionButton>
                 <ActionButton action={() => handleBgModalOpen(true)}>
@@ -107,6 +116,16 @@ const SingleTask = ({ data, handleRemoveTask, handleSavingTask }) => {
                 }}
                 handleOutsideClick={handleOptionsModalOpen}
                 opened={optionsModalOpened}
+            />
+            <ReminderModal
+                style={{
+                    top: '100%',
+                    right: 0
+                }}
+                handleOutsideClick={handleReminderModalOpen}
+                opened={reminderModalOpened}
+                setCalendarValue={setCalendarValue}
+                calendarValue={calendarValue}
             />
         </CardTask>
     )
@@ -185,38 +204,24 @@ const OptionsModal = props => {
     return (
         <OptionsModalStyled {...props}>
             <OutsideClickHandler onOutsideClick={() => props.handleOutsideClick(false)}>
-                <button
-                    style={{
-                        width: '100%',
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        gap: '10px'
-                    }}
-                >
-                    <FontAwesomeIcon icon={faTrashCan} />
-                    Remove task
-                </button>
-                <button
-                    style={{
-                        width: '100%',
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        gap: '10px'
-                    }}
-                >
+                <OptionsModalBtn>
                     <FontAwesomeIcon icon={faTag} />
                     Add label
-                </button>
+                </OptionsModalBtn>
+                <OptionsModalBtn>
+                    <FontAwesomeIcon icon={faClock} />
+                    Set due time
+                </OptionsModalBtn>
+                <OptionsModalBtn>
+                    <FontAwesomeIcon icon={faTrashCan} />
+                    Remove task
+                </OptionsModalBtn>
             </OutsideClickHandler>
         </OptionsModalStyled>
     )
 }
 
-const BgModal = (props, ref) => {
+const BgModal = props => {
     // colors that user could change task background
     const colors = ['#f28b82', '#fbbc04', '#fff475', '#ccff90', '#a7ffeb']
 
@@ -225,16 +230,26 @@ const BgModal = (props, ref) => {
     }
 
     return (
-        <BgModalStyled {...props}>
-            <OutsideClickHandler onOutsideClick={() => props.handleOutsideClick(false)}>
+        <OutsideClickHandler onOutsideClick={() => props.handleOutsideClick(false)}>
+            <BgModalStyled {...props}>
                 <NoColorCircle onClick={() => changeColor('white')}>
                     <FontAwesomeIcon icon={faDropletSlash} />
                 </NoColorCircle>
                 {colors.map(color => (
                     <ColorCircle onClick={() => changeColor(color)} color={color} key={color} />
                 ))}
+            </BgModalStyled>
+        </OutsideClickHandler>
+    )
+}
+
+const ReminderModal = props => {
+    return (
+        <ReminderModalStyled {...props}>
+            <OutsideClickHandler onOutsideClick={() => props.handleOutsideClick(false)}>
+                <Calendar onChange={props.setCalendarValue} value={props.calendarValue} />
             </OutsideClickHandler>
-        </BgModalStyled>
+        </ReminderModalStyled>
     )
 }
 
