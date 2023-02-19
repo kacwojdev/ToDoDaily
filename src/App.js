@@ -15,9 +15,11 @@ import Login from './Pages/Login'
 import Register from './Pages/Register'
 
 const AppContainer = styled.div`
-    min-height: 100%;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
+    & > div {
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        min-height: 100vh;
+    }
 `
 
 class App extends React.Component {

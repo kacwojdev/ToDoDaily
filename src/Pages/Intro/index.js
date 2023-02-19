@@ -1,67 +1,26 @@
 import React from 'react'
-import styled from 'styled-components'
-import { PrimaryButton, _Container } from '../../styledComponents'
+import { PrimaryButton } from '../../styledComponents'
+import {
+    FeaturesBackgroundContainer,
+    FeaturesContainer,
+    FeaturesList,
+    FeaturesMainDesc,
+    FeatureCard,
+    SubHeaderFeatures,
+    IntroBackgroundContainer,
+    IntroContainer,
+    IntroImg,
+    IntroTexts
+} from './styles'
 import { Dart, Loudspeaker, Calendar, Paints } from '../../Assets'
 import { Link } from 'react-router-dom'
 import Nav from '../../Components/ui/Nav'
 import Footer from '../../Components/ui/Footer'
-
-const FeaturesBackgroundContainer = styled.section`
-    width: 100%;
-    background: white;
-    color: #363636;
-`
-
-const FeaturesContainer = styled(_Container)`
-    display: flex;
-    flex-flow: column;
-    margin: 50px auto;
-`
-
-const FeaturesList = styled.div`
-    display: flex;
-    flex-flow: row;
-    gap: 50px;
-`
-
-const FeaturesMainDesc = styled.p`
-    font-size: 2rem;
-`
-
-const FeatureCard = styled.div`
-    padding: 1.5rem;
-    box-shadow: 0 0 10px #e3e3e3;
-`
-
-const SubHeaderFeatures = styled.h4`
-    color: grey;
-    font-size: 1rem;
-`
-
-const IntroBackgroundContainer = styled.section`
-    widht: 100%;
-    background: linear-gradient(45deg, #3e09ae, #b758e4);
-    color: white;
-`
-
-const IntroContainer = styled(_Container)`
-    height: fit-content;
-    display: flex;
-    align-items: center;
-    padding: auto 50px;
-`
-
-const IntroImg = styled.img`
-    flex-grow: 1;
-`
-
-const IntroTexts = styled.div`
-    flex-grow: 4;
-`
+import AnimatedPage from '../../Components/AnimatedPage'
 
 const Intro = () => {
     return (
-        <>
+        <AnimatedPage>
             <header>
                 <Nav />
             </header>
@@ -91,7 +50,7 @@ const Intro = () => {
                                 </PrimaryButton>
                             </Link>
                         </IntroTexts>
-                        <IntroImg src={Dart} />
+                        <IntroImg draggable={false} src={Dart} />
                     </IntroContainer>
                 </IntroBackgroundContainer>
                 <FeaturesBackgroundContainer>
@@ -107,7 +66,12 @@ const Intro = () => {
                         <FeaturesList>
                             <FeatureCard>
                                 <h3>Oznacz task</h3>
-                                <img height="150px" src={Paints} alt={'Paints image'} />
+                                <img
+                                    draggable={false}
+                                    height="150px"
+                                    src={Paints}
+                                    alt={'Paints image'}
+                                />
                                 <p>
                                     Dodaj to swojego zadania kolor tła jaki chcesz aby lepiej o nim
                                     pamiętać
@@ -115,7 +79,12 @@ const Intro = () => {
                             </FeatureCard>
                             <FeatureCard>
                                 <h3>Nie zapomnij</h3>
-                                <img height="150px" src={Loudspeaker} alt={'Loudspeaker image'} />
+                                <img
+                                    draggable={false}
+                                    height="150px"
+                                    src={Loudspeaker}
+                                    alt={'Loudspeaker image'}
+                                />
                                 <p>
                                     Dodaj to swojego zadania przypomnienie w formie sms lub maila,
                                     albo poprostu powiadomienia na telefonie.
@@ -123,7 +92,12 @@ const Intro = () => {
                             </FeatureCard>
                             <FeatureCard>
                                 <h3>Deadline</h3>
-                                <img height="150px" src={Calendar} alt={'Calendar image'} />
+                                <img
+                                    draggable={false}
+                                    height="150px"
+                                    src={Calendar}
+                                    alt={'Calendar image'}
+                                />
                                 <p>Ustaw deadline do kiedy masz zamiar uporać się z zdaniem.</p>
                             </FeatureCard>
                         </FeaturesList>
@@ -133,7 +107,7 @@ const Intro = () => {
             <footer>
                 <Footer />
             </footer>
-        </>
+        </AnimatedPage>
     )
 }
 
