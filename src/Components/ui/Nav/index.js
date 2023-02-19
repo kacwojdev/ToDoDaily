@@ -1,16 +1,23 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { PrimaryButton } from '../../../styledComponents'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 
 const NavigationBox = styled.nav`
+    width: 100%;
+    background: white;
+`
+
+const NavigationBoxContainer = styled.div`
+    max-width: 1180px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
-    padding: .5rem 3rem;
-    
+    align-items: stretch;
+    margin: auto;
+
     @media (max-width: 550px) {
         flex-direction: column;
     }
@@ -35,21 +42,40 @@ const BrandBox = styled.div`
     }
 `
 
-
 const Nav = () => {
     return (
         <NavigationBox>
-            <BrandBox>
-                <h1>
-                    <Link to="/">
-                        <SiteTitle>TodoDaily</SiteTitle>
-                    </Link>
-                </h1>
-                <SiteQuote>Clean up your daily mess.</SiteQuote>
-            </BrandBox>
-            {/* <div>
-                <FontAwesomeIcon style={{marginLeft: '10px'}} icon={faUser} />
-            </div> */}
+            <NavigationBoxContainer>
+                <BrandBox>
+                    <h1>
+                        <Link to="/">
+                            <SiteTitle>TodoDaily</SiteTitle>
+                        </Link>
+                    </h1>
+                    <SiteQuote>Clean up your daily mess.</SiteQuote>
+                </BrandBox>
+                <div>
+                    <PrimaryButton
+                        style={{
+                            fontSize: '1.2rem',
+                            padding: '1rem 2rem'
+                        }}
+                    >
+                        Zaloguj
+                    </PrimaryButton>
+                    <PrimaryButton
+                        style={{
+                            background: 'rgb(0, 101, 255)',
+                            height: '100%',
+                            color: 'white',
+                            fontSize: '1.2rem',
+                            borderRadius: '0'
+                        }}
+                    >
+                        Zacznij korzystać z TodoDaily
+                    </PrimaryButton>
+                </div>
+            </NavigationBoxContainer>
         </NavigationBox>
     )
 }

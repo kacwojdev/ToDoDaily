@@ -1,5 +1,10 @@
 import styled from 'styled-components'
 
+export const _Container = styled.div`
+    max-width: 1180px;
+    margin: auto;
+`
+
 const _Button = styled.button`
     padding: 0.5rem 1rem;
     border: none;
