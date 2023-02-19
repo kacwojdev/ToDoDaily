@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components"
+import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyle = createGlobalStyle`
     html, body, #root {
@@ -10,7 +10,7 @@ const GlobalStyle = createGlobalStyle`
         position: relative;
         margin: 0;
         padding: 0;
-        font-family: 'Rubik', sans-serif;
+        font-family: 'Radio Canada', sans-serif;
         color: black;
         background-color: white;
     }
