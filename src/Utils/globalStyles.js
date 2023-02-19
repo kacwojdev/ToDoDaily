@@ -12,7 +12,7 @@ const GlobalStyle = createGlobalStyle`
         padding: 0;
         font-family: 'Radio Canada', sans-serif;
         color: black;
-        background-color: white;
+        background-color: #f9fafc;
     }
 
     button, inout, textarea {

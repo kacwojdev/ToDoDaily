@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 import Footer from '../../Components/ui/Footer'
 import { PrimaryButton, _Container } from '../../styledComponents'
 import { Kettle, Basketball, FacebookIcon, GoogleIcon } from '../../Assets'
@@ -81,6 +82,16 @@ const SocailRegisterButton = styled(PrimaryButton)`
     }
 `
 
+const ReturnBox = styled.div`
+    display: flex;
+    flex-direction: column;
+`
+const Separator = styled.div`
+    height: 1px;
+    width: 100%;
+    background: grey;
+`
+
 const Register = () => {
     return (
         <>
@@ -113,6 +124,15 @@ const Register = () => {
                             Kontynuuj za pomocą konta Facebook
                         </SocailRegisterButton>
                     </RegisterSocial>
+                    <ReturnBox>
+                        <Separator></Separator>
+                        <p>
+                            Masz już konto?{' '}
+                            <Link style={{ color: 'blue' }} to="/login">
+                                Zaloguj się
+                            </Link>
+                        </p>
+                    </ReturnBox>
                 </RegisterContainer>
                 <img
                     style={{ position: 'absolute', left: '0', bottom: '0' }}
