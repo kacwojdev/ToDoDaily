@@ -37,23 +37,20 @@ class App extends React.Component {
 
     render() {
         return (
-            <AppContainer className="App">
+            <AppContainer>
                 <Router basename="/">
                     <GlobalStyle />
-                    <main>
-                        <Routes>
-                            <Route path="/" element={<Intro />} />
-                            <Route path="/login" element={<Login />} />
-                            <Route path="/register" element={<Register />} />
-                            <Route path="/groups" element={<Groups />} />
-                            <Route path="/group/:groupId" element={<Tasks />}>
-                                <Route path="tasks" element={<TasksView />} />
-                                <Route path="archive" element={<Archive />} />
-                                <Route path="labels" element={<Labels />} />
-                            </Route>
-                        </Routes>
-                    </main>
-                    <Footer />
+                    <Routes>
+                        <Route path="/" element={<Intro />} />
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/register" element={<Register />} />
+                        <Route path="/groups" element={<Groups />} />
+                        <Route path="/group/:groupId" element={<Tasks />}>
+                            <Route path="tasks" element={<TasksView />} />
+                            <Route path="archive" element={<Archive />} />
+                            <Route path="labels" element={<Labels />} />
+                        </Route>
+                    </Routes>
                 </Router>
             </AppContainer>
         )
