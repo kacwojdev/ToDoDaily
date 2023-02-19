@@ -55,25 +55,29 @@ const Nav = () => {
                     <SiteQuote>Clean up your daily mess.</SiteQuote>
                 </BrandBox>
                 <div>
-                    <PrimaryButton
-                        style={{
-                            fontSize: '1.2rem',
-                            padding: '1rem 2rem'
-                        }}
-                    >
-                        Zaloguj
-                    </PrimaryButton>
-                    <PrimaryButton
-                        style={{
-                            background: 'rgb(0, 101, 255)',
-                            height: '100%',
-                            color: 'white',
-                            fontSize: '1.2rem',
-                            borderRadius: '0'
-                        }}
-                    >
-                        Zacznij korzystać z TodoDaily
-                    </PrimaryButton>
+                    <Link to="/login">
+                        <PrimaryButton
+                            style={{
+                                fontSize: '1.2rem',
+                                padding: '1rem 2rem'
+                            }}
+                        >
+                            Zaloguj
+                        </PrimaryButton>
+                    </Link>
+                    <Link to="/register">
+                        <PrimaryButton
+                            style={{
+                                background: 'rgb(0, 101, 255)',
+                                height: '100%',
+                                color: 'white',
+                                fontSize: '1.2rem',
+                                borderRadius: '0'
+                            }}
+                        >
+                            Zacznij korzystać z TodoDaily
+                        </PrimaryButton>
+                    </Link>
                 </div>
             </NavigationBoxContainer>
         </NavigationBox>

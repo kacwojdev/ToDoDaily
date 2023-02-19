@@ -2,6 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import { PrimaryButton, _Container } from '../../styledComponents'
 import { Dart, Loudspeaker, Calendar, Paints } from '../../Assets'
+import { Link } from 'react-router-dom'
+import Nav from '../../Components/ui/Nav'
 
 const FeaturesBackgroundContainer = styled.section`
     width: 100%;
@@ -59,6 +61,7 @@ const IntroTexts = styled.div`
 const Intro = () => {
     return (
         <>
+            <Nav />
             <IntroBackgroundContainer>
                 <IntroContainer>
                     <IntroTexts>
@@ -70,17 +73,19 @@ const Intro = () => {
                             Zarządzaj swoimi zadaniami z dowolnego urządzenia, w każdej chwili i w
                             każdym miejscu.
                         </p>
-                        <PrimaryButton
-                            style={{
-                                fontSize: '1rem',
-                                backgroundColor: 'rgb(0, 101, 255)',
-                                color: 'white',
-                                marginTop: '2rem',
-                                padding: '1rem 2rem'
-                            }}
-                        >
-                            Rozpocznij już teraz
-                        </PrimaryButton>
+                        <Link to="/register">
+                            <PrimaryButton
+                                style={{
+                                    fontSize: '1rem',
+                                    backgroundColor: 'rgb(0, 101, 255)',
+                                    color: 'white',
+                                    marginTop: '2rem',
+                                    padding: '1rem 2rem'
+                                }}
+                            >
+                                Rozpocznij już teraz
+                            </PrimaryButton>
+                        </Link>
                     </IntroTexts>
                     <IntroImg src={Dart} />
                 </IntroContainer>

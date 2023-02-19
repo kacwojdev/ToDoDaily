@@ -11,6 +11,8 @@ import Archive from './Pages/Tasks/Archive'
 import Labels from './Pages/Tasks/Labels'
 import TasksView from './Pages/Tasks/TasksView'
 import GlobalStyle from './Utils/globalStyles'
+import Login from './Pages/Login'
+import Register from './Pages/Register'
 
 const AppContainer = styled.div`
     min-height: 100%;
@@ -36,12 +38,13 @@ class App extends React.Component {
     render() {
         return (
             <AppContainer className="App">
-                <Router basename="/ToDoDaily">
+                <Router basename="/">
                     <GlobalStyle />
-                    <Nav />
                     <main>
                         <Routes>
                             <Route path="/" element={<Intro />} />
+                            <Route path="/login" element={<Login />} />
+                            <Route path="/register" element={<Register />} />
                             <Route path="/groups" element={<Groups />} />
                             <Route path="/group/:groupId" element={<Tasks />}>
                                 <Route path="tasks" element={<TasksView />} />
