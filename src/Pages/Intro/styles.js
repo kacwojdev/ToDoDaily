@@ -66,6 +66,10 @@ export const IntroContainer = styled(_Container)`
 
 export const IntroImg = styled.img`
     flex-grow: 1;
+
+    @media (max-width: 880px) {
+        width: 100%;
+    }
 `
 
 export const IntroTexts = styled.div`

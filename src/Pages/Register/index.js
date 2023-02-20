@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { HeaderContainer } from './styles'
+import { HeaderContainer, KettleImage, BasketballImage } from './styles'
 import { Kettle, Basketball } from '../../Assets'
 import Footer from '../../Components/ui/Footer'
 import AnimatedPage from '../../Components/AnimatedPage'
@@ -18,13 +18,13 @@ const Register = () => {
             </header>
             <section style={{ position: 'relative' }}>
                 <RegisterFormComponent />
-                <img
+                <KettleImage
                     style={{ position: 'absolute', left: '0', bottom: '0' }}
                     src={Kettle}
                     alt={'Men with kettle image'}
                     draggable={false}
                 />
-                <img
+                <BasketballImage
                     style={{ position: 'absolute', right: '0', bottom: '0' }}
                     src={Basketball}
                     alt={'Basketball player image'}

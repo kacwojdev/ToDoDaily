@@ -24,6 +24,11 @@ export const LoginForm = styled.form`
         font-size: 1rem;
         color: #5e6c84;
     }
+
+    @media (max-width: 550px) {
+        padding: 1rem;
+        min-width: 100%;
+    }
 `
 export const LoginInput = styled.input`
     padding: 0.5rem 1.5rem;

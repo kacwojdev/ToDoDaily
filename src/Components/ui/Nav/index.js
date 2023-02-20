@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { motion } from 'framer-motion'
@@ -38,10 +38,6 @@ const NavigationBoxContainer = styled.div`
         margin-left: 50px;
         align-items: center;
     }
-
-    @media (max-width: 550px) {
-        flex-direction: column;
-    }
 `
 
 const SiteTitle = styled.span`
@@ -51,16 +47,16 @@ const SiteTitle = styled.span`
 `
 const SiteQuote = styled.p`
     color: inherit;
+
+    @media (max-width: 550px) {
+        display: none;
+    }
 `
 
 const BrandBox = styled.div`
     display: flex;
     flex-direction: row;
     align-items: baseline;
-
-    @media (max-width: 550px) {
-        flex-direction: column;
-    }
 `
 
 const Nav = ({ handleBurgerOpen }) => {
