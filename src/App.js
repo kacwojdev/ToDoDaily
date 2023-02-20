@@ -1,9 +1,7 @@
 import React from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 
-import Footer from './Components/ui/Footer'
-import Nav from './Components/ui/Nav'
 import Groups from './Pages/Groups'
 import Intro from './Pages/Intro'
 import Tasks from './Pages/Tasks'
@@ -13,6 +11,7 @@ import TasksView from './Pages/Tasks/TasksView'
 import GlobalStyle from './Utils/globalStyles'
 import Login from './Pages/Login'
 import Register from './Pages/Register'
+import { AnimatePresence } from 'framer-motion'
 
 const AppContainer = styled.div`
     & > div {
@@ -21,28 +20,15 @@ const AppContainer = styled.div`
         min-height: 100vh;
     }
 `
+const App = () => {
+    const randomKey = Math.random()
 
-class App extends React.Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {}
-    }
-
-    componentDidMount() {
-        if (localStorage.getItem('todoDaily_data')) {
-            this.setState({ data: localStorage.getItem('todoDaily_data') })
-        } else {
-            localStorage.setItem('todoDaily_data', JSON.stringify({}))
-        }
-    }
-
-    render() {
-        return (
-            <AppContainer>
-                <Router basename="/">
-                    <GlobalStyle />
-                    <Routes>
+    return (
+        <AppContainer>
+            <Router basename="/">
+                <GlobalStyle />
+                <AnimatePresence mode="wait">
+                    <Routes key={randomKey}>
                         <Route path="/" element={<Intro />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
@@ -53,10 +39,10 @@ class App extends React.Component {
                             <Route path="labels" element={<Labels />} />
                         </Route>
                     </Routes>
-                </Router>
-            </AppContainer>
-        )
-    }
+                </AnimatePresence>
+            </Router>
+        </AppContainer>
+    )
 }
 
 export default App
