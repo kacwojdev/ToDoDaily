@@ -31,9 +31,7 @@ const Login = () => {
                     draggable={false}
                 />
             </section>
-            <footer>
-                <Footer />
-            </footer>
+            <Footer />
         </AnimatedPage>
     )
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { PrimaryButton } from '../../styledComponents'
 import {
     FeaturesBackgroundContainer,
@@ -14,21 +14,30 @@ import {
 } from './styles'
 import { Dart, Loudspeaker, Calendar, Paints } from '../../Assets'
 import { Link } from 'react-router-dom'
-import Nav from '../../Components/ui/Nav'
+import { Nav, MobileNav } from '../../Components/ui/Nav'
 import Footer from '../../Components/ui/Footer'
 import AnimatedPage from '../../Components/AnimatedPage'
 
 const Intro = () => {
+    const [burgerOpened, setBurgerOpened] = useState(false)
+
+    const handleBurgerOpen = () => {
+        setBurgerOpened(!burgerOpened)
+    }
+
     return (
-        <AnimatedPage>
-            <header>
-                <Nav />
-            </header>
+        <AnimatedPage
+            style={{
+                position: 'relative'
+            }}
+        >
+            <Nav handleBurgerOpen={handleBurgerOpen} />
+            <MobileNav burgerOpened={burgerOpened} />
             <main>
                 <IntroBackgroundContainer>
                     <IntroContainer>
                         <IntroTexts>
-                            <h1 style={{ fontSize: '2rem' }}>
+                            <h1>
                                 TodoDaily aplikacja do zarządzania zadaniami pozwala na łatwe
                                 organizowanie codziennych obowiązków
                             </h1>
@@ -104,9 +113,7 @@ const Intro = () => {
                     </FeaturesContainer>
                 </FeaturesBackgroundContainer>
             </main>
-            <footer>
-                <Footer />
-            </footer>
+            <Footer />
         </AnimatedPage>
     )
 }

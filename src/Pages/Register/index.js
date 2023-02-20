@@ -31,9 +31,7 @@ const Register = () => {
                     draggable={false}
                 />
             </section>
-            <footer>
-                <Footer />
-            </footer>
+            <Footer />
         </AnimatedPage>
     )
 }

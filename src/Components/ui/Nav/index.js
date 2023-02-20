@@ -1,9 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { motion } from 'framer-motion'
 import { PrimaryButton } from '../../../styledComponents'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faUser } from '@fortawesome/free-solid-svg-icons'
+
+const UserManagementBox = styled.div`
+    @media (max-width: 880px) {
+        display: none;
+    }
+`
+
+const MobileUserManagementBox = styled.div`
+    display: none;
+    color: black;
+
+    @media (max-width: 879px) {
+        display: flex;
+    }
+`
 
 const NavigationBox = styled.nav`
     width: 100%;
@@ -17,6 +33,11 @@ const NavigationBoxContainer = styled.div`
     justify-content: space-between;
     align-items: stretch;
     margin: auto;
+
+    @media (max-width: 879px) {
+        margin-left: 50px;
+        align-items: center;
+    }
 
     @media (max-width: 550px) {
         flex-direction: column;
@@ -42,46 +63,111 @@ const BrandBox = styled.div`
     }
 `
 
-const Nav = () => {
+const Nav = ({ handleBurgerOpen }) => {
     return (
-        <NavigationBox>
-            <NavigationBoxContainer>
-                <BrandBox>
-                    <h1>
-                        <Link to="/">
-                            <SiteTitle>TodoDaily</SiteTitle>
+        <header>
+            <NavigationBox>
+                <NavigationBoxContainer>
+                    <BrandBox>
+                        <h1>
+                            <Link to="/">
+                                <SiteTitle>TodoDaily</SiteTitle>
+                            </Link>
+                        </h1>
+                        <SiteQuote>Clean up your daily mess.</SiteQuote>
+                    </BrandBox>
+                    <UserManagementBox>
+                        <Link to="/login">
+                            <PrimaryButton
+                                style={{
+                                    fontSize: '1.2rem',
+                                    padding: '1rem 2rem'
+                                }}
+                            >
+                                Zaloguj
+                            </PrimaryButton>
                         </Link>
-                    </h1>
-                    <SiteQuote>Clean up your daily mess.</SiteQuote>
-                </BrandBox>
-                <div>
-                    <Link to="/login">
-                        <PrimaryButton
+                        <Link to="/register">
+                            <PrimaryButton
+                                style={{
+                                    background: 'rgb(0, 101, 255)',
+                                    height: '100%',
+                                    color: 'white',
+                                    fontSize: '1.2rem',
+                                    borderRadius: '0'
+                                }}
+                            >
+                                Zacznij korzystać z TodoDaily
+                            </PrimaryButton>
+                        </Link>
+                    </UserManagementBox>
+                    <MobileUserManagementBox>
+                        <motion.button
                             style={{
-                                fontSize: '1.2rem',
-                                padding: '1rem 2rem'
+                                padding: '1.5rem',
+                                border: 'none',
+                                background: 'none',
+                                fontSize: '2rem',
+                                cursor: 'pointer'
                             }}
-                        >
-                            Zaloguj
-                        </PrimaryButton>
-                    </Link>
-                    <Link to="/register">
-                        <PrimaryButton
-                            style={{
-                                background: 'rgb(0, 101, 255)',
-                                height: '100%',
-                                color: 'white',
-                                fontSize: '1.2rem',
-                                borderRadius: '0'
+                            whileTap={{
+                                scale: 0.9
                             }}
+                            transition={{
+                                duration: 0.1
+                            }}
+                            onClick={() => handleBurgerOpen()}
                         >
-                            Zacznij korzystać z TodoDaily
-                        </PrimaryButton>
-                    </Link>
-                </div>
-            </NavigationBoxContainer>
-        </NavigationBox>
+                            <FontAwesomeIcon icon={faBars} />
+                        </motion.button>
+                    </MobileUserManagementBox>
+                </NavigationBoxContainer>
+            </NavigationBox>
+        </header>
     )
 }
 
-export default Nav
+const MobileNav = ({ burgerOpened }) => {
+    return (
+        <div
+            style={{
+                position: 'absolute',
+                top: '86px',
+                left: 0,
+                width: '100%',
+                background: 'white',
+                display: burgerOpened ? 'flex' : 'none',
+                flexDirection: 'column',
+                alignItems: 'center',
+                padding: '50px',
+                borderTop: '2px solid black'
+            }}
+        >
+            <Link to="/login">
+                <PrimaryButton
+                    style={{
+                        fontSize: '1.2rem',
+                        padding: '1rem 2rem'
+                    }}
+                >
+                    Zaloguj
+                </PrimaryButton>
+            </Link>
+            <Link to="/register">
+                <PrimaryButton
+                    style={{
+                        background: 'rgb(0, 101, 255)',
+                        height: '100%',
+                        color: 'white',
+                        fontSize: '1.2rem',
+                        borderRadius: '0'
+                    }}
+                >
+                    Zacznij korzystać z TodoDaily
+                </PrimaryButton>
+            </Link>
+        </div>
+    )
+}
+
+export { MobileNav, Nav }

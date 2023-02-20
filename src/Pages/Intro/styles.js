@@ -4,6 +4,10 @@ import { PrimaryButton, _Container } from '../../styledComponents'
 export const FeaturesBackgroundContainer = styled.section`
     width: 100%;
     color: #363636;
+
+    @media (max-width: 880px) {
+        padding: 50px;
+    }
 `
 
 export const FeaturesContainer = styled(_Container)`
@@ -16,6 +20,10 @@ export const FeaturesList = styled.div`
     display: flex;
     flex-flow: row;
     gap: 50px;
+
+    @media (max-width: 880px) {
+        flex-flow: column;
+    }
 `
 
 export const FeaturesMainDesc = styled.p`
@@ -23,6 +31,9 @@ export const FeaturesMainDesc = styled.p`
 `
 
 export const FeatureCard = styled.div`
+    display: flex;
+    flex-flow: column;
+    align-items: center;
     padding: 1.5rem;
     box-shadow: 0 0 10px #e3e3e3;
 `
@@ -36,6 +47,10 @@ export const IntroBackgroundContainer = styled.section`
     widht: 100%;
     background: linear-gradient(45deg, #3e09ae, #b758e4);
     color: white;
+
+    @media (max-width: 880px) {
+        padding: 50px;
+    }
 `
 
 export const IntroContainer = styled(_Container)`
@@ -43,6 +58,10 @@ export const IntroContainer = styled(_Container)`
     display: flex;
     align-items: center;
     padding: auto 50px;
+
+    @media (max-width: 880px) {
+        flex-direction: column-reverse;
+    }
 `
 
 export const IntroImg = styled.img`
@@ -51,4 +70,14 @@ export const IntroImg = styled.img`
 
 export const IntroTexts = styled.div`
     flex-grow: 4;
+
+    & > h1 {
+        font-size: 2rem;
+    }
+
+    @media (max-width: 880px) {
+        & > h1 {
+            font-size: 1.5rem;
+        }
+    }
 `

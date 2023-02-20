@@ -11,6 +11,10 @@ const FooterContainer = styled.div`
     @media (max-width: 550px) {
         flex-direction: column;
     }
+
+    @media (max-width: 880px) {
+        padding: 0 50px;
+    }
 `
 
 const FooterBox = styled.footer`
