@@ -1,13 +1,8 @@
 import React from 'react'
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
-import styled from 'styled-components'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
-import Groups from './Pages/Groups'
+import Lists from './Pages/Lists'
 import Intro from './Pages/Intro'
-import Tasks from './Pages/Tasks'
-import Archive from './Pages/Tasks/Archive'
-import Labels from './Pages/Tasks/Labels'
-import TasksView from './Pages/Tasks/TasksView'
 import GlobalStyle from './Utils/globalStyles'
 import Login from './Pages/Login'
 import Register from './Pages/Register'
@@ -25,12 +20,7 @@ const App = () => {
                         <Route path="/" element={<Intro />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
-                        <Route path="/groups" element={<Groups />} />
-                        <Route path="/group/:groupId" element={<Tasks />}>
-                            <Route path="tasks" element={<TasksView />} />
-                            <Route path="archive" element={<Archive />} />
-                            <Route path="labels" element={<Labels />} />
-                        </Route>
+                        <Route path="/lists" element={<Lists />} />
                     </Routes>
                 </AnimatePresence>
             </Router>
