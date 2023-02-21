@@ -1,12 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { PageHeader, HeaderBar, MainContentContainer, HeaderBarGroup } from '../../styledComponents'
 import { auth } from '../../firebase'
-import { signOut } from 'firebase/auth'
+import { signOut, onAuthStateChanged } from 'firebase/auth'
 import { AddTasksGroupButton } from '../../Components/AddButtons'
 import GroupList from '../../Components/GroupList'
 import GroupNameModal from '../../Components/GroupNameModal'
+import Loading from '../../Components/Loading'
 import { useNavigate } from 'react-router'
+import GridWrapper from '../../Components/GridWrapper'
+import { Link } from 'react-router-dom'
+
+import { AppHeader } from './styles'
 
 const GroupsViewContainer = styled.div`
     display: grid;
@@ -26,37 +31,19 @@ const ModalBlurred = styled.div`
 
 const Groups = () => {
     const [modalVisibilty, setVisibility] = useState(false)
+    const [loading, setLoading] = useState(true)
 
-    const handleOpenModal = () => {
-        setVisibility(!modalVisibilty)
-    }
-
-    return (
-        <>
-            <div>
-                <HeaderBar>
-                    <HeaderBarGroup>
-                        <PageHeader>Home</PageHeader>
-                        <UserManagementDev />
-                    </HeaderBarGroup>
-                </HeaderBar>
-                <MainContentContainer>
-                    <AddTasksGroupButton handleOpenModal={handleOpenModal}>
-                        + Create new group
-                    </AddTasksGroupButton>
-                    <GroupsViewContainer>
-                        <GroupList />
-                    </GroupsViewContainer>
-                </MainContentContainer>
-            </div>
-            {modalVisibilty ? <ModalBlurred></ModalBlurred> : null}
-            <GroupNameModal visible={modalVisibilty} handleSetVisibility={setVisibility} />
-        </>
-    )
-}
-
-const UserManagementDev = () => {
     const navigate = useNavigate()
+
+    useEffect(() => {
+        onAuthStateChanged(auth, user => {
+            if (user) {
+                setLoading(false)
+            } else {
+                navigate('/login')
+            }
+        })
+    }, [])
 
     const handleLogOut = () => {
         auth.signOut()
@@ -68,11 +55,25 @@ const UserManagementDev = () => {
             })
     }
 
-    return (
-        <>
-            Cześć, {auth.currentUser.displayName}
-            <button onClick={handleLogOut}>Wyloguj się</button>
-        </>
+    return loading ? (
+        <Loading />
+    ) : (
+        <GridWrapper>
+            <AppHeader>
+                <div>
+                    <h3>TodoDaily</h3>
+                    <h2>
+                        <span>Cześć,</span> {auth.currentUser.displayName}
+                    </h2>
+                </div>
+                <nav>
+                    <Link to="/account">Moje konto</Link>
+                    <button onClick={handleLogOut}>Wyloguj</button>
+                </nav>
+            </AppHeader>
+            <main></main>
+            <footer></footer>
+        </GridWrapper>
     )
 }
 

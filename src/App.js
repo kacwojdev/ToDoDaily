@@ -13,18 +13,11 @@ import Login from './Pages/Login'
 import Register from './Pages/Register'
 import { AnimatePresence } from 'framer-motion'
 
-const AppContainer = styled.div`
-    & > div {
-        display: grid;
-        grid-template-rows: auto 1fr auto;
-        min-height: 100vh;
-    }
-`
 const App = () => {
     const randomKey = Math.random()
 
     return (
-        <AppContainer>
+        <>
             <Router basename="/">
                 <GlobalStyle />
                 <AnimatePresence mode="wait">
@@ -41,7 +34,7 @@ const App = () => {
                     </Routes>
                 </AnimatePresence>
             </Router>
-        </AppContainer>
+        </>
     )
 }
 

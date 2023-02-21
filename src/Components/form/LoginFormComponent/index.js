@@ -1,6 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { auth } from '../../../firebase'
-import { signInWithEmailAndPassword } from 'firebase/auth'
+import {
+    browserSessionPersistence,
+    setPersistence,
+    signInWithEmailAndPassword
+} from 'firebase/auth'
 import { useFormik } from 'formik'
 import ErrorMessage from '../ErrorMessage'
 import SubmitButton from '../SubmitButton'
