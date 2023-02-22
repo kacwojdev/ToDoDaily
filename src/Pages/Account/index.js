@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { AppHeader, UserDataForm, Main, UserDataInputBox, SaveDataBtn, Spacer } from './styles'
+import {
+    AppHeader,
+    UserDataForm,
+    Main,
+    UserDataInputBox,
+    SaveDataBtn,
+    Spacer,
+    UserDataSubmitButton
+} from './styles'
 import {
     signOut,
     onAuthStateChanged,
@@ -223,7 +231,7 @@ const Account = () => {
                         {emailError && <ErrorMessage message="Nie udało się zmienić email." />}
                     </UserDataInputBox>
 
-                    <SubmitButton active={false}>Zapisz dane</SubmitButton>
+                    <UserDataSubmitButton active={false}>Zapisz dane</UserDataSubmitButton>
                 </UserDataForm>
                 <Spacer />
                 <h3>Zmiana hasła</h3>

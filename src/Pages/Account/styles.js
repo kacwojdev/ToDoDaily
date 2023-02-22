@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { RegisterSubmitBtn } from '../../Components/form/SubmitButton/styles'
 import { PrimaryButton } from '../../styledComponents'
 
 export const AppHeader = styled.header`
@@ -111,4 +112,11 @@ export const Spacer = styled.div`
     height: 1px;
     margin: 3rem 0;
     background: #c0c0c0;
+`
+export const UserDataSubmitButton = styled(RegisterSubmitBtn)`
+    grid-row-start: 3;
+
+    @media (max-width: 575px) {
+        grid-row-start: 4;
+    }
 `
