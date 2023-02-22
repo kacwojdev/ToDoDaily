@@ -5,22 +5,13 @@ import Loading from '../../Components/Loading'
 import { useNavigate } from 'react-router'
 import GridWrapper from '../../Components/GridWrapper'
 import { Link } from 'react-router-dom'
-import {
-    AppHeader,
-    AppMain,
-    ListBox,
-    TaskBox,
-    TaskContent,
-    AddBtn,
-    EditBtn,
-    CreateNewListBtn
-} from './styles'
+import { AppHeader, AppMain, CreateNewListBtn } from './styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faPlus, faSliders } from '@fortawesome/free-solid-svg-icons'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import List from '../../Components/List'
 
 const Lists = () => {
     const [loading, setLoading] = useState(true)
-
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -60,55 +51,7 @@ const Lists = () => {
                 </nav>
             </AppHeader>
             <AppMain>
-                <ListBox>
-                    <h4>Lista zadań</h4>
-                    <TaskBox>
-                        <button>
-                            <FontAwesomeIcon icon={faCheck} />
-                        </button>
-                        <TaskContent>
-                            <h6>Marchewka</h6>
-                            <p>Lorem ipsum dolor sit amet lorem ipsum dolor sit amet</p>
-                        </TaskContent>
-                    </TaskBox>
-                    <TaskBox>
-                        <button>
-                            <FontAwesomeIcon icon={faCheck} />
-                        </button>
-                        <TaskContent>
-                            <h6>Marchewka</h6>
-                            <p>Lorem ipsum dolor sit amet lorem ipsum dolor sit amet</p>
-                        </TaskContent>
-                    </TaskBox>
-                    <TaskBox>
-                        <button>
-                            <FontAwesomeIcon icon={faCheck} />
-                        </button>
-                        <TaskContent>
-                            <h6>Marchewka</h6>
-                            <p>Lorem ipsum dolor sit amet lorem ipsum dolor sit amet</p>
-                        </TaskContent>
-                    </TaskBox>
-                    <TaskBox>
-                        <button>
-                            <FontAwesomeIcon icon={faCheck} />
-                        </button>
-                        <TaskContent>
-                            <h6>Marchewka</h6>
-                            <p>Lorem ipsum dolor sit amet lorem ipsum dolor sit amet</p>
-                        </TaskContent>
-                    </TaskBox>
-                    <div>
-                        <AddBtn>
-                            <FontAwesomeIcon style={{ marginRight: '.5rem' }} icon={faPlus} />
-                            Dodaj
-                        </AddBtn>
-                        <EditBtn style={{ marginLeft: '1rem' }}>
-                            <FontAwesomeIcon style={{ marginRight: '.5rem' }} icon={faSliders} />
-                            Edytuj
-                        </EditBtn>
-                    </div>
-                </ListBox>
+                <List />
                 <CreateNewListBtn>
                     <FontAwesomeIcon icon={faPlus} style={{ marginRight: '1rem' }} />
                     Utwórz nową listę zadań

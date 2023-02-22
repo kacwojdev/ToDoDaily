@@ -18,7 +18,7 @@ const FooterContainer = styled.div`
 `
 
 const FooterBox = styled.footer`
-    background: rgb(23, 43, 77);
+    background: #141875;
     color: white;
 `
 

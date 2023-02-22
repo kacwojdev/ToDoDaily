@@ -78,7 +78,7 @@ const RegisterFormComponent = () => {
                         displayName: `${values.firstName} ${values.lastName}`
                     }).then(() => {
                         console.log('full registration done')
-                        navigate('/groups')
+                        navigate('/lists')
                     })
                 })
                 .catch(error => {

@@ -45,7 +45,7 @@ export const SubHeaderFeatures = styled.h4`
 
 export const IntroBackgroundContainer = styled.section`
     widht: 100%;
-    background: linear-gradient(45deg, #3e09ae, #b758e4);
+    background: linear-gradient(45deg, #2730ff, #141875);
     color: white;
 
     @media (max-width: 880px) {

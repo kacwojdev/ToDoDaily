@@ -50,7 +50,7 @@ const LoginFormComponent = () => {
             setFormLoading(true)
             signInWithEmailAndPassword(auth, values.loginEmail, values.loginPassword)
                 .then(() => {
-                    navigate('/groups')
+                    navigate('/lists')
                 })
                 .catch(error => {
                     setFormLoading(false)
