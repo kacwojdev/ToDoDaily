@@ -25,15 +25,12 @@ const Account = () => {
     const [email, setEmail] = useState(auth.currentUser.email)
     const [firstName, setFirstName] = useState(auth.currentUser.displayName.split(' ')[0])
     const [lastName, setLastName] = useState(auth.currentUser.displayName.split(' ')[1])
-    const [phoneNumber, setPhoneNumber] = useState(auth.currentUser.phoneNumber || null)
     const [emailSuccess, setEmailSuccess] = useState(false)
     const [firstNameSuccess, setFirstNameSuccess] = useState(false)
     const [lastNameSuccess, setLastNameSuccess] = useState(false)
-    const [phoneNumberSuccess, setPhoneNumberSuccess] = useState(false)
     const [emailError, setEmailError] = useState(false)
     const [firstNameError, setFirstNameError] = useState(false)
     const [lastNameError, setLastNameError] = useState(false)
-    const [phoneNumberError, setPhoneNumberError] = useState(false)
 
     const navigate = useNavigate()
 
@@ -61,7 +58,7 @@ const Account = () => {
         event.preventDefault()
 
         clearMessages()
-
+        console.log(auth.currentUser)
         if (email != auth.currentUser.email) {
             if (/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
                 updateEmail(auth.currentUser, email)
@@ -73,18 +70,6 @@ const Account = () => {
                     })
             } else {
                 setEmailError(true)
-            }
-        }
-
-        if (phoneNumber != auth.currentUser.phoneNumber) {
-            if (
-                /^\s*(?:\+?(\d{1,3}))?([-. (]*(\d{3})[-. )]*)?((\d{3})[-. ]*(\d{2,4})(?:[-.x ]*(\d+))?)\s*$/i.test(
-                    phoneNumber
-                )
-            ) {
-                setPhoneNumberSuccess(true)
-            } else {
-                setPhoneNumberError(true)
             }
         }
 
@@ -131,8 +116,6 @@ const Account = () => {
             setLastName(event.target.value)
         } else if (event.target.name == 'userEmailAddress') {
             setEmail(event.target.value)
-        } else if (event.target.name == 'userPhoneNumber') {
-            setPhoneNumber(event.target.value)
         }
     }
 
@@ -179,8 +162,6 @@ const Account = () => {
         setFirstNameSuccess(false)
         setLastNameError(false)
         setLastNameSuccess(false)
-        setPhoneNumberError(false)
-        setPhoneNumberSuccess(false)
     }
 
     return loading ? (
@@ -240,21 +221,6 @@ const Account = () => {
                         />
                         {emailSuccess && <SuccessMessage message="Udało się zmienić email." />}
                         {emailError && <ErrorMessage message="Nie udało się zmienić email." />}
-                    </UserDataInputBox>
-                    <UserDataInputBox>
-                        <label>Telefon</label>
-                        <input
-                            type="number"
-                            name="userPhoneNumber"
-                            value={phoneNumber}
-                            onChange={handleUserDataChange}
-                        />
-                        {phoneNumberSuccess && (
-                            <SuccessMessage message="Udało się zmienić numer telefonu." />
-                        )}
-                        {phoneNumberError && (
-                            <ErrorMessage message="Nie udało się zmienić numeru telefonu" />
-                        )}
                     </UserDataInputBox>
 
                     <SubmitButton active={false}>Zapisz dane</SubmitButton>
