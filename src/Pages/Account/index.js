@@ -26,13 +26,12 @@ import SuccessMessage from '../../Components/form/SuccessMessage'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { useFormik } from 'formik'
-import * as Yup from 'yup'
 
 const Account = () => {
     const [loading, setLoading] = useState(true)
-    const [email, setEmail] = useState(auth.currentUser.email)
-    const [firstName, setFirstName] = useState(auth.currentUser.displayName.split(' ')[0])
-    const [lastName, setLastName] = useState(auth.currentUser.displayName.split(' ')[1])
+    const [email, setEmail] = useState(null)
+    const [firstName, setFirstName] = useState(null)
+    const [lastName, setLastName] = useState(null)
     const [emailSuccess, setEmailSuccess] = useState(false)
     const [firstNameSuccess, setFirstNameSuccess] = useState(false)
     const [lastNameSuccess, setLastNameSuccess] = useState(false)
@@ -45,6 +44,9 @@ const Account = () => {
     useEffect(() => {
         onAuthStateChanged(auth, user => {
             if (user) {
+                setEmail(auth.currentUser.email)
+                setFirstName(auth.currentUser.displayName.split(' ')[0])
+                setLastName(auth.currentUser.displayName.split(' ')[1])
                 setLoading(false)
             } else {
                 navigate('/login')

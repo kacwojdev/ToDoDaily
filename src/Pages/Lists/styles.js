@@ -59,8 +59,16 @@ export const AppMain = styled.main`
     flex-flow: row;
     flex-wrap: wrap;
     gap: 1rem;
-    padding: 3rem 1rem;
+    padding: 3rem 10rem;
     background: #f5f4f4;
+
+    & > div {
+        height: max-content;
+    }
+
+    @media (max-width: 880px) {
+        padding: 1rem 3rem;
+    }
 `
 
 export const CreateNewListBtn = styled.button`
