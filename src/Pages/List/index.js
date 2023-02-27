@@ -2,20 +2,18 @@ import React, { useState, useEffect } from 'react'
 import { auth } from '../../firebase'
 import { signOut, onAuthStateChanged } from 'firebase/auth'
 import Loading from '../../Components/Loading'
-import { useNavigate, useParams } from 'react-router'
+import { useNavigate } from 'react-router'
+import { AppHeader, AppMain, CreateNewListBtn, AppSubHeader, CreateNewTaskBtn } from './styles'
 import GridWrapper from '../../Components/GridWrapper'
 import { Link } from 'react-router-dom'
-import { AppHeader, AppMain, CreateNewListBtn, AppSubHeader, TaskList } from './styles'
+import { nanoid } from 'nanoid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import List from '../../Components/List'
-import { nanoid } from 'nanoid'
 
-const Lists = () => {
+const List = () => {
     const [loading, setLoading] = useState(true)
+    const [tasks, setTasks] = useState([])
     const navigate = useNavigate()
-    const { id } = useParams()
-    const [lists, setLists] = useState([])
 
     useEffect(() => {
         onAuthStateChanged(auth, user => {
@@ -37,8 +35,8 @@ const Lists = () => {
             })
     }
 
-    const handleCreatingNewList = event => {
-        setLists([...lists, `list_${nanoid()}`])
+    const handleCreatingNewTask = event => {
+        setTasks([...tasks, `task_${nanoid()}`])
     }
 
     return loading ? (
@@ -59,21 +57,20 @@ const Lists = () => {
             </AppHeader>
             <AppMain>
                 <AppSubHeader>
-                    <h4>Twoje listy zadań</h4>
-                    <CreateNewListBtn onClick={handleCreatingNewList}>
+                    <h4>Nazwa listy</h4>
+                    <CreateNewTaskBtn onClick={handleCreatingNewTask}>
                         <FontAwesomeIcon icon={faPlus} style={{ marginRight: '1rem' }} />
-                        Utwórz nową listę zadań
-                    </CreateNewListBtn>
+                        Utwórz nowe zadanie
+                    </CreateNewTaskBtn>
                 </AppSubHeader>
-                <TaskList>
-                    {lists.map(listId => (
-                        <List key={listId} listId={listId} isSelected={listId == id} />
+                <div>
+                    {tasks.map(taskId => (
+                        <p>{taskId}</p>
                     ))}
-                </TaskList>
+                </div>
             </AppMain>
-            <footer></footer>
         </GridWrapper>
     )
 }
 
-export default Lists
+export default List

@@ -7,6 +7,7 @@ import GlobalStyle from './Utils/globalStyles'
 import Login from './Pages/Login'
 import Register from './Pages/Register'
 import Account from './Pages/Account'
+import List from './Pages/List'
 import { AnimatePresence } from 'framer-motion'
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
                         <Route path="/lists" element={<Lists />} />
+                        <Route path="/lists/:id" element={<Lists />} />
                         <Route path="/account" element={<Account />} />
                     </Routes>
                 </AnimatePresence>
