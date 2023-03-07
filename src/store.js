@@ -1,23 +1,28 @@
-import { createStore } from 'redux'
+import { configureStore } from '@reduxjs/toolkit'
 import { groups } from './Utils/groups'
 
 const reducer = (state, action) => {
     switch (action.type) {
-        case 'GROUP_ADD':
-            return { groups: [...state.groups, action.group] }
+        case 'SET_CONTEXT_MENU_COORDS':
+            return { utils: { contextMenuCoords: action.coords, contextMenuVisibility: true } }
+        case 'REMOVE_CONTEXT_MENU_COORDS':
+            return { utils: { contextMenuCoords: action.coords, contextMenuVisibility: false } }
         default:
             return state
     }
 }
 
 const initialState = {
-    groups: groups
+    groups: groups,
+    utils: {
+        contextMenuCoords: { x: -9999, y: -9999 },
+        contextMenuVisibility: false
+    }
 }
 
-const store = createStore(
+const store = configureStore({
     reducer,
-    initialState,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-)
+    preloadedState: initialState
+})
 
 export default store

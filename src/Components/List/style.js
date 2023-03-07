@@ -78,6 +78,10 @@ export const EditBtn = styled(PrimaryButton)`
     border-radius: 100%;
     color: grey;
 
+    & > svg {
+        pointer-events: none;
+    }
+
     &:hover {
         background: #e9e6e6;
         color: black;

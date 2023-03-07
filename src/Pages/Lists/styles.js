@@ -89,6 +89,7 @@ export const CreateNewListBtn = styled.button`
     }
 `
 export const TaskList = styled.div`
+    position: relative;
     display: flex;
     flex-direction: row;
     align-items: flex-start;

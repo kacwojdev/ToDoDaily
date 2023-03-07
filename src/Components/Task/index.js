@@ -34,7 +34,6 @@ const Task = ({ description }) => {
                 />
                 <EditBtn ref={optionButtonRef} onClick={showTaskContextModal}>
                     <FontAwesomeIcon icon={faEllipsisVertical} />
-                    <ContextMenu show={showContextMenu} />
                 </EditBtn>
             </TaskContent>
         </TaskBox>

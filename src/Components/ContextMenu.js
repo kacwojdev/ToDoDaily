@@ -1,15 +1,18 @@
+import { useContext, useEffect } from 'react'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import styled from 'styled-components'
 import { PrimaryButton } from '../styledComponents'
+import { connect } from 'react-redux'
+import { useRef } from 'react'
 
 const ContextMenuWrapper = styled.div`
     width: max-content;
     min-width: 160px;
     position: absolute;
-    left: 0;
-    top: 110%;
-    display: ${props => (props.show ? 'flex' : 'none')};
+    left: ${props => props.contextMenuCoords.x}px;
+    top: ${props => props.contextMenuCoords.y}px;
+    display: flex;
     flex-direction: column;
     padding: 1rem 0;
     border: 1px solid #cbcbcb;
@@ -41,9 +44,37 @@ const ContextMenuButton = styled(PrimaryButton)`
 `
 
 const ContextMenu = props => {
+    const contextMenuRef = useRef(null)
+
+    useEffect(() => {
+        if (props.contextMenuVisibility) {
+            document.addEventListener('mousedown', handleWindowClicked)
+            document.addEventListener('keydown', handleKeyDown)
+        } else {
+            document.addEventListener('mousedown', handleWindowClicked)
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleWindowClicked)
+            document.removeEventListener('keydown', handleKeyDown)
+        }
+    }, [])
+
+    const handleWindowClicked = event => {
+        if (contextMenuRef.current && !contextMenuRef.current.contains(event.target)) {
+            props.resetContextMenuCoords()
+        }
+    }
+
+    const handleKeyDown = event => {
+        if (event.key === 'Escape') {
+            props.resetContextMenuCoords()
+        }
+    }
+
     return (
-        <ContextMenuWrapper {...props}>
-            <ContextMenuButton>
+        <ContextMenuWrapper ref={contextMenuRef} {...props}>
+            <ContextMenuButton onClick={() => props.resetContextMenuCoords()}>
                 <FontAwesomeIcon style={{ marginRight: '1rem' }} icon={faTrash} />
                 Usuń
             </ContextMenuButton>
@@ -51,4 +82,14 @@ const ContextMenu = props => {
     )
 }
 
-export default ContextMenu
+const mapStateToProps = state => ({
+    contextMenuCoords: state.utils.contextMenuCoords,
+    contextMenuVisibility: state.utils.contextMenuVisibility
+})
+
+const mapDispatchToProps = dispatch => ({
+    resetContextMenuCoords: () =>
+        dispatch({ type: 'REMOVE_CONTEXT_MENU_COORDS', coords: { x: -9999, y: -9999 } })
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContextMenu)

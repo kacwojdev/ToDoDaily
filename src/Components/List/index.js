@@ -1,20 +1,24 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import { useNavigate } from 'react-router'
 import EditableTitle from './EditableTitle'
 import { EditBtn, ListWrapper, AddNewTaskBtn, ListContent, ListTitleWrapper } from './style'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEllipsisVertical, faPen, faPlus } from '@fortawesome/free-solid-svg-icons'
-import { useNavigate } from 'react-router'
+import { faEllipsisVertical, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { nanoid } from 'nanoid'
 import Task from '../Task'
-import ContextMenu from '../ContextMenu'
+import { connect } from 'react-redux'
 
-const List = ({ listId, isSelected }) => {
-    const [showContextMenu, setShowContextMenu] = useState(false)
+const List = ({ listId, isSelected, setContextMenuCoords }) => {
+    const listEditBtnRef = useRef()
+
     const [tasks, setTasks] = useState([])
     const navigate = useNavigate()
 
     const showTaskContextModal = event => {
-        setShowContextMenu(!showContextMenu)
+        setContextMenuCoords({
+            x: listEditBtnRef.current.getBoundingClientRect().x,
+            y: listEditBtnRef.current.getBoundingClientRect().y
+        })
     }
 
     const addNewTaks = () => {
@@ -25,9 +29,8 @@ const List = ({ listId, isSelected }) => {
         <ListWrapper active={isSelected}>
             <ListTitleWrapper>
                 <EditableTitle title={'Dodaj tytuł listy'} />
-                <EditBtn onClick={showTaskContextModal}>
+                <EditBtn ref={listEditBtnRef} onClick={showTaskContextModal}>
                     <FontAwesomeIcon icon={faEllipsisVertical} />
-                    <ContextMenu show={showContextMenu} />
                 </EditBtn>
             </ListTitleWrapper>
             <ListContent>
@@ -43,4 +46,12 @@ const List = ({ listId, isSelected }) => {
     )
 }
 
-export default List
+const mapDispatchToProps = dispatch => ({
+    setContextMenuCoords: coords => dispatch({ type: 'SET_CONTEXT_MENU_COORDS', coords })
+})
+
+const mapStateToProps = state => ({
+    contextMenuCoords: state.utils.contextMenuCoords
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(List)
