@@ -1,17 +1,19 @@
 import { useState, useRef } from 'react'
-import { EditBtn, DoneBtn, TaskBox, TaskContent, OverlayContent } from './style'
+import { connect } from 'react-redux'
+import { EditBtn, DoneBtn, TaskBox, TaskContent } from './style'
 import EditableDescription from './EditableDescription'
-import ContextMenu from '../ContextMenu'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
 
-const Task = ({ description }) => {
+const Task = ({ description, setContextMenuCoords }) => {
     const optionButtonRef = useRef()
-    const [showContextMenu, setShowContextMenu] = useState(false)
     const [done, setDone] = useState(false)
 
     const showTaskContextModal = event => {
-        setShowContextMenu(!showContextMenu)
+        setContextMenuCoords({
+            x: optionButtonRef.current.getBoundingClientRect().x,
+            y: optionButtonRef.current.getBoundingClientRect().y
+        })
     }
 
     const setTaskDone = event => {
@@ -40,4 +42,12 @@ const Task = ({ description }) => {
     )
 }
 
-export default Task
+const mapStateToProps = state => ({
+    contextMenuCoords: state.utils.contextMenuCoords
+})
+
+const mapDispatchToProps = dispatch => ({
+    setContextMenuCoords: coords => dispatch({ type: 'SET_CONTEXT_MENU_COORDS', coords })
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Task)
