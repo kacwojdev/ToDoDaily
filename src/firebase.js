@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app'
 import { getAuth } from 'firebase/auth'
-import { getFirestore } from 'firebase/firestore'
+import { deleteDoc, getDocs, getFirestore, updateDoc } from 'firebase/firestore'
 
 import { doc, collection } from 'firebase/firestore'
 
@@ -19,13 +19,38 @@ const auth = getAuth(app)
 const db = getFirestore(app)
 
 // doc refs
-const userDoc = () => doc(auth.currentUser.uid)
-const listDoc = listId => doc(auth.currentUser.uid, 'lists', listId)
-const taskDoc = ({ listId, taskId }) => doc(auth.currentUser.uid, 'lists', listId, 'tasks', taskId)
+const userDoc = () => doc(db, 'users', auth.currentUser.uid)
+const listDoc = listId => doc(db, 'users', auth.currentUser.uid, 'lists', listId)
+const taskDoc = ({ listId, taskId }) =>
+    doc(db, 'users', auth.currentUser.uid, 'lists', listId, 'tasks', taskId)
 
-// collection refs
-const settingsRef = () => collection(auth.currentUser.uid, 'settings')
-const listsRef = () => collection(auth.currentUser.uid, 'lists')
-const tasksRef = listId => collection(auth.currentUser.uid, 'lists', listId, 'tasks')
+// db queries
+const listsQuery = async cb => {
+    const lists = await getDocs(collection(db, 'users', auth.currentUser.uid, 'lists'))
+    const listsToReturn = []
+    lists.forEach(doc => {
+        listsToReturn.push(doc.data())
+    })
+    cb(false)
+    return listsToReturn
+}
 
-export { auth, db, userDoc, listDoc, taskDoc, settingsRef, listsRef, tasksRef }
+const deleteList = async listId => {
+    await deleteDoc(listDoc(listId))
+}
+
+const tasksQuery = async (listId, cb) => {
+    await getDocs(collection(db, 'users', auth.currentUser.uid, 'lists', listId, 'tasks'))
+    cb(false)
+}
+
+const settingsQuery = async cb => {
+    await getDocs(collection(db, 'users', auth.currentUser.uid, 'settings'))
+    cb(false)
+}
+
+const updateListTitle = async (listId, title) => {
+    await updateDoc(listDoc(listId), { title: title })
+}
+
+export { auth, db, userDoc, listDoc, taskDoc, listsQuery, tasksQuery, updateListTitle, deleteList }

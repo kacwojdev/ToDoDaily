@@ -1,20 +1,33 @@
+// react dep
 import React, { useState, useEffect, useRef } from 'react'
-import { auth } from '../../firebase'
-import { signOut, onAuthStateChanged } from 'firebase/auth'
-import Loading from '../../Components/Loading'
 import { useNavigate, useParams } from 'react-router'
-import GridWrapper from '../../Components/GridWrapper'
 import { Link } from 'react-router-dom'
-import { AppHeader, AppMain, CreateNewListBtn, AppSubHeader, TaskList } from './styles'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import List from '../../Components/List'
-import { nanoid } from 'nanoid'
-import ContextMenu from '../../Components/ContextMenu'
 import { connect } from 'react-redux'
 
-const Lists = ({ contextMenuCoords }) => {
+//firebase dep
+import { signOut, onAuthStateChanged } from 'firebase/auth'
+import { setDoc, getDocs } from 'firebase/firestore'
+import { auth, listDoc, listsQuery } from '../../firebase'
+
+// ids
+import { nanoid } from 'nanoid'
+
+// components imports
+import Loading from '../../Components/Loading'
+import GridWrapper from '../../Components/GridWrapper'
+import List from '../../Components/List'
+import ContextMenu from '../../Components/ContextMenu'
+
+//icons
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+
+// styles
+import { AppHeader, AppMain, CreateNewListBtn, AppSubHeader, TaskList } from './styles'
+
+const Lists = ({ updateLists }) => {
     const [loading, setLoading] = useState(true)
+    const [listsLoading, setListsLoading] = useState(true)
     const navigate = useNavigate()
     const { id } = useParams()
     const [lists, setLists] = useState([])
@@ -23,6 +36,11 @@ const Lists = ({ contextMenuCoords }) => {
         onAuthStateChanged(auth, user => {
             if (user) {
                 setLoading(false)
+                listsQuery(setListsLoading).then(queriedLists => {
+                    console.log(queriedLists)
+                    updateLists([...queriedLists])
+                    setLists([...queriedLists])
+                })
             } else {
                 navigate('/login')
             }
@@ -40,7 +58,18 @@ const Lists = ({ contextMenuCoords }) => {
     }
 
     const handleCreatingNewList = event => {
-        setLists([...lists, `list_${nanoid()}`])
+        const newListId = nanoid()
+        setLists([...lists, `list_${newListId}`])
+        setDoc(listDoc(newListId), {
+            id: newListId,
+            title: 'Dodaj tytuł listy',
+            timestamp: Date.now(),
+            createdBy: auth.currentUser.uid,
+            settings: {
+                backgroundColor: '#fff',
+                dueTime: null
+            }
+        })
     }
 
     return loading ? (
@@ -68,9 +97,16 @@ const Lists = ({ contextMenuCoords }) => {
                     </CreateNewListBtn>
                 </AppSubHeader>
                 <TaskList>
-                    {lists.map(listId => (
-                        <List key={listId} listId={listId} isSelected={listId == id} />
-                    ))}
+                    {listsLoading
+                        ? 'Loading'
+                        : lists.map(list => (
+                              <List
+                                  key={list.id}
+                                  listId={list.id}
+                                  isSelected={list.id == id}
+                                  title={list.title}
+                              />
+                          ))}
                 </TaskList>
                 <ContextMenu />
             </AppMain>
@@ -79,7 +115,11 @@ const Lists = ({ contextMenuCoords }) => {
     )
 }
 
+const mapDispatchToProps = dispatch => ({
+    updateLists: updatedLists => dispatch({ type: 'UPDATE_LISTS', updatedLists })
+})
+
 const mapStateToProps = state => ({
     contextMenuCoords: state.utils.contextMenuCoords
 })
-export default connect(mapStateToProps)(Lists)
+export default connect(mapStateToProps, mapDispatchToProps)(Lists)

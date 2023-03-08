@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { PrimaryButton } from '../styledComponents'
 import { connect } from 'react-redux'
 import { useRef } from 'react'
+import { deleteList } from '../firebase'
 
 const ContextMenuWrapper = styled.div`
     width: max-content;
@@ -72,9 +73,20 @@ const ContextMenu = props => {
         }
     }
 
+    const handleRemoveButtonPressed = event => {
+        if (props.currentListContextMenu) {
+            console.log('list del')
+            deleteList(props.currentListContextMenu)
+        }
+        if (props.currentTaskContextMenu) {
+            console.log('task del')
+            deleteList(props.currentTaskContextMenu)
+        }
+    }
+
     return (
         <ContextMenuWrapper ref={contextMenuRef} {...props}>
-            <ContextMenuButton onClick={() => props.resetContextMenuCoords()}>
+            <ContextMenuButton onClick={handleRemoveButtonPressed}>
                 <FontAwesomeIcon style={{ marginRight: '1rem' }} icon={faTrash} />
                 Usuń
             </ContextMenuButton>
@@ -84,12 +96,17 @@ const ContextMenu = props => {
 
 const mapStateToProps = state => ({
     contextMenuCoords: state.utils.contextMenuCoords,
-    contextMenuVisibility: state.utils.contextMenuVisibility
+    contextMenuVisibility: state.utils.contextMenuVisibility,
+    currentListContextMenu: state.utils.currentListContextMenu,
+    currentTaskContextMenu: state.utils.currentTaskContextMenu
 })
 
 const mapDispatchToProps = dispatch => ({
-    resetContextMenuCoords: () =>
-        dispatch({ type: 'REMOVE_CONTEXT_MENU_COORDS', coords: { x: -9999, y: -9999 } })
+    resetContextMenuCoords: (listId, taskId) =>
+        dispatch({
+            type: 'REMOVE_CONTEXT_MENU_COORDS',
+            coords: { x: -9999, y: -9999 }
+        })
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContextMenu)

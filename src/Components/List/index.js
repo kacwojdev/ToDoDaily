@@ -1,34 +1,51 @@
-import { useRef, useState } from 'react'
+// react dep
+import { useRef, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router'
+import { connect } from 'react-redux'
+//ids
+import { nanoid } from 'nanoid'
+//components
 import EditableTitle from './EditableTitle'
-import { EditBtn, ListWrapper, AddNewTaskBtn, ListContent, ListTitleWrapper } from './style'
+import Task from '../Task'
+// icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisVertical, faPlus } from '@fortawesome/free-solid-svg-icons'
-import { nanoid } from 'nanoid'
-import Task from '../Task'
-import { connect } from 'react-redux'
 
-const List = ({ listId, isSelected, setContextMenuCoords }) => {
+//styles
+import { EditBtn, ListWrapper, AddNewTaskBtn, ListContent, ListTitleWrapper } from './style'
+import { updateListTitle } from '../../firebase'
+
+const List = ({ listId, title, isSelected, setContextMenuCoords }) => {
     const listEditBtnRef = useRef()
 
     const [tasks, setTasks] = useState([])
     const navigate = useNavigate()
 
+    useEffect(() => {})
+
     const showTaskContextModal = event => {
-        setContextMenuCoords({
-            x: listEditBtnRef.current.getBoundingClientRect().x,
-            y: listEditBtnRef.current.getBoundingClientRect().y
-        })
+        setContextMenuCoords(
+            {
+                x: listEditBtnRef.current.getBoundingClientRect().x,
+                y: listEditBtnRef.current.getBoundingClientRect().y
+            },
+            listId,
+            null
+        )
     }
 
     const addNewTaks = () => {
         setTasks([...tasks, nanoid()])
     }
 
+    const saveNewTitle = title => {
+        updateListTitle(listId, title)
+    }
+
     return (
         <ListWrapper active={isSelected}>
             <ListTitleWrapper>
-                <EditableTitle title={'Dodaj tytuł listy'} />
+                <EditableTitle onBlur={saveNewTitle} title={title} />
                 <EditBtn ref={listEditBtnRef} onClick={showTaskContextModal}>
                     <FontAwesomeIcon icon={faEllipsisVertical} />
                 </EditBtn>
@@ -47,7 +64,8 @@ const List = ({ listId, isSelected, setContextMenuCoords }) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-    setContextMenuCoords: coords => dispatch({ type: 'SET_CONTEXT_MENU_COORDS', coords })
+    setContextMenuCoords: (coords, listId, taskId) =>
+        dispatch({ type: 'SET_CONTEXT_MENU_COORDS', coords, list: listId, task: taskId })
 })
 
 const mapStateToProps = state => ({

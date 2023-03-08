@@ -17,7 +17,6 @@ const Task = ({ description, setContextMenuCoords }) => {
     }
 
     const setTaskDone = event => {
-        console.log('done')
         setDone(!done)
     }
 
