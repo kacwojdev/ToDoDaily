@@ -21,7 +21,7 @@ const db = getFirestore(app)
 // doc refs
 const userDoc = () => doc(db, 'users', auth.currentUser.uid)
 const listDoc = listId => doc(db, 'users', auth.currentUser.uid, 'lists', listId)
-const taskDoc = ({ listId, taskId }) =>
+const taskDoc = (listId, taskId) =>
     doc(db, 'users', auth.currentUser.uid, 'lists', listId, 'tasks', taskId)
 
 // db queries
@@ -40,8 +40,16 @@ const deleteList = async listId => {
 }
 
 const tasksQuery = async (listId, cb) => {
-    await getDocs(collection(db, 'users', auth.currentUser.uid, 'lists', listId, 'tasks'))
+    const tasks = await getDocs(
+        collection(db, 'users', auth.currentUser.uid, 'lists', listId, 'tasks')
+    )
+    const tasksToReturn = []
+    tasks.forEach(doc => {
+        tasksToReturn.push(doc.data())
+    })
     cb(false)
+    console.log(tasksToReturn)
+    return tasksToReturn
 }
 
 const settingsQuery = async cb => {

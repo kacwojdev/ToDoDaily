@@ -1,7 +1,13 @@
+//react deps
+import { useState } from 'react'
+//react-router deps
 import { Link, useNavigate } from 'react-router-dom'
+//firebase
 import { auth } from '../../../firebase'
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+//formik
 import { useFormik } from 'formik'
+//styles
 import ErrorMessage from '../ErrorMessage'
 import SubmitButton from '../SubmitButton'
 import { FacebookIcon, GoogleIcon } from '../../../Assets'
@@ -14,7 +20,6 @@ import {
     ReturnBox,
     Separator
 } from './styles'
-import { useState } from 'react'
 
 const RegisterFormComponent = () => {
     const navigate = useNavigate()

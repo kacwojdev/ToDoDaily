@@ -1,14 +1,21 @@
+// react deps
+import { useState } from 'react'
+// react-router deps
 import { Link, useNavigate } from 'react-router-dom'
+//firebase
 import { auth } from '../../../firebase'
 import {
     browserSessionPersistence,
     setPersistence,
     signInWithEmailAndPassword
 } from 'firebase/auth'
+//formik
 import { useFormik } from 'formik'
+//icons
+import { FacebookIcon, GoogleIcon } from '../../../Assets'
+// styles
 import ErrorMessage from '../ErrorMessage'
 import SubmitButton from '../SubmitButton'
-import { FacebookIcon, GoogleIcon } from '../../../Assets'
 import {
     LoginContainer,
     LoginForm,
@@ -19,7 +26,6 @@ import {
     ReturnBox,
     Separator
 } from './styles'
-import { useState } from 'react'
 
 const LoginFormComponent = () => {
     const navigate = useNavigate()

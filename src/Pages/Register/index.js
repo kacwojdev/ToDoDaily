@@ -1,11 +1,16 @@
+// react deps
 import React from 'react'
+// react-router deps
 import { Link } from 'react-router-dom'
-import { HeaderContainer, KettleImage, BasketballImage } from './styles'
-import { Kettle, Basketball } from '../../Assets'
+// components
 import Footer from '../../Components/ui/Footer'
 import GridWrapper from '../../Components/GridWrapper'
 import AnimatedPage from '../../Components/AnimatedPage'
 import RegisterFormComponent from '../../Components/form/RegisterFormComponent'
+//styles
+import { HeaderContainer, KettleImage, BasketballImage } from './styles'
+//assets
+import { Kettle, Basketball } from '../../Assets'
 
 const Register = () => {
     return (

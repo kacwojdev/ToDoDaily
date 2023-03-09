@@ -1,8 +1,10 @@
+// react deps
 import React from 'react'
-import styled from 'styled-components'
-import { DarkenButton } from '../../styledComponents'
+//icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
+// styles
+import { DarkenButton } from '../../styledComponents'
 
 export const AddTasksGroupButton = ({ handleOpenModal, children }) => {
     return (

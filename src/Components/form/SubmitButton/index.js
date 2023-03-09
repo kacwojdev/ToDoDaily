@@ -1,7 +1,11 @@
-import { RegisterSubmitBtn } from './styles'
+//motion deps
 import { motion } from 'framer-motion'
+//icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+//styles
+import { RegisterSubmitBtn } from './styles'
+
 const SubmitButton = ({ active, loading, children }) => {
     return (
         <RegisterSubmitBtn disabled={active} type="submit">

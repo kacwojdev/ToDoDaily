@@ -1,9 +1,14 @@
+// react deps
 import { useState, useRef } from 'react'
+// redux
 import { connect } from 'react-redux'
-import { EditBtn, DoneBtn, TaskBox, TaskContent } from './style'
-import EditableDescription from './EditableDescription'
+import { getContextMenuCoords, setContextMenuCoords } from '../../store'
+//icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
+//styles
+import { EditBtn, DoneBtn, TaskBox, TaskContent } from './style'
+import EditableDescription from './EditableDescription'
 
 const Task = ({ description, setContextMenuCoords }) => {
     const optionButtonRef = useRef()
@@ -42,11 +47,11 @@ const Task = ({ description, setContextMenuCoords }) => {
 }
 
 const mapStateToProps = state => ({
-    contextMenuCoords: state.utils.contextMenuCoords
+    contextMenuCoords: getContextMenuCoords(state)
 })
 
 const mapDispatchToProps = dispatch => ({
-    setContextMenuCoords: coords => dispatch({ type: 'SET_CONTEXT_MENU_COORDS', coords })
+    setContextMenuCoords: coords => dispatch(setContextMenuCoords({ coords }))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Task)

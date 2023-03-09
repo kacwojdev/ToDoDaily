@@ -1,14 +1,21 @@
+//react deps
 import React, { useState, useEffect } from 'react'
+//react-router deps
+import { useNavigate } from 'react-router'
+import { Link } from 'react-router-dom'
+//firebase
 import { auth } from '../../firebase'
 import { signOut, onAuthStateChanged } from 'firebase/auth'
-import Loading from '../../Components/Loading'
-import { useNavigate } from 'react-router'
-import { AppHeader, AppMain, CreateNewListBtn, AppSubHeader, CreateNewTaskBtn } from './styles'
-import GridWrapper from '../../Components/GridWrapper'
-import { Link } from 'react-router-dom'
+// ids
 import { nanoid } from 'nanoid'
+//components
+import Loading from '../../Components/Loading'
+import GridWrapper from '../../Components/GridWrapper'
+//icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
+//styles
+import { AppHeader, AppMain, CreateNewListBtn, AppSubHeader, CreateNewTaskBtn } from './styles'
 
 const List = () => {
     const [loading, setLoading] = useState(true)

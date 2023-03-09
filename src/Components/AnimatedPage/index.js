@@ -1,3 +1,4 @@
+// motion deps
 import { motion } from 'framer-motion'
 
 const AnimatedPage = ({ children }) => {

@@ -1,11 +1,16 @@
+// react deps
 import React from 'react'
-import { BasketballImage, HeaderContainer, KettleImage } from './styles'
+//react-router deps
 import { Link } from 'react-router-dom'
-import { Kettle, Basketball } from '../../Assets'
+//components
 import Footer from '../../Components/ui/Footer'
 import GridWrapper from '../../Components/GridWrapper'
 import AnimatedPage from '../../Components/AnimatedPage'
 import LoginFormComponent from '../../Components/form/LoginFormComponent'
+//styles
+import { BasketballImage, HeaderContainer, KettleImage } from './styles'
+//assets
+import { Kettle, Basketball } from '../../Assets'
 
 const Login = () => {
     return (

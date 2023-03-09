@@ -1,4 +1,29 @@
+// react deps
 import React, { useState, useEffect } from 'react'
+// react-router deps
+import { useNavigate } from 'react-router'
+import { Link } from 'react-router-dom'
+// firebase
+import {
+    signOut,
+    onAuthStateChanged,
+    updatePassword,
+    updateEmail,
+    updateProfile
+} from 'firebase/auth'
+import { auth } from '../../firebase'
+//formik
+import { useFormik } from 'formik'
+//components
+import GridWrapper from '../../Components/GridWrapper'
+import Loading from '../../Components/Loading'
+import SubmitButton from '../../Components/form/SubmitButton'
+import ErrorMessage from '../../Components/form/ErrorMessage'
+import SuccessMessage from '../../Components/form/SuccessMessage'
+//icons
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
+//styles
 import {
     AppHeader,
     UserDataForm,
@@ -8,24 +33,6 @@ import {
     Spacer,
     UserDataSubmitButton
 } from './styles'
-import {
-    signOut,
-    onAuthStateChanged,
-    updatePassword,
-    updateEmail,
-    updateProfile
-} from 'firebase/auth'
-import { auth } from '../../firebase'
-import { useNavigate } from 'react-router'
-import { Link } from 'react-router-dom'
-import GridWrapper from '../../Components/GridWrapper'
-import Loading from '../../Components/Loading'
-import SubmitButton from '../../Components/form/SubmitButton'
-import ErrorMessage from '../../Components/form/ErrorMessage'
-import SuccessMessage from '../../Components/form/SuccessMessage'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
-import { useFormik } from 'formik'
 
 const Account = () => {
     const [loading, setLoading] = useState(true)

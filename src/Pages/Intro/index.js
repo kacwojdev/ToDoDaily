@@ -1,4 +1,13 @@
+// react deps
 import React, { useState } from 'react'
+//react-router deps
+import { Link } from 'react-router-dom'
+//components
+import { Nav, MobileNav } from '../../Components/ui/Nav'
+import GridWrapper from '../../Components/GridWrapper'
+import Footer from '../../Components/ui/Footer'
+import AnimatedPage from '../../Components/AnimatedPage'
+//styles
 import { PrimaryButton } from '../../styledComponents'
 import {
     FeaturesBackgroundContainer,
@@ -12,12 +21,8 @@ import {
     IntroImg,
     IntroTexts
 } from './styles'
+//assets
 import { Dart, Loudspeaker, Calendar, Paints } from '../../Assets'
-import { Link } from 'react-router-dom'
-import { Nav, MobileNav } from '../../Components/ui/Nav'
-import GridWrapper from '../../Components/GridWrapper'
-import Footer from '../../Components/ui/Footer'
-import AnimatedPage from '../../Components/AnimatedPage'
 
 const Intro = () => {
     const [burgerOpened, setBurgerOpened] = useState(false)

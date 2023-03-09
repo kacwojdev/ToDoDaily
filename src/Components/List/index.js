@@ -1,7 +1,11 @@
 // react dep
 import { useRef, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router'
+//redux
 import { connect } from 'react-redux'
+import { addTask, getContextMenuCoords, setContextMenuCoords, updateTasks } from '../../store'
+// firebase
+import { updateListTitle, tasksQuery, taskDoc } from '../../firebase'
 //ids
 import { nanoid } from 'nanoid'
 //components
@@ -13,15 +17,22 @@ import { faEllipsisVertical, faPlus } from '@fortawesome/free-solid-svg-icons'
 
 //styles
 import { EditBtn, ListWrapper, AddNewTaskBtn, ListContent, ListTitleWrapper } from './style'
-import { updateListTitle } from '../../firebase'
+import { setDoc } from 'firebase/firestore'
 
-const List = ({ listId, title, isSelected, setContextMenuCoords }) => {
+const List = ({ listId, tasks, title, isSelected, setContextMenuCoords, updateTasks, addTask }) => {
     const listEditBtnRef = useRef()
 
-    const [tasks, setTasks] = useState([])
-    const navigate = useNavigate()
+    const [tasksLoading, setTasksLoading] = useState(true)
 
-    useEffect(() => {})
+    useEffect(() => {
+        tasksQuery(listId, setTasksLoading).then(queriedTasks => {
+            //updating local state
+            // updateTasks(listId, [...queriedTasks])
+            if (queriedTasks) {
+                console.log('nie ma zadnych zadan na tej liscie')
+            }
+        })
+    }, [])
 
     const showTaskContextModal = event => {
         setContextMenuCoords(
@@ -34,8 +45,18 @@ const List = ({ listId, title, isSelected, setContextMenuCoords }) => {
         )
     }
 
-    const addNewTaks = () => {
-        setTasks([...tasks, nanoid()])
+    const addNewTask = () => {
+        const newTaskId = `task_${nanoid()}`
+        const newTask = {
+            title: 'Twoje nowe zadanie',
+            id: newTaskId,
+            done: false,
+            label: null,
+            dueTime: null,
+            backgroundColor: 'default'
+        }
+        addTask(listId, newTask)
+        setDoc(taskDoc(listId, newTaskId), newTask)
     }
 
     const saveNewTitle = title => {
@@ -51,11 +72,13 @@ const List = ({ listId, title, isSelected, setContextMenuCoords }) => {
                 </EditBtn>
             </ListTitleWrapper>
             <ListContent>
-                {tasks.map(task => (
-                    <Task description="Dodaj opis do zadania." />
-                ))}
+                {tasksLoading
+                    ? 'Loading'
+                    : tasks
+                    ? tasks.map(task => <Task description={task.title} />)
+                    : 'Nie masz żadnych zadań'}
             </ListContent>
-            <AddNewTaskBtn onClick={addNewTaks}>
+            <AddNewTaskBtn onClick={addNewTask}>
                 <FontAwesomeIcon style={{ marginRight: '1rem' }} icon={faPlus} />
                 Dodaj nowe zadanie
             </AddNewTaskBtn>
@@ -65,11 +88,13 @@ const List = ({ listId, title, isSelected, setContextMenuCoords }) => {
 
 const mapDispatchToProps = dispatch => ({
     setContextMenuCoords: (coords, listId, taskId) =>
-        dispatch({ type: 'SET_CONTEXT_MENU_COORDS', coords, list: listId, task: taskId })
+        dispatch(setContextMenuCoords({ coords, list: listId, task: taskId })),
+    updateTasks: (listId, updatedTasks) => dispatch(updateTasks({ listId, updatedTasks })),
+    addTask: (listId, newTask) => dispatch(addTask({ listId, newTask }))
 })
 
 const mapStateToProps = state => ({
-    contextMenuCoords: state.utils.contextMenuCoords
+    contextMenuCoords: getContextMenuCoords(state)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(List)

@@ -2,7 +2,10 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { Link } from 'react-router-dom'
+
+// redux
 import { connect } from 'react-redux'
+import { addList, getAllLists, getContextMenuCoords, updateLists } from '../../store'
 
 //firebase dep
 import { signOut, onAuthStateChanged } from 'firebase/auth'
@@ -25,21 +28,19 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 // styles
 import { AppHeader, AppMain, CreateNewListBtn, AppSubHeader, TaskList } from './styles'
 
-const Lists = ({ updateLists }) => {
+const Lists = ({ updateLists, addList, lists }) => {
     const [loading, setLoading] = useState(true)
     const [listsLoading, setListsLoading] = useState(true)
     const navigate = useNavigate()
     const { id } = useParams()
-    const [lists, setLists] = useState([])
 
     useEffect(() => {
         onAuthStateChanged(auth, user => {
             if (user) {
                 setLoading(false)
                 listsQuery(setListsLoading).then(queriedLists => {
-                    console.log(queriedLists)
+                    //setting in local state
                     updateLists([...queriedLists])
-                    setLists([...queriedLists])
                 })
             } else {
                 navigate('/login')
@@ -58,9 +59,8 @@ const Lists = ({ updateLists }) => {
     }
 
     const handleCreatingNewList = event => {
-        const newListId = nanoid()
-        setLists([...lists, `list_${newListId}`])
-        setDoc(listDoc(newListId), {
+        const newListId = `list_${nanoid()}`
+        const newList = {
             id: newListId,
             title: 'Dodaj tytuł listy',
             timestamp: Date.now(),
@@ -69,7 +69,11 @@ const Lists = ({ updateLists }) => {
                 backgroundColor: '#fff',
                 dueTime: null
             }
-        })
+        }
+        // setting in local state
+        addList(newList)
+        // setting in db
+        setDoc(listDoc(newListId), newList)
     }
 
     return loading ? (
@@ -105,6 +109,7 @@ const Lists = ({ updateLists }) => {
                                   listId={list.id}
                                   isSelected={list.id == id}
                                   title={list.title}
+                                  tasks={list.tasks}
                               />
                           ))}
                 </TaskList>
@@ -116,10 +121,12 @@ const Lists = ({ updateLists }) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-    updateLists: updatedLists => dispatch({ type: 'UPDATE_LISTS', updatedLists })
+    updateLists: updatedLists => dispatch(updateLists({ updatedLists })),
+    addList: newList => dispatch(addList({ newList }))
 })
 
 const mapStateToProps = state => ({
-    contextMenuCoords: state.utils.contextMenuCoords
+    contextMenuCoords: getContextMenuCoords(state),
+    lists: getAllLists(state)
 })
 export default connect(mapStateToProps, mapDispatchToProps)(Lists)

@@ -1,11 +1,21 @@
-import { useContext, useEffect } from 'react'
-import { faTrash } from '@fortawesome/free-solid-svg-icons'
+// react deps
+import { useContext, useEffect, useRef } from 'react'
+// redux
+import { connect } from 'react-redux'
+import {
+    getCurrentListContextMenu,
+    getContextMenuVisibilty,
+    getContextMenuCoords,
+    getCurrentTaskContextMenu,
+    removeContextMenuCoords
+} from '../store'
+import { deleteList } from '../firebase'
+// icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
+// styles
 import styled from 'styled-components'
 import { PrimaryButton } from '../styledComponents'
-import { connect } from 'react-redux'
-import { useRef } from 'react'
-import { deleteList } from '../firebase'
 
 const ContextMenuWrapper = styled.div`
     width: max-content;
@@ -75,12 +85,11 @@ const ContextMenu = props => {
 
     const handleRemoveButtonPressed = event => {
         if (props.currentListContextMenu) {
-            console.log('list del')
             deleteList(props.currentListContextMenu)
+            props.removeList(props.currentListContextMenu)
+            props.resetContextMenuCoords()
         }
         if (props.currentTaskContextMenu) {
-            console.log('task del')
-            deleteList(props.currentTaskContextMenu)
         }
     }
 
@@ -95,18 +104,16 @@ const ContextMenu = props => {
 }
 
 const mapStateToProps = state => ({
-    contextMenuCoords: state.utils.contextMenuCoords,
-    contextMenuVisibility: state.utils.contextMenuVisibility,
-    currentListContextMenu: state.utils.currentListContextMenu,
-    currentTaskContextMenu: state.utils.currentTaskContextMenu
+    contextMenuCoords: getContextMenuCoords(state),
+    contextMenuVisibility: getContextMenuVisibilty(state),
+    currentListContextMenu: getCurrentListContextMenu(state),
+    currentTaskContextMenu: getCurrentTaskContextMenu(state)
 })
 
 const mapDispatchToProps = dispatch => ({
-    resetContextMenuCoords: (listId, taskId) =>
-        dispatch({
-            type: 'REMOVE_CONTEXT_MENU_COORDS',
-            coords: { x: -9999, y: -9999 }
-        })
+    resetContextMenuCoords: () =>
+        dispatch(removeContextMenuCoords({ coords: { x: -9999, y: -9999 } })),
+    removeList: listIdToRemove => dispatch({ type: 'REMOVE_LIST', listIdToRemove })
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContextMenu)
