@@ -7,7 +7,9 @@ import {
     getContextMenuVisibilty,
     getContextMenuCoords,
     getCurrentTaskContextMenu,
-    removeContextMenuCoords
+    removeContextMenuCoords,
+    removeList,
+    removeTask
 } from '../store'
 import { deleteList } from '../firebase'
 // icons
@@ -84,12 +86,14 @@ const ContextMenu = props => {
     }
 
     const handleRemoveButtonPressed = event => {
-        if (props.currentListContextMenu) {
+        if (props.currentListContextMenu && !props.currentTaskContextMenu) {
             deleteList(props.currentListContextMenu)
             props.removeList(props.currentListContextMenu)
             props.resetContextMenuCoords()
         }
-        if (props.currentTaskContextMenu) {
+        if (props.currentTaskContextMenu && props.currentTaskContextMenu) {
+            props.removeTask(props.currentListContextMenu, props.currentTaskContextMenu)
+            props.resetContextMenuCoords()
         }
     }
 
@@ -113,7 +117,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     resetContextMenuCoords: () =>
         dispatch(removeContextMenuCoords({ coords: { x: -9999, y: -9999 } })),
-    removeList: listIdToRemove => dispatch({ type: 'REMOVE_LIST', listIdToRemove })
+    removeList: listIdToRemove => dispatch(removeList(listIdToRemove)),
+    removeTask: (listId, taskId) => dispatch(removeTask({ listId, taskId }))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContextMenu)

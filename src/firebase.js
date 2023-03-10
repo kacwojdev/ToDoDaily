@@ -48,7 +48,6 @@ const tasksQuery = async (listId, cb) => {
         tasksToReturn.push(doc.data())
     })
     cb(false)
-    console.log(tasksToReturn)
     return tasksToReturn
 }
 

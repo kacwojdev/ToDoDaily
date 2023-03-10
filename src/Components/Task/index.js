@@ -10,15 +10,19 @@ import { faCheck, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
 import { EditBtn, DoneBtn, TaskBox, TaskContent } from './style'
 import EditableDescription from './EditableDescription'
 
-const Task = ({ description, setContextMenuCoords }) => {
+const Task = ({ description, setContextMenuCoords, listId, taskId }) => {
     const optionButtonRef = useRef()
     const [done, setDone] = useState(false)
 
     const showTaskContextModal = event => {
-        setContextMenuCoords({
-            x: optionButtonRef.current.getBoundingClientRect().x,
-            y: optionButtonRef.current.getBoundingClientRect().y
-        })
+        setContextMenuCoords(
+            {
+                x: optionButtonRef.current.getBoundingClientRect().x,
+                y: optionButtonRef.current.getBoundingClientRect().y
+            },
+            listId,
+            taskId
+        )
     }
 
     const setTaskDone = event => {
@@ -51,7 +55,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    setContextMenuCoords: coords => dispatch(setContextMenuCoords({ coords }))
+    setContextMenuCoords: (coords, listId, taskId) =>
+        dispatch(setContextMenuCoords({ coords, list: listId, task: taskId }))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Task)

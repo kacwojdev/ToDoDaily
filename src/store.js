@@ -17,8 +17,8 @@ export const addTask = payload => ({ type: 'ADD_TASK', payload })
 export const removeTask = payload => ({ type: 'REMOVE_TASK', payload })
 export const updateTasks = payload => ({ type: 'UPDATE_TASKS', payload })
 
-// reducer
-const reducer = (state, action) => {
+// sub reducers
+const utilsSubReducer = (state, action) => {
     switch (action.type) {
         case 'SET_CONTEXT_MENU_COORDS':
             return {
@@ -40,12 +40,21 @@ const reducer = (state, action) => {
                     currentTaskContextMenu: null
                 }
             }
+        default:
+            return state
+    }
+}
+
+const listsSubReducer = (state, action) => {
+    switch (action.type) {
         case 'REMOVE_LIST':
+            console.log(action.payload)
             return {
                 ...state,
                 lists: state.lists.filter(list => list.id != action.payload.listIdToRemove)
             }
         case 'ADD_LIST':
+            console.log(state.lists)
             return {
                 ...state,
                 lists: [...state.lists, action.payload.newList]
@@ -55,36 +64,67 @@ const reducer = (state, action) => {
                 ...state,
                 lists: [...action.payload.updatedLists]
             }
-        case 'REMOVE_TASK':
-            return {
-                ...state,
-                lists: state.lists.tasks.filter(task => task.id != action.payload.taskIdToRemove)
-            }
-        case 'ADD_TASK':
-            const tasksUpdated = [
-                ...state.lists.filter(list => list.id == action.payload.listId).tasks,
-                action.newTask
-            ]
-            const listUpdated = state.lists.filter(list => list.id == action.payload.listId)
-            listUpdated.tasks = tasksUpdated
-            return {
-                ...state,
-                lists: [state.lists.filter(list => list.id != action.payload.listId), listUpdated]
-            }
-        case 'UPDATE_TASKS':
-            const _tasksUpdated = [...action.payload.updatedTasks]
-            const _listUpdated = state.lists.filter(list => list.id == action.payload.listId)
-            _listUpdated.tasks = _tasksUpdated
-            return {
-                ...state,
-                lists: [
-                    ...state.lists.filter(list => list.id != action.payload.listId),
-                    _listUpdated
-                ]
-            }
         default:
             return state
     }
+}
+
+const tasksSubReducer = (state, action) => {
+    switch (action.type) {
+        case 'REMOVE_TASK':
+            return Object.assign({}, state, {
+                lists: state.lists.map(list => {
+                    if (list.id != action.payload.listId) {
+                        return list
+                    }
+                    return Object.assign({}, list, {
+                        tasks: list.tasks.filter(task => task.id != action.payload.taskId)
+                    })
+                })
+            })
+        case 'ADD_TASK':
+            return Object.assign({}, state, {
+                lists: state.lists.map(list => {
+                    if (list.id != action.payload.listId) {
+                        return list
+                    }
+                    let newList = {}
+                    if (list.tasks) {
+                        newList = Object.assign({}, list, {
+                            tasks: [...list.tasks, action.payload.newTask]
+                        })
+                    } else {
+                        newList = Object.assign({}, list, {
+                            tasks: [action.payload.newTask]
+                        })
+                    }
+                    return newList
+                })
+            })
+
+        case 'UPDATE_TASKS':
+            return Object.assign({}, state, {
+                lists: state.lists.map(list => {
+                    if (list.id != action.payload.listId) {
+                        return list
+                    }
+                    return Object.assign({}, list, {
+                        tasks: [action.payload.updatedTasks]
+                    })
+                })
+            })
+        default:
+            return state
+    }
+}
+
+// reducer
+const reducer = (state, action) => {
+    let newState = state
+    newState = utilsSubReducer(newState, action)
+    newState = listsSubReducer(newState, action)
+    newState = tasksSubReducer(newState, action)
+    return newState
 }
 
 const initialState = {

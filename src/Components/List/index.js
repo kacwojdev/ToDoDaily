@@ -56,7 +56,7 @@ const List = ({ listId, tasks, title, isSelected, setContextMenuCoords, updateTa
             backgroundColor: 'default'
         }
         addTask(listId, newTask)
-        setDoc(taskDoc(listId, newTaskId), newTask)
+        // setDoc(taskDoc(listId, newTaskId), newTask)
     }
 
     const saveNewTitle = title => {
@@ -75,7 +75,9 @@ const List = ({ listId, tasks, title, isSelected, setContextMenuCoords, updateTa
                 {tasksLoading
                     ? 'Loading'
                     : tasks
-                    ? tasks.map(task => <Task description={task.title} />)
+                    ? tasks.map(task => (
+                          <Task taskId={task.id} listId={listId} description={task.title} />
+                      ))
                     : 'Nie masz żadnych zadań'}
             </ListContent>
             <AddNewTaskBtn onClick={addNewTask}>
