@@ -2,7 +2,7 @@
 import { useState, useRef } from 'react'
 // redux
 import { connect } from 'react-redux'
-import { getContextMenuCoords, setContextMenuCoords } from '../../store'
+import { getAllLists, getContextMenuCoords, setContextMenuCoords, setTaskDone } from '../../store'
 //icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
@@ -10,9 +10,8 @@ import { faCheck, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
 import { EditBtn, DoneBtn, TaskBox, TaskContent } from './style'
 import EditableDescription from './EditableDescription'
 
-const Task = ({ description, setContextMenuCoords, listId, taskId }) => {
+const Task = ({ description, setContextMenuCoords, listId, taskId, isDone, setTaskDone }) => {
     const optionButtonRef = useRef()
-    const [done, setDone] = useState(false)
 
     const showTaskContextModal = event => {
         setContextMenuCoords(
@@ -25,20 +24,22 @@ const Task = ({ description, setContextMenuCoords, listId, taskId }) => {
         )
     }
 
-    const setTaskDone = event => {
-        setDone(!done)
+    const handleTaskStateChange = event => {
+        console.log('set task done')
+        console.log(isDone)
+        setTaskDone(listId, taskId, !isDone)
     }
 
     return (
-        <TaskBox style={{ boxShadow: done ? 'none' : '0 0 10px 10px rgb(0 0 0 / 3%)' }}>
-            <DoneBtn done={done} onClick={setTaskDone}>
+        <TaskBox style={{ boxShadow: isDone ? 'none' : '0 0 10px 10px rgb(0 0 0 / 3%)' }}>
+            <DoneBtn done={isDone} onClick={handleTaskStateChange}>
                 <FontAwesomeIcon icon={faCheck} />
             </DoneBtn>
             <TaskContent>
                 <EditableDescription
                     style={{
-                        textDecoration: done ? 'line-through' : 'none',
-                        color: done ? 'grey' : 'black'
+                        textDecoration: isDone ? 'line-through' : 'none',
+                        color: isDone ? 'grey' : 'black'
                     }}
                     content={description}
                 />
@@ -51,12 +52,14 @@ const Task = ({ description, setContextMenuCoords, listId, taskId }) => {
 }
 
 const mapStateToProps = state => ({
-    contextMenuCoords: getContextMenuCoords(state)
+    contextMenuCoords: getContextMenuCoords(state),
+    lists: getAllLists(state)
 })
 
 const mapDispatchToProps = dispatch => ({
     setContextMenuCoords: (coords, listId, taskId) =>
-        dispatch(setContextMenuCoords({ coords, list: listId, task: taskId }))
+        dispatch(setContextMenuCoords({ coords, list: listId, task: taskId })),
+    setTaskDone: (listId, taskId, isDone) => dispatch(setTaskDone({ listId, taskId, isDone }))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Task)

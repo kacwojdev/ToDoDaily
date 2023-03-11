@@ -76,7 +76,13 @@ const List = ({ listId, tasks, title, isSelected, setContextMenuCoords, updateTa
                     ? 'Loading'
                     : tasks
                     ? tasks.map(task => (
-                          <Task taskId={task.id} listId={listId} description={task.title} />
+                          <Task
+                              key={task.id}
+                              taskId={task.id}
+                              listId={listId}
+                              description={task.title}
+                              isDone={task.done}
+                          />
                       ))
                     : 'Nie masz żadnych zadań'}
             </ListContent>

@@ -16,6 +16,7 @@ export const updateLists = payload => ({ type: 'UPDATE_LISTS', payload })
 export const addTask = payload => ({ type: 'ADD_TASK', payload })
 export const removeTask = payload => ({ type: 'REMOVE_TASK', payload })
 export const updateTasks = payload => ({ type: 'UPDATE_TASKS', payload })
+export const setTaskDone = payload => ({ type: 'SET_TASK_DONE', payload })
 
 // sub reducers
 const utilsSubReducer = (state, action) => {
@@ -110,6 +111,24 @@ const tasksSubReducer = (state, action) => {
                     }
                     return Object.assign({}, list, {
                         tasks: [action.payload.updatedTasks]
+                    })
+                })
+            })
+        case 'SET_TASK_DONE':
+            return Object.assign({}, state, {
+                lists: state.lists.map(list => {
+                    if (list.id != action.payload.listId) {
+                        return list
+                    }
+                    return Object.assign({}, list, {
+                        tasks: list.tasks.map(task => {
+                            if (task.id != action.payload.taskId) {
+                                return task
+                            }
+                            return Object.assign({}, task, {
+                                done: action.payload.isDone
+                            })
+                        })
                     })
                 })
             })
