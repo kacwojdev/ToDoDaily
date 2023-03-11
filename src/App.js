@@ -18,7 +18,7 @@ const App = () => {
 
     return (
         <>
-            <Router basename="/">
+            <Router basename="/ToDoDaily">
                 <GlobalStyle />
                 <AnimatePresence mode="wait">
                     <Routes key={randomKey}>
