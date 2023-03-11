@@ -21,7 +21,7 @@ class EditableTitle extends React.Component {
                 html={this.state.html}
                 disabled={false}
                 onChange={this.handleChange}
-                onBlur={this.props.onBlur(this.state.html)}
+                onBlur={() => this.props.onBlur(this.state.html)}
                 style={{
                     width: '100%',
                     padding: '1rem 0',

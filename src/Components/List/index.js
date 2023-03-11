@@ -26,16 +26,6 @@ const List = ({ listId, tasks, title, isSelected, setContextMenuCoords, updateTa
 
     useEffect(() => {
         tasksQuery(listId, setTasksLoading).then(queriedTasks => {
-            //updating local state
-            // if (queriedTasks) {
-            //     console.log(listId, queriedTasks, queriedTasks.length)
-            //     console.log(listId, 'sa zadanka')
-            //     updateTasks(listId, [...queriedTasks])
-            // } else {
-            //     console.log(listId, 'nie ma zadanek')
-            //     updateTasks(listId, [])
-            // }
-            console.log('queried tasks: ', queriedTasks)
             updateTasks(listId, [...queriedTasks])
         })
     }, [])
