@@ -1,5 +1,5 @@
 // react deps
-import { useState, useRef } from 'react'
+import { useRef } from 'react'
 // redux
 import { connect } from 'react-redux'
 import { getAllLists, getContextMenuCoords, setContextMenuCoords, setTaskDone } from '../../store'
@@ -9,6 +9,7 @@ import { faCheck, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
 //styles
 import { EditBtn, DoneBtn, TaskBox, TaskContent } from './style'
 import EditableDescription from './EditableDescription'
+import { updateTaskDone } from '../../firebase'
 
 const Task = ({ description, setContextMenuCoords, listId, taskId, isDone, setTaskDone }) => {
     const optionButtonRef = useRef()
@@ -25,8 +26,7 @@ const Task = ({ description, setContextMenuCoords, listId, taskId, isDone, setTa
     }
 
     const handleTaskStateChange = event => {
-        console.log('set task done')
-        console.log(isDone)
+        updateTaskDone(listId, taskId, !isDone)
         setTaskDone(listId, taskId, !isDone)
     }
 

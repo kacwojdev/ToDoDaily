@@ -51,6 +51,16 @@ const tasksQuery = async (listId, cb) => {
     return tasksToReturn
 }
 
+const deleteTask = async (listId, taskId) => {
+    await deleteDoc(taskDoc(listId, taskId))
+}
+
+const updateTaskDone = async (listId, taskId, isDone) => {
+    await updateDoc(taskDoc(listId, taskId), {
+        done: isDone
+    })
+}
+
 const settingsQuery = async cb => {
     await getDocs(collection(db, 'users', auth.currentUser.uid, 'settings'))
     cb(false)
@@ -60,4 +70,16 @@ const updateListTitle = async (listId, title) => {
     await updateDoc(listDoc(listId), { title: title })
 }
 
-export { auth, db, userDoc, listDoc, taskDoc, listsQuery, tasksQuery, updateListTitle, deleteList }
+export {
+    auth,
+    db,
+    userDoc,
+    listDoc,
+    taskDoc,
+    listsQuery,
+    tasksQuery,
+    updateListTitle,
+    deleteList,
+    deleteTask,
+    updateTaskDone
+}

@@ -11,7 +11,7 @@ import {
     removeList,
     removeTask
 } from '../store'
-import { deleteList } from '../firebase'
+import { deleteList, deleteTask } from '../firebase'
 // icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
@@ -92,6 +92,7 @@ const ContextMenu = props => {
             props.resetContextMenuCoords()
         }
         if (props.currentTaskContextMenu && props.currentTaskContextMenu) {
+            deleteTask(props.currentListContextMenu, props.currentTaskContextMenu)
             props.removeTask(props.currentListContextMenu, props.currentTaskContextMenu)
             props.resetContextMenuCoords()
         }

@@ -27,10 +27,16 @@ const List = ({ listId, tasks, title, isSelected, setContextMenuCoords, updateTa
     useEffect(() => {
         tasksQuery(listId, setTasksLoading).then(queriedTasks => {
             //updating local state
-            // updateTasks(listId, [...queriedTasks])
-            if (queriedTasks) {
-                console.log('nie ma zadnych zadan na tej liscie')
-            }
+            // if (queriedTasks) {
+            //     console.log(listId, queriedTasks, queriedTasks.length)
+            //     console.log(listId, 'sa zadanka')
+            //     updateTasks(listId, [...queriedTasks])
+            // } else {
+            //     console.log(listId, 'nie ma zadanek')
+            //     updateTasks(listId, [])
+            // }
+            console.log('queried tasks: ', queriedTasks)
+            updateTasks(listId, [...queriedTasks])
         })
     }, [])
 
@@ -56,7 +62,7 @@ const List = ({ listId, tasks, title, isSelected, setContextMenuCoords, updateTa
             backgroundColor: 'default'
         }
         addTask(listId, newTask)
-        // setDoc(taskDoc(listId, newTaskId), newTask)
+        setDoc(taskDoc(listId, newTaskId), newTask)
     }
 
     const saveNewTitle = title => {
@@ -74,8 +80,7 @@ const List = ({ listId, tasks, title, isSelected, setContextMenuCoords, updateTa
             <ListContent>
                 {tasksLoading
                     ? 'Loading'
-                    : tasks
-                    ? tasks.map(task => (
+                    : tasks.map(task => (
                           <Task
                               key={task.id}
                               taskId={task.id}
@@ -83,8 +88,7 @@ const List = ({ listId, tasks, title, isSelected, setContextMenuCoords, updateTa
                               description={task.title}
                               isDone={task.done}
                           />
-                      ))
-                    : 'Nie masz żadnych zadań'}
+                      ))}
             </ListContent>
             <AddNewTaskBtn onClick={addNewTask}>
                 <FontAwesomeIcon style={{ marginRight: '1rem' }} icon={faPlus} />

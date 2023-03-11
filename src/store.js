@@ -110,7 +110,7 @@ const tasksSubReducer = (state, action) => {
                         return list
                     }
                     return Object.assign({}, list, {
-                        tasks: [action.payload.updatedTasks]
+                        tasks: [...action.payload.updatedTasks]
                     })
                 })
             })
