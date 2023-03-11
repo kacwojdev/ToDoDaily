@@ -19,6 +19,7 @@ class EditableDescription extends React.Component {
                 html={this.state.html}
                 disabled={false}
                 onChange={this.handleChange}
+                onBlur={() => this.props.onBlur(this.state.html)}
             />
         )
     }

@@ -70,6 +70,12 @@ const updateListTitle = async (listId, title) => {
     await updateDoc(listDoc(listId), { title: title })
 }
 
+const updateTaskDescription = async (listId, taskId, title) => {
+    await updateDoc(taskDoc(listId, taskId), {
+        title: title
+    })
+}
+
 export {
     auth,
     db,
@@ -81,5 +87,6 @@ export {
     updateListTitle,
     deleteList,
     deleteTask,
-    updateTaskDone
+    updateTaskDone,
+    updateTaskDescription
 }

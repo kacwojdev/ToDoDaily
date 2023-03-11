@@ -3,6 +3,8 @@ import { useRef } from 'react'
 // redux
 import { connect } from 'react-redux'
 import { getAllLists, getContextMenuCoords, setContextMenuCoords, setTaskDone } from '../../store'
+//firebse
+import { updateTaskDescription } from '../../firebase'
 //icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
@@ -30,6 +32,10 @@ const Task = ({ description, setContextMenuCoords, listId, taskId, isDone, setTa
         setTaskDone(listId, taskId, !isDone)
     }
 
+    const saveNewDescription = title => {
+        updateTaskDescription(listId, taskId, title)
+    }
+
     return (
         <TaskBox style={{ boxShadow: isDone ? 'none' : '0 0 10px 10px rgb(0 0 0 / 3%)' }}>
             <DoneBtn done={isDone} onClick={handleTaskStateChange}>
@@ -37,6 +43,7 @@ const Task = ({ description, setContextMenuCoords, listId, taskId, isDone, setTa
             </DoneBtn>
             <TaskContent>
                 <EditableDescription
+                    onBlur={saveNewDescription}
                     style={{
                         textDecoration: isDone ? 'line-through' : 'none',
                         color: isDone ? 'grey' : 'black'
