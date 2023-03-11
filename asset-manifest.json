@@ -1,13 +1,18 @@
 {
   "files": {
-    "main.js": "/ToDoDaily/static/js/main.b42d0e55.js",
-    "static/media/gradient_bg.png": "/ToDoDaily/static/media/gradient_bg.718826074510f2cc366c.png",
-    "static/media/worker.png": "/ToDoDaily/static/media/worker.36ea663658181b3a65a7.png",
-    "static/media/register-bg.png": "/ToDoDaily/static/media/register-bg.4a13de6569f5bda32bb9.png",
-    "index.html": "/ToDoDaily/index.html",
-    "main.b42d0e55.js.map": "/ToDoDaily/static/js/main.b42d0e55.js.map"
+    "main.js": "/static/js/main.030479ef.js",
+    "static/media/bg_logins.jpg": "/static/media/bg_logins.7419735e035001559be1.jpg",
+    "static/media/calendar.png": "/static/media/calendar.58c8c7772a362f6b0673.png",
+    "static/media/paints.png": "/static/media/paints.8aec54704a55d37081f9.png",
+    "static/media/basketball.png": "/static/media/basketball.b5e661956d805cebbf43.png",
+    "static/media/kettle.png": "/static/media/kettle.4c5fae570e685c293dae.png",
+    "static/media/dart.png": "/static/media/dart.e7ee1d2c7286018f5e71.png",
+    "static/media/loudspeaker.png": "/static/media/loudspeaker.2f30352efc3befe6348f.png",
+    "static/media/google.png": "/static/media/google.9db27c1011edb821b59c.png",
+    "index.html": "/index.html",
+    "main.030479ef.js.map": "/static/js/main.030479ef.js.map"
   },
   "entrypoints": [
-    "static/js/main.b42d0e55.js"
+    "static/js/main.030479ef.js"
   ]
 }
