@@ -1,5 +1,5 @@
 // react deps
-import { useContext, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 // redux
 import { connect } from 'react-redux'
 import {
@@ -71,6 +71,7 @@ const ContextMenu = props => {
             document.removeEventListener('mousedown', handleWindowClicked)
             document.removeEventListener('keydown', handleKeyDown)
         }
+        // eslint-disable-next-line
     }, [])
 
     const handleWindowClicked = event => {
@@ -118,7 +119,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     resetContextMenuCoords: () =>
         dispatch(removeContextMenuCoords({ coords: { x: -9999, y: -9999 } })),
-    removeList: listIdToRemove => dispatch(removeList(listIdToRemove)),
+    removeList: listIdToRemove => dispatch(removeList({ listIdToRemove })),
     removeTask: (listId, taskId) => dispatch(removeTask({ listId, taskId }))
 })
 

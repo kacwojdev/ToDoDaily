@@ -49,10 +49,9 @@ const utilsSubReducer = (state, action) => {
 const listsSubReducer = (state, action) => {
     switch (action.type) {
         case 'REMOVE_LIST':
-            console.log(action.payload)
             return {
                 ...state,
-                lists: state.lists.filter(list => list.id != action.payload.listIdToRemove)
+                lists: state.lists.filter(list => list.id !== action.payload.listIdToRemove)
             }
         case 'ADD_LIST':
             return {
@@ -74,18 +73,18 @@ const tasksSubReducer = (state, action) => {
         case 'REMOVE_TASK':
             return Object.assign({}, state, {
                 lists: state.lists.map(list => {
-                    if (list.id != action.payload.listId) {
+                    if (list.id !== action.payload.listId) {
                         return list
                     }
                     return Object.assign({}, list, {
-                        tasks: list.tasks.filter(task => task.id != action.payload.taskId)
+                        tasks: list.tasks.filter(task => task.id !== action.payload.taskId)
                     })
                 })
             })
         case 'ADD_TASK':
             return Object.assign({}, state, {
                 lists: state.lists.map(list => {
-                    if (list.id != action.payload.listId) {
+                    if (list.id !== action.payload.listId) {
                         return list
                     }
                     let newList = {}
@@ -105,7 +104,7 @@ const tasksSubReducer = (state, action) => {
         case 'UPDATE_TASKS':
             return Object.assign({}, state, {
                 lists: state.lists.map(list => {
-                    if (list.id != action.payload.listId) {
+                    if (list.id !== action.payload.listId) {
                         return list
                     }
                     return Object.assign({}, list, {
@@ -116,12 +115,12 @@ const tasksSubReducer = (state, action) => {
         case 'SET_TASK_DONE':
             return Object.assign({}, state, {
                 lists: state.lists.map(list => {
-                    if (list.id != action.payload.listId) {
+                    if (list.id !== action.payload.listId) {
                         return list
                     }
                     return Object.assign({}, list, {
                         tasks: list.tasks.map(task => {
-                            if (task.id != action.payload.taskId) {
+                            if (task.id !== action.payload.taskId) {
                                 return task
                             }
                             return Object.assign({}, task, {
