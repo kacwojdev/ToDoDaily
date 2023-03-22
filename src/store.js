@@ -55,7 +55,6 @@ const listsSubReducer = (state, action) => {
                 lists: state.lists.filter(list => list.id != action.payload.listIdToRemove)
             }
         case 'ADD_LIST':
-            console.log(state.lists)
             return {
                 ...state,
                 lists: [...state.lists, action.payload.newList]
