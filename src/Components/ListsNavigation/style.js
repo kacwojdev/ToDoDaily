@@ -6,7 +6,7 @@ export const ListsNavigationWrapper = styled.div`
     height: max-content;
     bottom: 2rem;
     left: 0;
-    display: flex;
+    display: ${props => (props.show ? 'flex' : 'none')};
     justify-content: space-between;
     align-items: center;
     padding: 1rem;

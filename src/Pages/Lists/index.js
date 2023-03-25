@@ -169,7 +169,7 @@ const Lists = ({ updateLists, addList, lists }) => {
                                       tasks={list.tasks}
                                   />
                               ))}
-                    <ListsNavigation handleArrowClick={handleArrowClick} />
+                    <ListsNavigation sliderRef={sliderRef} handleArrowClick={handleArrowClick} />
                 </TaskList>
                 <ContextMenu />
             </AppMain>
