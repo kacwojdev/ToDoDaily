@@ -110,10 +110,18 @@ const Lists = ({ updateLists, addList, lists }) => {
             }
         } else if (direction === 'left') {
             const prevIndex = currentIndex - 1 < 0 ? lists.length - 1 : currentIndex - 1
-            console.log(prevIndex)
-            console.log('summary: ', slider.offsetWidth + slider.scrollLeft)
+            let pixelsToScroll = null
+            for (let i = currentIndex; i >= 0; i--) {
+                if (i * 315 < slider.scrollLeft) {
+                    pixelsToScroll = i * 315
+                    break
+                } else if (slider.scrollLeft === 0) {
+                    pixelsToScroll = prevIndex * 315
+                    break
+                }
+            }
             slider.scroll({
-                left: prevIndex * 315,
+                left: pixelsToScroll,
                 behavior: 'smooth'
             })
             setCurrentIndex(prevIndex)

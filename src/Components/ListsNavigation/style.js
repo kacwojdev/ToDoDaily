@@ -9,4 +9,32 @@ export const ListsNavigationWrapper = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 1rem;
+    color: grey;
+`
+
+export const ArrowButton = styled.button`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    background: linear-gradient(90deg, #2730ff, #141875);
+    cursor: pointer;
+
+    & > svg {
+        margin-right: 0 !important;
+    }
+
+    &:hover {
+        transform: scale(1.05);
+        filter: brightness(1.5);
+    }
+
+    &:active {
+        transform: scale(1);
+    }
 `
