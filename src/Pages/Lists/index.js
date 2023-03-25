@@ -88,9 +88,6 @@ const Lists = ({ updateLists, addList, lists }) => {
 
     const handleArrowClick = direction => {
         const slider = sliderRef.current
-        const itemWidth = slider.offsetWidth / lists.length
-        const sliderWidth = slider.offsetWidth
-        console.log('clicked ', direction)
 
         if (direction === 'right') {
             if (slider.scrollLeft + slider.offsetWidth !== slider.scrollWidth) {
