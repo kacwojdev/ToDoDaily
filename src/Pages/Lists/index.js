@@ -26,7 +26,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 // styles
-import { AppHeader, AppMain, CreateNewListBtn, AppSubHeader, TaskList } from './styles'
+import {
+    AppHeader,
+    AppMain,
+    CreateNewListBtn,
+    CreateNewListBtnMobile,
+    AppSubHeader,
+    TaskList
+} from './styles'
 
 const Lists = ({ updateLists, addList, lists }) => {
     const [loading, setLoading] = useState(true)
@@ -99,6 +106,9 @@ const Lists = ({ updateLists, addList, lists }) => {
                         <FontAwesomeIcon icon={faPlus} style={{ marginRight: '1rem' }} />
                         Utwórz nową listę zadań
                     </CreateNewListBtn>
+                    <CreateNewListBtnMobile onClick={handleCreatingNewList}>
+                        <FontAwesomeIcon icon={faPlus} style={{ marginRight: '1rem' }} />
+                    </CreateNewListBtnMobile>
                 </AppSubHeader>
                 <TaskList>
                     {listsLoading
