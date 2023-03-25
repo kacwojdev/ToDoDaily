@@ -20,6 +20,7 @@ import Loading from '../../Components/Loading'
 import GridWrapper from '../../Components/GridWrapper'
 import List from '../../Components/List'
 import ContextMenu from '../../Components/ContextMenu'
+import ListsNavigation from '../../Components/ListsNavigation'
 
 //icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -122,6 +123,7 @@ const Lists = ({ updateLists, addList, lists }) => {
                                   tasks={list.tasks}
                               />
                           ))}
+                    <ListsNavigation />
                 </TaskList>
                 <ContextMenu />
             </AppMain>
