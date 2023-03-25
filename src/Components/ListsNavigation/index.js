@@ -11,6 +11,7 @@ const ListsNavigation = ({ handleArrowClick, sliderRef }) => {
     const [displayArrows, setDisplayArrows] = useState(false)
 
     useEffect(() => {
+        setDisplayArrows(sliderRef.current.clientWidth < sliderRef.current.scrollWidth)
         const handleResize = () => {
             setDisplayArrows(sliderRef.current.clientWidth < sliderRef.current.scrollWidth)
         }
