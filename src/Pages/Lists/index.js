@@ -37,8 +37,10 @@ import {
 } from './styles'
 
 const Lists = ({ updateLists, addList, lists }) => {
+    const sliderRef = useRef(null)
     const [loading, setLoading] = useState(true)
     const [listsLoading, setListsLoading] = useState(true)
+    const [currentIndex, setCurrentIndex] = useState(0)
     const navigate = useNavigate()
     const { id } = useParams()
 
@@ -84,6 +86,40 @@ const Lists = ({ updateLists, addList, lists }) => {
         setDoc(listDoc(newListId), newList)
     }
 
+    const handleArrowClick = direction => {
+        const slider = sliderRef.current
+        const itemWidth = slider.offsetWidth / lists.length
+        const sliderWidth = slider.offsetWidth
+        console.log('clicked ', direction)
+
+        if (direction === 'right') {
+            if (slider.scrollLeft + slider.offsetWidth !== slider.scrollWidth) {
+                const nextIndex = currentIndex + 1 > lists.length - 1 ? 0 : currentIndex + 1
+                console.log(nextIndex)
+                slider.scroll({
+                    left: nextIndex * 315,
+                    behavior: 'smooth'
+                })
+                setCurrentIndex(nextIndex)
+            } else {
+                slider.scroll({
+                    left: 0,
+                    behavior: 'smooth'
+                })
+                setCurrentIndex(0)
+            }
+        } else if (direction === 'left') {
+            const prevIndex = currentIndex - 1 < 0 ? lists.length - 1 : currentIndex - 1
+            console.log(prevIndex)
+            console.log('summary: ', slider.offsetWidth + slider.scrollLeft)
+            slider.scroll({
+                left: prevIndex * 315,
+                behavior: 'smooth'
+            })
+            setCurrentIndex(prevIndex)
+        }
+    }
+
     return loading ? (
         <Loading />
     ) : (
@@ -111,19 +147,21 @@ const Lists = ({ updateLists, addList, lists }) => {
                         <FontAwesomeIcon icon={faPlus} style={{ marginRight: '1rem' }} />
                     </CreateNewListBtnMobile>
                 </AppSubHeader>
-                <TaskList>
+                <TaskList ref={sliderRef}>
                     {listsLoading
                         ? 'Loading'
-                        : lists.map(list => (
-                              <List
-                                  key={list.id}
-                                  listId={list.id}
-                                  isSelected={list.id == id}
-                                  title={list.title}
-                                  tasks={list.tasks}
-                              />
-                          ))}
-                    <ListsNavigation />
+                        : lists
+                              .reverse()
+                              .map(list => (
+                                  <List
+                                      key={list.id}
+                                      listId={list.id}
+                                      isSelected={list.id == id}
+                                      title={list.title}
+                                      tasks={list.tasks}
+                                  />
+                              ))}
+                    <ListsNavigation handleArrowClick={handleArrowClick} />
                 </TaskList>
                 <ContextMenu />
             </AppMain>

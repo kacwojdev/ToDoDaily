@@ -7,14 +7,14 @@ import { ListsNavigationWrapper } from './style'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
-const ListsNavigation = () => {
+const ListsNavigation = ({ handleArrowClick }) => {
     return (
         <ListsNavigationWrapper>
-            <button>
+            <button onClick={() => handleArrowClick('left')}>
                 <FontAwesomeIcon icon={faArrowLeft}></FontAwesomeIcon>
             </button>
             Navigate throughout your lists
-            <button>
+            <button onClick={() => handleArrowClick('right')}>
                 <FontAwesomeIcon icon={faArrowRight}></FontAwesomeIcon>
             </button>
         </ListsNavigationWrapper>

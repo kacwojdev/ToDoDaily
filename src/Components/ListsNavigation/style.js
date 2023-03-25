@@ -1,10 +1,10 @@
 import styled from 'styled-components'
 
 export const ListsNavigationWrapper = styled.div`
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: max-content;
-    bottom: 1rem;
+    bottom: 2rem;
     left: 0;
     display: flex;
     justify-content: space-between;
