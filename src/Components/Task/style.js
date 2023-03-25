@@ -10,9 +10,11 @@ export const TaskBox = styled.div`
 `
 
 export const TaskContent = styled.div`
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
     gap: 0.3rem;
 
     & > p {
