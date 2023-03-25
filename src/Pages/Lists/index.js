@@ -158,17 +158,15 @@ const Lists = ({ updateLists, addList, lists }) => {
                 <TaskList ref={sliderRef}>
                     {listsLoading
                         ? 'Loading'
-                        : lists
-                              .reverse()
-                              .map(list => (
-                                  <List
-                                      key={list.id}
-                                      listId={list.id}
-                                      isSelected={list.id == id}
-                                      title={list.title}
-                                      tasks={list.tasks}
-                                  />
-                              ))}
+                        : lists.map(list => (
+                              <List
+                                  key={list.id}
+                                  listId={list.id}
+                                  isSelected={list.id == id}
+                                  title={list.title}
+                                  tasks={list.tasks}
+                              />
+                          ))}
                     <ListsNavigation sliderRef={sliderRef} handleArrowClick={handleArrowClick} />
                 </TaskList>
                 <ContextMenu />
