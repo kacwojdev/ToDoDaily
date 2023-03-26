@@ -31,14 +31,29 @@ const List = ({ listId, tasks, title, isSelected, setContextMenuCoords, updateTa
     }, [])
 
     const showTaskContextModal = event => {
-        setContextMenuCoords(
-            {
-                x: listEditBtnRef.current.getBoundingClientRect().x,
-                y: listEditBtnRef.current.getBoundingClientRect().y
-            },
-            listId,
-            null
+        console.log(
+            'contains?: ',
+            window.innerWidth > listEditBtnRef.current.getBoundingClientRect().x + 160
         )
+        if (window.innerWidth > listEditBtnRef.current.getBoundingClientRect().x + 160) {
+            setContextMenuCoords(
+                {
+                    x: listEditBtnRef.current.getBoundingClientRect().x,
+                    y: listEditBtnRef.current.getBoundingClientRect().y
+                },
+                listId,
+                null
+            )
+        } else {
+            setContextMenuCoords(
+                {
+                    x: window.innerWidth - 180,
+                    y: listEditBtnRef.current.getBoundingClientRect().y
+                },
+                listId,
+                null
+            )
+        }
     }
 
     const addNewTask = () => {
