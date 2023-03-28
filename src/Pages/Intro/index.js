@@ -67,7 +67,13 @@ const Intro = () => {
                                     </PrimaryButton>
                                 </Link>
                             </IntroTexts>
-                            <IntroImg alt={'Dart image'} draggable={false} src={Dart} />
+                            <IntroImg
+                                width="512px"
+                                height="512px"
+                                alt={'Dart image'}
+                                draggable={false}
+                                src={Dart}
+                            />
                         </IntroContainer>
                     </IntroBackgroundContainer>
                     <FeaturesBackgroundContainer>
@@ -86,6 +92,7 @@ const Intro = () => {
                                     <img
                                         draggable={false}
                                         height="150px"
+                                        width="150px"
                                         src={Paints}
                                         alt={'Paints image'}
                                     />
@@ -99,6 +106,7 @@ const Intro = () => {
                                     <img
                                         draggable={false}
                                         height="150px"
+                                        width="150px"
                                         src={Loudspeaker}
                                         alt={'Loudspeaker image'}
                                     />
@@ -112,6 +120,7 @@ const Intro = () => {
                                     <img
                                         draggable={false}
                                         height="150px"
+                                        width="150px"
                                         src={Calendar}
                                         alt={'Calendar image'}
                                     />

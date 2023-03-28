@@ -26,12 +26,16 @@ const Login = () => {
                 <section style={{ position: 'relative' }}>
                     <LoginFormComponent />
                     <KettleImage
+                        width="512px"
+                        height="512px"
                         style={{ position: 'absolute', left: '0', bottom: '0' }}
                         src={Kettle}
                         alt={'Men with kettle image'}
                         draggable={false}
                     />
                     <BasketballImage
+                        width="512px"
+                        height="512px"
                         style={{ position: 'absolute', right: '0', bottom: '0' }}
                         src={Basketball}
                         alt={'Basketball player image'}

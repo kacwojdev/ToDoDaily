@@ -11,7 +11,12 @@ export const KettleImage = styled.img`
     left: 0;
     bottom: 0;
 
-    @media (max-width: 550px) {
+    @media (max-width: 1250px) {
+        width: 350px;
+        height: 350px;
+    }
+
+    @media (max-width: 850px) {
         display: none;
     }
 `
@@ -21,7 +26,12 @@ export const BasketballImage = styled.img`
     right: 0;
     bottom: 0;
 
-    @media (max-width: 550px) {
+    @media (max-width: 1250px) {
+        width: 350px;
+        height: 350px;
+    }
+
+    @media (max-width: 850px) {
         display: none;
     }
 `

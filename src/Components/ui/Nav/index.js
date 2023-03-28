@@ -101,6 +101,7 @@ const Nav = ({ handleBurgerOpen }) => {
                     </UserManagementBox>
                     <MobileUserManagementBox>
                         <motion.button
+                            aria-label="Burger menu button"
                             style={{
                                 padding: '1.5rem',
                                 border: 'none',
@@ -143,6 +144,7 @@ const MobileNav = ({ burgerOpened }) => {
         >
             <Link to="/login">
                 <PrimaryButton
+                    aria-label="Zaloguj się do aplikacji"
                     style={{
                         fontSize: '1.2rem',
                         padding: '1rem 2rem'
@@ -153,6 +155,7 @@ const MobileNav = ({ burgerOpened }) => {
             </Link>
             <Link to="/register">
                 <PrimaryButton
+                    aria-label="Zacznij korzystanie z aplikacji"
                     style={{
                         background: 'rgb(0, 101, 255)',
                         height: '100%',
