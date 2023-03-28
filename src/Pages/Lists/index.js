@@ -29,6 +29,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 // styles
 import {
     AppHeader,
+    WelcomeBox,
     AppMain,
     CreateNewListBtn,
     CreateNewListBtnMobile,
@@ -131,10 +132,10 @@ const Lists = ({ updateLists, addList, lists }) => {
         <GridWrapper>
             <AppHeader>
                 <div>
-                    <h3>TodoDaily</h3>
-                    <h2>
+                    <h2>TodoDaily</h2>
+                    <WelcomeBox>
                         <span>Cześć,</span> {auth.currentUser.displayName}
-                    </h2>
+                    </WelcomeBox>
                 </div>
                 <nav>
                     <Link to="/account" aria-label="Przejdź do swojego konta">

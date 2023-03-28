@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { PrimaryButton } from '../../styledComponents'
 
 export const AppHeader = styled.header`
     display: flex;
@@ -10,18 +9,9 @@ export const AppHeader = styled.header`
     background: linear-gradient(90deg, #2730ff, #141875);
     color: white;
 
-    & > div > h3 {
+    & > div > h2 {
         margin: 0;
         font-weight: 400;
-    }
-
-    & > div > h2 {
-        margin-top: 1rem;
-        font-size: 2rem;
-    }
-
-    & > div > h2 > span {
-        font-weight: 300;
     }
 
     & > nav > button {
@@ -54,6 +44,15 @@ export const AppHeader = styled.header`
         padding: 1rem 3rem;
     }
 `
+export const WelcomeBox = styled.div`
+    margin-top: 1rem;
+    font-size: 2rem;
+
+    & > span {
+        font-weight: 300;
+    }
+`
+
 export const AppMain = styled.main`
     display: grid;
     grid-template-rows: auto 1fr;
