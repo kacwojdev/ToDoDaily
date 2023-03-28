@@ -68,7 +68,9 @@ export const IntroImg = styled.img`
     flex-grow: 1;
 
     @media (max-width: 880px) {
-        width: 100%;
+        width: 80%;
+        height: auto;
+        aspect-ratio: auto;
     }
 `
 

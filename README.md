@@ -4,7 +4,7 @@ ToDoDaily an app made for cleaning your daily mess.
 
 ## Links
 
-https://tododailyapp.netlify.com
+https://tododaily.pl
 
 You can sign in to app using this tests credentials:
 
