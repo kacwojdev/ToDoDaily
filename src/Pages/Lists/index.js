@@ -137,18 +137,28 @@ const Lists = ({ updateLists, addList, lists }) => {
                     </h2>
                 </div>
                 <nav>
-                    <Link to="/account">Moje konto</Link>
-                    <button onClick={handleLogOut}>Wyloguj</button>
+                    <Link to="/account" aria-label="Przejdź do swojego konta">
+                        Moje konto
+                    </Link>
+                    <button onClick={handleLogOut} aria-label="Wyloguj się z aplikacji">
+                        Wyloguj
+                    </button>
                 </nav>
             </AppHeader>
             <AppMain>
                 <AppSubHeader>
                     <h4>Twoje listy zadań</h4>
-                    <CreateNewListBtn onClick={handleCreatingNewList}>
+                    <CreateNewListBtn
+                        aria-label="Utwórz nową listę"
+                        onClick={handleCreatingNewList}
+                    >
                         <FontAwesomeIcon icon={faPlus} style={{ marginRight: '1rem' }} />
                         Utwórz nową listę zadań
                     </CreateNewListBtn>
-                    <CreateNewListBtnMobile onClick={handleCreatingNewList}>
+                    <CreateNewListBtnMobile
+                        aria-label="Utwórz nową listę"
+                        onClick={handleCreatingNewList}
+                    >
                         <FontAwesomeIcon icon={faPlus} style={{ marginRight: '1rem' }} />
                     </CreateNewListBtnMobile>
                 </AppSubHeader>

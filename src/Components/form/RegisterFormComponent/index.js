@@ -166,6 +166,7 @@ const RegisterFormComponent = () => {
                 {authError && <ErrorMessage message="Nie możemy utworzyć takiego konta." />}
 
                 <SubmitButton
+                    aria-label="Zarejestruj się"
                     active={
                         formik.errors.firstName ||
                         formik.errors.lastName ||
@@ -180,11 +181,11 @@ const RegisterFormComponent = () => {
             </RegisterForm>
             LUB
             <RegisterSocial>
-                <SocailRegisterButton>
+                <SocailRegisterButton disabled aria-label="Zarejestruj się używając konta Google">
                     <img src={GoogleIcon} alt={'Google icon'} />
                     Kontynuuj za pomocą konta Google
                 </SocailRegisterButton>
-                <SocailRegisterButton>
+                <SocailRegisterButton disabled aria-label="Zarejestruj się używając Konta Facebook">
                     <img src={FacebookIcon} alt={'Facebook icon'} />
                     Kontynuuj za pomocą konta Facebook
                 </SocailRegisterButton>

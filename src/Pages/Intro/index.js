@@ -54,6 +54,7 @@ const Intro = () => {
                                 </p>
                                 <Link to="/register">
                                     <PrimaryButton
+                                        aria-label="Rozpocznij korzystanie z aplikacji"
                                         style={{
                                             fontSize: '1rem',
                                             backgroundColor: 'rgb(0, 101, 255)',
@@ -66,7 +67,7 @@ const Intro = () => {
                                     </PrimaryButton>
                                 </Link>
                             </IntroTexts>
-                            <IntroImg draggable={false} src={Dart} />
+                            <IntroImg alt={'Dart image'} draggable={false} src={Dart} />
                         </IntroContainer>
                     </IntroBackgroundContainer>
                     <FeaturesBackgroundContainer>

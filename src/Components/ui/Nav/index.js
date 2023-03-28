@@ -75,6 +75,7 @@ const Nav = ({ handleBurgerOpen }) => {
                     <UserManagementBox>
                         <Link to="/login">
                             <PrimaryButton
+                                aria-label="Zaloguj się do aplikacji"
                                 style={{
                                     fontSize: '1.2rem',
                                     padding: '1rem 2rem'
@@ -85,6 +86,7 @@ const Nav = ({ handleBurgerOpen }) => {
                         </Link>
                         <Link to="/register">
                             <PrimaryButton
+                                aria-label="Zacznij korzystać z aplikacji"
                                 style={{
                                     background: 'rgb(0, 101, 255)',
                                     height: '100%',

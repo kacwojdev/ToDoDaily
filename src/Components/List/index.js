@@ -78,7 +78,11 @@ const List = ({ listId, tasks, title, isSelected, setContextMenuCoords, updateTa
         <ListWrapper active={isSelected}>
             <ListTitleWrapper>
                 <EditableTitle onBlur={saveNewTitle} title={title} />
-                <EditBtn ref={listEditBtnRef} onClick={showTaskContextModal}>
+                <EditBtn
+                    aria-label="Opcje listy"
+                    ref={listEditBtnRef}
+                    onClick={showTaskContextModal}
+                >
                     <FontAwesomeIcon icon={faEllipsisVertical} />
                 </EditBtn>
             </ListTitleWrapper>
@@ -95,7 +99,7 @@ const List = ({ listId, tasks, title, isSelected, setContextMenuCoords, updateTa
                           />
                       ))}
             </ListContent>
-            <AddNewTaskBtn onClick={addNewTask}>
+            <AddNewTaskBtn aria-label="Dodaj nowe zadanie do listy" onClick={addNewTask}>
                 <FontAwesomeIcon style={{ marginRight: '1rem' }} icon={faPlus} />
                 Dodaj nowe zadanie
             </AddNewTaskBtn>

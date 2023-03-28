@@ -20,11 +20,17 @@ const ListsNavigation = ({ handleArrowClick, sliderRef }) => {
 
     return (
         <ListsNavigationWrapper show={displayArrows}>
-            <ArrowButton onClick={() => handleArrowClick('left')}>
+            <ArrowButton
+                aria-label="Strzałka do nawigowania po listach w lewo"
+                onClick={() => handleArrowClick('left')}
+            >
                 <FontAwesomeIcon icon={faArrowLeft}></FontAwesomeIcon>
             </ArrowButton>
             Możesz nawigować po listach używając strzałek.
-            <ArrowButton onClick={() => handleArrowClick('right')}>
+            <ArrowButton
+                aria-label="Strzałka do nawigowania po listach w prawo"
+                onClick={() => handleArrowClick('right')}
+            >
                 <FontAwesomeIcon icon={faArrowRight}></FontAwesomeIcon>
             </ArrowButton>
         </ListsNavigationWrapper>

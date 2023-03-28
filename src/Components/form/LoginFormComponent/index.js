@@ -98,6 +98,7 @@ const LoginFormComponent = () => {
                 {authError && <ErrorMessage message="Adres email lub hasło nie zgadzają się." />}
 
                 <SubmitButton
+                    aria-label="Zaloguj się"
                     active={loginFormik.errors.loginEmail || loginFormik.errors.loginPassword}
                     loading={isFormLoading}
                 >
@@ -106,11 +107,11 @@ const LoginFormComponent = () => {
             </LoginForm>
             LUB
             <LoginSocial>
-                <SocailLoginButton>
+                <SocailLoginButton disabled aria-label="Zaloguj się używając konta Google">
                     <img src={GoogleIcon} alt={'Google icon'} />
                     Kontynuuj za pomocą konta Google
                 </SocailLoginButton>
-                <SocailLoginButton>
+                <SocailLoginButton disabled aria-label="Zaloguj się używając konta Facebook">
                     <img src={FacebookIcon} alt={'Facebook icon'} />
                     Kontynuuj za pomocą konta Facebook
                 </SocailLoginButton>

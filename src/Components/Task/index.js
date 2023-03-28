@@ -53,7 +53,11 @@ const Task = ({ description, setContextMenuCoords, listId, taskId, isDone, setTa
 
     return (
         <TaskBox style={{ boxShadow: isDone ? 'none' : '0 0 10px 10px rgb(0 0 0 / 3%)' }}>
-            <DoneBtn done={isDone} onClick={handleTaskStateChange}>
+            <DoneBtn
+                aria-label="Oznacz zadanie jako wykonane"
+                done={isDone}
+                onClick={handleTaskStateChange}
+            >
                 <FontAwesomeIcon icon={faCheck} />
             </DoneBtn>
             <TaskContent>
@@ -65,7 +69,11 @@ const Task = ({ description, setContextMenuCoords, listId, taskId, isDone, setTa
                     }}
                     content={description}
                 />
-                <EditBtn ref={optionButtonRef} onClick={showTaskContextModal}>
+                <EditBtn
+                    aria-label="Opcje zadania"
+                    ref={optionButtonRef}
+                    onClick={showTaskContextModal}
+                >
                     <FontAwesomeIcon icon={faEllipsisVertical} />
                 </EditBtn>
             </TaskContent>
