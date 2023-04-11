@@ -22,25 +22,23 @@ export const setTaskDone = payload => ({ type: 'SET_TASK_DONE', payload })
 const utilsSubReducer = (state, action) => {
     switch (action.type) {
         case 'SET_CONTEXT_MENU_COORDS':
-            return {
-                ...state,
+            return Object.assign({}, state, {
                 utils: {
                     contextMenuCoords: action.payload.coords,
                     contextMenuVisibility: true,
                     currentListContextMenu: action.payload.list,
                     currentTaskContextMenu: action.payload.task
                 }
-            }
+            })
         case 'REMOVE_CONTEXT_MENU_COORDS':
-            return {
-                ...state,
+            return Object.assign({}, state, {
                 utils: {
                     contextMenuCoords: action.payload.coords,
                     contextMenuVisibility: false,
                     currentListContextMenu: null,
                     currentTaskContextMenu: null
                 }
-            }
+            })
         default:
             return state
     }
@@ -49,20 +47,17 @@ const utilsSubReducer = (state, action) => {
 const listsSubReducer = (state, action) => {
     switch (action.type) {
         case 'REMOVE_LIST':
-            return {
-                ...state,
+            return Object.assign({}, state, {
                 lists: state.lists.filter(list => list.id !== action.payload.listIdToRemove)
-            }
+            })
         case 'ADD_LIST':
-            return {
-                ...state,
+            return Object.assign({}, state, {
                 lists: [...state.lists, action.payload.newList]
-            }
+            })
         case 'UPDATE_LISTS':
-            return {
-                ...state,
+            return Object.assign({}, state, {
                 lists: [...action.payload.updatedLists]
-            }
+            })
         default:
             return state
     }
