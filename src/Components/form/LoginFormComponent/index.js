@@ -1,5 +1,5 @@
 // react deps
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 // react-router deps
 import { Link, useNavigate } from 'react-router-dom'
 //firebase
@@ -7,7 +7,11 @@ import { auth } from '../../../firebase'
 import {
     browserSessionPersistence,
     setPersistence,
-    signInWithEmailAndPassword
+    signInWithEmailAndPassword,
+    GoogleAuthProvider,
+    FacebookAuthProvider,
+    getRedirectResult,
+    signInWithRedirect
 } from 'firebase/auth'
 //formik
 import { useFormik } from 'formik'
@@ -32,6 +36,27 @@ const LoginFormComponent = () => {
 
     const [isFormLoading, setFormLoading] = useState(null)
     const [authError, setAuthError] = useState(null)
+    const [loadingPage, setLoadingPage] = useState(true)
+
+    useEffect(() => {
+        getRedirectResult(auth)
+            .then(result => {
+                const credential = GoogleAuthProvider.credentialFromResult(result)
+                const token = credential.accessToken
+
+                const user = result.user
+                setLoadingPage(false)
+                navigate('/lists')
+            })
+            .catch(error => {
+                const errorCode = error.code
+                const errorMessage = error.message
+                // const email = error.customData.email
+
+                const credential = GoogleAuthProvider.credentialFromError(error)
+                setLoadingPage(false)
+            })
+    }, [])
 
     const validate = values => {
         const errors = {}
@@ -65,7 +90,21 @@ const LoginFormComponent = () => {
         }
     })
 
-    return (
+    const handleSignInWithFacebook = () => {
+        setLoadingPage(true)
+        const provider = new FacebookAuthProvider()
+        signInWithRedirect(auth, provider)
+    }
+
+    const handleSignInWithGoogle = () => {
+        setLoadingPage(true)
+        const provider = new GoogleAuthProvider()
+        signInWithRedirect(auth, provider)
+    }
+
+    return loadingPage ? (
+        <div>Ładowanie</div>
+    ) : (
         <LoginContainer>
             <LoginForm onSubmit={loginFormik.handleSubmit}>
                 <h2>ZALOGUJ SIĘ DO TODODAILY</h2>
@@ -107,11 +146,17 @@ const LoginFormComponent = () => {
             </LoginForm>
             LUB
             <LoginSocial>
-                <SocailLoginButton disabled aria-label="Zaloguj się używając konta Google">
+                <SocailLoginButton
+                    onClick={handleSignInWithGoogle}
+                    aria-label="Zaloguj się używając konta Google"
+                >
                     <img src={GoogleIcon} alt={'Google icon'} />
                     Kontynuuj za pomocą konta Google
                 </SocailLoginButton>
-                <SocailLoginButton disabled aria-label="Zaloguj się używając konta Facebook">
+                <SocailLoginButton
+                    onClick={handleSignInWithFacebook}
+                    aria-label="Zaloguj się używając konta Facebook"
+                >
                     <img src={FacebookIcon} alt={'Facebook icon'} />
                     Kontynuuj za pomocą konta Facebook
                 </SocailLoginButton>

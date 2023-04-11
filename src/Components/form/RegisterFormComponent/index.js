@@ -1,12 +1,22 @@
 //react deps
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 //react-router deps
 import { Link, useNavigate } from 'react-router-dom'
 //firebase
 import { auth } from '../../../firebase'
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import {
+    createUserWithEmailAndPassword,
+    updateProfile,
+    signInWithPopup,
+    GoogleAuthProvider,
+    getRedirectResult,
+    signInWithRedirect,
+    FacebookAuthProvider
+} from 'firebase/auth'
 //formik
 import { useFormik } from 'formik'
+// components
+import Loading from '../../Loading'
 //styles
 import ErrorMessage from '../ErrorMessage'
 import SubmitButton from '../SubmitButton'
@@ -20,12 +30,36 @@ import {
     ReturnBox,
     Separator
 } from './styles'
+//icons
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 const RegisterFormComponent = () => {
     const navigate = useNavigate()
 
     const [isFormLoading, setFormLoading] = useState(null)
     const [authError, setAuthError] = useState(null)
+    const [loadingPage, setLoadingPage] = useState(true)
+
+    useEffect(() => {
+        getRedirectResult(auth)
+            .then(result => {
+                const credential = GoogleAuthProvider.credentialFromResult(result)
+                const token = credential.accessToken
+
+                const user = result.user
+                setLoadingPage(false)
+                navigate('/lists')
+            })
+            .catch(error => {
+                const errorCode = error.code
+                const errorMessage = error.message
+                // const email = error.customData.email
+
+                const credential = GoogleAuthProvider.credentialFromError(error)
+                setLoadingPage(false)
+            })
+    }, [])
 
     const validate = values => {
         const errors = {}
@@ -78,11 +112,9 @@ const RegisterFormComponent = () => {
             setFormLoading(true)
             createUserWithEmailAndPassword(auth, values.registerEmail, values.registerPassword)
                 .then(() => {
-                    console.log('user registrated')
                     updateProfile(auth.currentUser, {
                         displayName: `${values.firstName} ${values.lastName}`
                     }).then(() => {
-                        console.log('full registration done')
                         navigate('/lists')
                     })
                 })
@@ -93,7 +125,20 @@ const RegisterFormComponent = () => {
         }
     })
 
-    return (
+    const handleSignUpWithFacebook = () => {
+        setLoadingPage(true)
+        const provider = new FacebookAuthProvider()
+        signInWithRedirect(auth, provider)
+    }
+
+    const handleSignUpWithGoogle = () => {
+        setLoadingPage(true)
+        const provider = new GoogleAuthProvider()
+        signInWithRedirect(auth, provider)
+    }
+    return loadingPage ? (
+        <div>Ładowanie</div>
+    ) : (
         <RegisterContainer>
             <RegisterForm onSubmit={formik.handleSubmit}>
                 <h2>ZAREJESTRUJ SIĘ ABY ZAŁOŻYĆ KONTO</h2>
@@ -181,11 +226,17 @@ const RegisterFormComponent = () => {
             </RegisterForm>
             LUB
             <RegisterSocial>
-                <SocailRegisterButton disabled aria-label="Zarejestruj się używając konta Google">
+                <SocailRegisterButton
+                    onClick={handleSignUpWithGoogle}
+                    aria-label="Zarejestruj się używając konta Google"
+                >
                     <img src={GoogleIcon} alt={'Google icon'} />
                     Kontynuuj za pomocą konta Google
                 </SocailRegisterButton>
-                <SocailRegisterButton disabled aria-label="Zarejestruj się używając Konta Facebook">
+                <SocailRegisterButton
+                    onClick={handleSignUpWithFacebook}
+                    aria-label="Zarejestruj się używając Konta Facebook"
+                >
                     <img src={FacebookIcon} alt={'Facebook icon'} />
                     Kontynuuj za pomocą konta Facebook
                 </SocailRegisterButton>
