@@ -11,6 +11,7 @@ export const ListsNavigationWrapper = styled.div`
     align-items: center;
     padding: 1rem;
     color: grey;
+    pointer-events: none;
 `
 
 export const ArrowButton = styled.button`
@@ -24,6 +25,7 @@ export const ArrowButton = styled.button`
     color: white;
     background: linear-gradient(90deg, #2730ff, #141875);
     cursor: pointer;
+    pointer-events: all;
 
     & > svg {
         margin-right: 0 !important;

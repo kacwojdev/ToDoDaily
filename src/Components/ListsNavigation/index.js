@@ -26,7 +26,6 @@ const ListsNavigation = ({ handleArrowClick, sliderRef }) => {
             >
                 <FontAwesomeIcon icon={faArrowLeft}></FontAwesomeIcon>
             </ArrowButton>
-            Możesz nawigować po listach używając strzałek.
             <ArrowButton
                 aria-label="Strzałka do nawigowania po listach w prawo"
                 onClick={() => handleArrowClick('right')}
