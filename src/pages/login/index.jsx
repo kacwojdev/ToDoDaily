@@ -5,8 +5,8 @@ import GridWrapper from '../../components/GridWrapper'
 import AnimatedPage from '../../components/AnimatedPage'
 import LoginFormComponent from '../../components/form/LoginFormComponent'
 import { BasketballImage, HeaderContainer, KettleImage } from './styles'
-import Kettle from '@img/kettle.png'
-import Basketball from '@img/basketball.png'
+import Kettle from '@icons/kettle.png'
+import Basketball from '@icons/basketball.png'
 
 const Login = () => {
     return (

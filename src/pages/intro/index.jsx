@@ -18,10 +18,10 @@ import {
     IntroTexts
 } from './styles'
 //assets
-import Dart from '@img/dart.png'
-import Loudspeaker from '@img/loudspeaker.png'
-import Calendar from '@img/calendar.png'
-import Paints from '@img/paints.png'
+import Dart from '@icons/dart.png'
+import Loudspeaker from '@icons/loudspeaker.png'
+import Calendar from '@icons/calendar.png'
+import Paints from '@icons/paints.png'
 
 const Intro = () => {
     const [burgerOpened, setBurgerOpened] = useState(false)

@@ -12,8 +12,8 @@ import {
 import { useFormik } from 'formik'
 import ErrorMessage from '../ErrorMessage'
 import SubmitButton from '../SubmitButton'
-import FacebookIcon from '@img/facebook.png'
-import GoogleIcon from '@img/google.png'
+import FacebookIcon from '@icons/facebook.png'
+import GoogleIcon from '@icons/google.png'
 import {
     RegisterContainer,
     RegisterForm,

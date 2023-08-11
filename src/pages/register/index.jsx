@@ -5,8 +5,8 @@ import GridWrapper from '../../components/GridWrapper'
 import AnimatedPage from '../../components/AnimatedPage'
 import RegisterFormComponent from '../../components/form/RegisterFormComponent'
 import { HeaderContainer, KettleImage, BasketballImage } from './styles'
-import Kettle from '@img/kettle.png'
-import Basketball from '@img/basketball.png'
+import Kettle from '@icons/kettle.png'
+import Basketball from '@icons/basketball.png'
 
 const Register = () => {
     return (

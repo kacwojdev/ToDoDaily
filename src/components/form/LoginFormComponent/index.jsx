@@ -9,8 +9,8 @@ import {
     signInWithRedirect
 } from 'firebase/auth'
 import { useFormik } from 'formik'
-import FacebookIcon from '@img/facebook.png'
-import GoogleIcon from '@img/google.png'
+import FacebookIcon from '@icons/facebook.png'
+import GoogleIcon from '@icons/google.png'
 import ErrorMessage from '../ErrorMessage'
 import SubmitButton from '../SubmitButton'
 import {
