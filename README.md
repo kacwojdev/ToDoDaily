@@ -2,6 +2,8 @@
 
 ToDoDaily an app made for cleaning your daily mess.
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/4c53752c-ac5d-4c3e-afe5-e6c3c0f1403d/deploy-status)](https://app.netlify.com/sites/tododailyapp/deploys)
+
 ## Links
 
 https://tododaily.pl

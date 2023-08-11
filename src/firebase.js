@@ -1,8 +1,6 @@
 import { initializeApp } from 'firebase/app'
 import { getAuth } from 'firebase/auth'
-import { deleteDoc, getDocs, getFirestore, updateDoc } from 'firebase/firestore'
-
-import { doc, collection } from 'firebase/firestore'
+import { deleteDoc, getDocs, getFirestore, updateDoc, doc, collection } from 'firebase/firestore'
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -18,13 +16,11 @@ const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
 const db = getFirestore(app)
 
-// doc refs
 const userDoc = () => doc(db, 'users', auth.currentUser.uid)
 const listDoc = listId => doc(db, 'users', auth.currentUser.uid, 'lists', listId)
 const taskDoc = (listId, taskId) =>
     doc(db, 'users', auth.currentUser.uid, 'lists', listId, 'tasks', taskId)
 
-// db queries
 const listsQuery = async cb => {
     const lists = await getDocs(collection(db, 'users', auth.currentUser.uid, 'lists'))
     const listsToReturn = []
@@ -61,6 +57,7 @@ const updateTaskDone = async (listId, taskId, isDone) => {
     })
 }
 
+// eslint-disable-next-line no-unused-vars
 const settingsQuery = async cb => {
     await getDocs(collection(db, 'users', auth.currentUser.uid, 'settings'))
     cb(false)
