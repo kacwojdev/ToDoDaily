@@ -13,7 +13,7 @@ import { deleteList, deleteTask } from '../firebase'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import styled from 'styled-components'
-import { PrimaryButton } from '../styledComponents'
+import { PrimaryButton } from '@globalStyles'
 
 const ContextMenuWrapper = styled.div`
     width: max-content;

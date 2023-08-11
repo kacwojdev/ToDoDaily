@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { PrimaryButton } from '../../styledComponents'
+import { PrimaryButton } from '@globalStyles'
 
 export const TaskBox = styled.div`
     position: relative;

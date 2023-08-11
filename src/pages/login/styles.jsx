@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { _Container } from '../../styledComponents'
+import { _Container } from '@globalStyles'
 
 export const HeaderContainer = styled(_Container)`
     display: flex;

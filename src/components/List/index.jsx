@@ -22,10 +22,6 @@ const List = ({ listId, tasks, title, isSelected, setContextMenuCoords, updateTa
     }, [])
 
     const showTaskContextModal = () => {
-        console.log(
-            'contains?: ',
-            window.innerWidth > listEditBtnRef.current.getBoundingClientRect().x + 160
-        )
         if (window.innerWidth > listEditBtnRef.current.getBoundingClientRect().x + 160) {
             setContextMenuCoords(
                 {

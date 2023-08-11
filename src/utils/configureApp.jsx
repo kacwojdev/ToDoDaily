@@ -90,9 +90,6 @@ export const createTaskInGroupOfId = id => {
         }
     }
     l.groups[index] = g
-    console.log(index)
-    console.log(l)
-    console.log(g)
 
     localStorage.setItem('todoDaily_data', JSON.stringify(l))
 }

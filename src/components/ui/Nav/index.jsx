@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { motion } from 'framer-motion'
-import { PrimaryButton } from '../../../styledComponents'
+import { PrimaryButton } from '@globalStyles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 

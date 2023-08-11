@@ -80,7 +80,6 @@ const Lists = ({ updateLists, addList, lists }) => {
         if (direction === 'right') {
             if (slider.scrollLeft + slider.offsetWidth !== slider.scrollWidth) {
                 const nextIndex = currentIndex + 1 > lists.length - 1 ? 0 : currentIndex + 1
-                console.log(nextIndex)
                 slider.scroll({
                     left: nextIndex * 315,
                     behavior: 'smooth'

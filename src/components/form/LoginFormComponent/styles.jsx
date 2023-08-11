@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { _Container, PrimaryButton } from '../../../styledComponents'
+import { _Container, PrimaryButton } from '@globalStyles'
 
 export const LoginContainer = styled(_Container)`
     display: flex;

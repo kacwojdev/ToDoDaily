@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { RegisterSubmitBtn } from '../../components/form/SubmitButton/styles'
-import { PrimaryButton } from '../../styledComponents'
+import { PrimaryButton } from '@globalStyles'
 
 export const AppHeader = styled.header`
     display: flex;

@@ -53,7 +53,7 @@ const Account = () => {
                 navigate('/')
             })
             .catch(error => {
-                console.log(error)
+                console.error(error)
             })
     }
 
@@ -61,7 +61,6 @@ const Account = () => {
         event.preventDefault()
 
         clearMessages()
-        console.log(auth.currentUser)
         if (email != auth.currentUser.email) {
             if (/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
                 updateEmail(auth.currentUser, email)

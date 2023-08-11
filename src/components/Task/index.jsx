@@ -11,10 +11,6 @@ const Task = ({ description, setContextMenuCoords, listId, taskId, isDone, setTa
     const optionButtonRef = useRef()
 
     const showTaskContextModal = () => {
-        console.log(
-            'contains?: ',
-            window.innerWidth > optionButtonRef.current.getBoundingClientRect().x + 160
-        )
         if (window.innerWidth > optionButtonRef.current.getBoundingClientRect().x + 160) {
             setContextMenuCoords(
                 {

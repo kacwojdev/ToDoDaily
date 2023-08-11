@@ -10,7 +10,8 @@ export default defineConfig(({ command, mode }) => {
             alias: {
                 '@icons': resolve(__dirname, '/src/assets/icons'),
                 '@fonts': resolve(__dirname, '/src/assets/fonts'),
-                '@components': resolve(__dirname, '/src/components')
+                '@components': resolve(__dirname, '/src/components'),
+                '@globalStyles': resolve(__dirname, '/src/utils/globalStyles')
             }
         },
 

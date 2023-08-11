@@ -16,8 +16,6 @@ const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
 const db = getFirestore(app)
 
-console.log(firebaseConfig)
-
 const userDoc = () => doc(db, 'users', auth.currentUser.uid)
 const listDoc = listId => doc(db, 'users', auth.currentUser.uid, 'lists', listId)
 const taskDoc = (listId, taskId) =>
