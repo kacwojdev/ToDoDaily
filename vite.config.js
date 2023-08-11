@@ -9,7 +9,8 @@ export default defineConfig(({ command, mode }) => {
         resolve: {
             alias: {
                 '@icons': resolve(__dirname, '/src/assets/icons'),
-                '@fonts': resolve(__dirname, '/src/assets/fonts')
+                '@fonts': resolve(__dirname, '/src/assets/fonts'),
+                '@components': resolve(__dirname, '/src/components')
             }
         },
 
@@ -41,6 +42,9 @@ export default defineConfig(({ command, mode }) => {
             'process.env.REACT_APP_FIREBASE_MEASUREMENT_ID': JSON.stringify(
                 env.REACT_APP_FIREBASE_MEASUREMENT_ID
             )
+        },
+        server: {
+            port: 8000
         }
     }
 })

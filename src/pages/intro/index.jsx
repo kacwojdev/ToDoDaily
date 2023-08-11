@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Nav, MobileNav } from '../../components/ui/Nav'
-import GridWrapper from '../../components/GridWrapper'
-import Footer from '../../components/ui/Footer'
-import AnimatedPage from '../../components/AnimatedPage'
+import { Nav, MobileNav } from '@components/ui/Nav'
+import GridWrapper from '@components/GridWrapper'
+import Footer from '@components/ui/Footer'
+import AnimatedPage from '@components/AnimatedPage'
 import { PrimaryButton } from '../../styledComponents'
 import {
     FeaturesBackgroundContainer,
