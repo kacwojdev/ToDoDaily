@@ -1,15 +1,10 @@
-// react deps
 import React from 'react'
-// react-router deps
 import { Link } from 'react-router-dom'
-// components
 import Footer from '../../components/ui/Footer'
 import GridWrapper from '../../components/GridWrapper'
 import AnimatedPage from '../../components/AnimatedPage'
 import RegisterFormComponent from '../../components/form/RegisterFormComponent'
-//styles
 import { HeaderContainer, KettleImage, BasketballImage } from './styles'
-//assets
 import Kettle from '@img/kettle.png'
 import Basketball from '@img/basketball.png'
 

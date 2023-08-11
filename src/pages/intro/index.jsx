@@ -1,13 +1,9 @@
-// react deps
 import React, { useState } from 'react'
-//react-router deps
 import { Link } from 'react-router-dom'
-//components
 import { Nav, MobileNav } from '../../components/ui/Nav'
 import GridWrapper from '../../components/GridWrapper'
 import Footer from '../../components/ui/Footer'
 import AnimatedPage from '../../components/AnimatedPage'
-//styles
 import { PrimaryButton } from '../../styledComponents'
 import {
     FeaturesBackgroundContainer,

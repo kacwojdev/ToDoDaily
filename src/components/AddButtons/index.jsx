@@ -1,9 +1,6 @@
-// react deps
 import React from 'react'
-//icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
-// styles
 import { DarkenButton } from '../../styledComponents'
 
 export const AddTasksGroupButton = ({ handleOpenModal }) => {

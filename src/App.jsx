@@ -1,14 +1,12 @@
-// react deps
 import React from 'react'
-// react-router deps
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
-import Lists from './Pages/Lists'
-import Intro from './Pages/Intro'
-import GlobalStyle from './Utils/globalStyles'
-import Login from './Pages/Login'
-import Register from './Pages/Register'
-import Account from './Pages/Account'
+import Lists from './pages/lists'
+import Intro from './pages/intro'
+import GlobalStyle from './utils/globalStyles'
+import Login from './pages/login'
+import Register from './pages/register'
+import Account from './pages/account'
 
 const App = () => {
     const randomKey = Math.random()

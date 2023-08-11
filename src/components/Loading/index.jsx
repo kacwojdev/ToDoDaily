@@ -1,4 +1,3 @@
-// styles
 import styled from 'styled-components'
 
 const LoadingBox = styled.div`

@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from 'react'
-
-// styles
 import { ListsNavigationWrapper, ArrowButton } from './style'
-
-// icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
