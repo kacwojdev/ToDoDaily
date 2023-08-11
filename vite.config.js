@@ -45,7 +45,10 @@ export default defineConfig(({ command, mode }) => {
             )
         },
         server: {
-            port: 8000
+            port: 8000,
+            watch: {
+                usePolling: true
+            }
         }
     }
 })
