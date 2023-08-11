@@ -33,11 +33,27 @@ const RegisterFormComponent = () => {
 
     useEffect(() => {
         getRedirectResult(auth)
-            .then(() => {
+            .then(result => {
+                // TODO: this neees to be refactored
+                // eslint-disable-next-line
+                const credential = GoogleAuthProvider.credentialFromResult(result)
+                // eslint-disable-next-line
+                const token = credential.accessToken
+                // eslint-disable-next-line
+                const user = result.user
+
                 setLoadingPage(false)
                 navigate('/lists')
             })
-            .catch(() => {
+            .catch(error => {
+                // TODO: this neees to be refactored
+                // eslint-disable-next-line
+                const errorCode = error.code
+                // eslint-disable-next-line
+                const errorMessage = error.message
+                // eslint-disable-next-line
+                const credential = GoogleAuthProvider.credentialFromError(error)
+
                 setLoadingPage(false)
             })
     }, [])

@@ -37,6 +37,7 @@ const Lists = ({ updateLists, addList, lists }) => {
             if (user) {
                 setLoading(false)
                 listsQuery(setListsLoading).then(queriedLists => {
+                    //setting in local state
                     updateLists([...queriedLists])
                 })
             } else {
