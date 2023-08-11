@@ -1,21 +1,14 @@
-//react deps
 import React, { useState, useEffect } from 'react'
-//react-router deps
 import { useNavigate } from 'react-router'
 import { Link } from 'react-router-dom'
-//firebase
 import { auth } from '../../firebase'
-import { signOut, onAuthStateChanged } from 'firebase/auth'
-// ids
+import { onAuthStateChanged } from 'firebase/auth'
 import { nanoid } from 'nanoid'
-//components
 import Loading from '../../components/Loading'
 import GridWrapper from '../../components/GridWrapper'
-//icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
-//styles
-import { AppHeader, AppMain, CreateNewListBtn, AppSubHeader, CreateNewTaskBtn } from './styles'
+import { AppHeader, AppMain, AppSubHeader, CreateNewTaskBtn } from './styles'
 
 const List = () => {
     const [loading, setLoading] = useState(true)
@@ -42,7 +35,7 @@ const List = () => {
             })
     }
 
-    const handleCreatingNewTask = event => {
+    const handleCreatingNewTask = () => {
         setTasks([...tasks, `task_${nanoid()}`])
     }
 
@@ -72,7 +65,7 @@ const List = () => {
                 </AppSubHeader>
                 <div>
                     {tasks.map(taskId => (
-                        <p>{taskId}</p>
+                        <p key={taskId}>{taskId}</p>
                     ))}
                 </div>
             </AppMain>

@@ -6,7 +6,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 // styles
 import { DarkenButton } from '../../styledComponents'
 
-export const AddTasksGroupButton = ({ handleOpenModal, children }) => {
+export const AddTasksGroupButton = ({ handleOpenModal }) => {
     return (
         <DarkenButton onClick={() => handleOpenModal()}>
             <FontAwesomeIcon style={{ marginRight: '5px' }} icon={faPlus} />
@@ -15,7 +15,7 @@ export const AddTasksGroupButton = ({ handleOpenModal, children }) => {
     )
 }
 
-export const AddTaskButton = ({ handleCreatingNewTask, children }) => {
+export const AddTaskButton = ({ handleCreatingNewTask }) => {
     return (
         <DarkenButton onClick={() => handleCreatingNewTask()}>
             <FontAwesomeIcon style={{ marginRight: '5px' }} icon={faPlus} />

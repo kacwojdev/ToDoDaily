@@ -1,6 +1,4 @@
-//react deps
-import React, { useRef } from 'react'
-//content editable deps
+import React from 'react'
 import ContentEditable from 'react-contenteditable'
 
 class EditableTitle extends React.Component {

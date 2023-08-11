@@ -2,16 +2,13 @@
 import React from 'react'
 // react-router deps
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-// framer motion deps
 import { AnimatePresence } from 'framer-motion'
-// pages components
 import Lists from './Pages/Lists'
 import Intro from './Pages/Intro'
 import GlobalStyle from './Utils/globalStyles'
 import Login from './Pages/Login'
 import Register from './Pages/Register'
 import Account from './Pages/Account'
-import List from './Pages/List'
 
 const App = () => {
     const randomKey = Math.random()

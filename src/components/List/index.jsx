@@ -1,21 +1,12 @@
-// react dep
 import { useRef, useState, useEffect } from 'react'
-import { useNavigate } from 'react-router'
-//redux
 import { connect } from 'react-redux'
 import { addTask, getContextMenuCoords, setContextMenuCoords, updateTasks } from '../../store'
-// firebase
 import { updateListTitle, tasksQuery, taskDoc } from '../../firebase'
-//ids
 import { nanoid } from 'nanoid'
-//components
 import EditableTitle from './EditableTitle'
 import Task from '../Task'
-// icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisVertical, faPlus } from '@fortawesome/free-solid-svg-icons'
-
-//styles
 import { EditBtn, ListWrapper, AddNewTaskBtn, ListContent, ListTitleWrapper } from './style'
 import { setDoc } from 'firebase/firestore'
 
@@ -30,7 +21,7 @@ const List = ({ listId, tasks, title, isSelected, setContextMenuCoords, updateTa
         })
     }, [])
 
-    const showTaskContextModal = event => {
+    const showTaskContextModal = () => {
         console.log(
             'contains?: ',
             window.innerWidth > listEditBtnRef.current.getBoundingClientRect().x + 160

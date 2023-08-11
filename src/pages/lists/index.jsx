@@ -1,32 +1,19 @@
-// react dep
 import React, { useState, useEffect, useRef } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { Link } from 'react-router-dom'
-
-// redux
 import { connect } from 'react-redux'
 import { addList, getAllLists, getContextMenuCoords, updateLists } from '../../store'
-
-//firebase dep
-import { signOut, onAuthStateChanged } from 'firebase/auth'
-import { setDoc, getDocs } from 'firebase/firestore'
+import { onAuthStateChanged } from 'firebase/auth'
+import { setDoc } from 'firebase/firestore'
 import { auth, listDoc, listsQuery } from '../../firebase'
-
-// ids
 import { nanoid } from 'nanoid'
-
-// components imports
 import Loading from '../../components/Loading'
 import GridWrapper from '../../components/GridWrapper'
 import List from '../../components/List'
 import ContextMenu from '../../components/ContextMenu'
 import ListsNavigation from '../../components/ListsNavigation'
-
-//icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
-
-// styles
 import {
     AppHeader,
     WelcomeBox,
@@ -50,7 +37,6 @@ const Lists = ({ updateLists, addList, lists }) => {
             if (user) {
                 setLoading(false)
                 listsQuery(setListsLoading).then(queriedLists => {
-                    //setting in local state
                     updateLists([...queriedLists])
                 })
             } else {
@@ -69,7 +55,7 @@ const Lists = ({ updateLists, addList, lists }) => {
             })
     }
 
-    const handleCreatingNewList = event => {
+    const handleCreatingNewList = () => {
         const newListId = `list_${nanoid()}`
         const newList = {
             id: newListId,

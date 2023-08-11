@@ -1,23 +1,15 @@
-//react deps
 import { useState, useEffect } from 'react'
-//react-router deps
 import { Link, useNavigate } from 'react-router-dom'
-//firebase
 import { auth } from '../../../firebase'
 import {
     createUserWithEmailAndPassword,
     updateProfile,
-    signInWithPopup,
     GoogleAuthProvider,
     getRedirectResult,
     signInWithRedirect,
     FacebookAuthProvider
 } from 'firebase/auth'
-//formik
 import { useFormik } from 'formik'
-// components
-import Loading from '../../Loading'
-//styles
 import ErrorMessage from '../ErrorMessage'
 import SubmitButton from '../SubmitButton'
 import FacebookIcon from '@img/facebook.png'
@@ -31,9 +23,6 @@ import {
     ReturnBox,
     Separator
 } from './styles'
-//icons
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 const RegisterFormComponent = () => {
     const navigate = useNavigate()
@@ -44,20 +33,11 @@ const RegisterFormComponent = () => {
 
     useEffect(() => {
         getRedirectResult(auth)
-            .then(result => {
-                const credential = GoogleAuthProvider.credentialFromResult(result)
-                const token = credential.accessToken
-
-                const user = result.user
+            .then(() => {
                 setLoadingPage(false)
                 navigate('/lists')
             })
-            .catch(error => {
-                const errorCode = error.code
-                const errorMessage = error.message
-                // const email = error.customData.email
-
-                const credential = GoogleAuthProvider.credentialFromError(error)
+            .catch(() => {
                 setLoadingPage(false)
             })
     }, [])
@@ -119,7 +99,7 @@ const RegisterFormComponent = () => {
                         navigate('/lists')
                     })
                 })
-                .catch(error => {
+                .catch(() => {
                     setFormLoading(false)
                     setAuthError(true)
                 })

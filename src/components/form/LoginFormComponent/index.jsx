@@ -1,31 +1,22 @@
-// react deps
 import { useState, useEffect } from 'react'
-// react-router deps
 import { Link, useNavigate } from 'react-router-dom'
-//firebase
 import { auth } from '../../../firebase'
 import {
-    browserSessionPersistence,
-    setPersistence,
     signInWithEmailAndPassword,
     GoogleAuthProvider,
     FacebookAuthProvider,
     getRedirectResult,
     signInWithRedirect
 } from 'firebase/auth'
-//formik
 import { useFormik } from 'formik'
-//icons
 import FacebookIcon from '@img/facebook.png'
 import GoogleIcon from '@img/google.png'
-// styles
 import ErrorMessage from '../ErrorMessage'
 import SubmitButton from '../SubmitButton'
 import {
     LoginContainer,
     LoginForm,
     LoginInput,
-    LoginSubmitBtn,
     LoginSocial,
     SocailLoginButton,
     ReturnBox,
@@ -41,20 +32,11 @@ const LoginFormComponent = () => {
 
     useEffect(() => {
         getRedirectResult(auth)
-            .then(result => {
-                const credential = GoogleAuthProvider.credentialFromResult(result)
-                const token = credential.accessToken
-
-                const user = result.user
+            .then(() => {
                 setLoadingPage(false)
                 navigate('/lists')
             })
-            .catch(error => {
-                const errorCode = error.code
-                const errorMessage = error.message
-                // const email = error.customData.email
-
-                const credential = GoogleAuthProvider.credentialFromError(error)
+            .catch(() => {
                 setLoadingPage(false)
             })
     }, [])

@@ -1,6 +1,4 @@
-// react deps
 import { useEffect, useRef } from 'react'
-// redux
 import { connect } from 'react-redux'
 import {
     getCurrentListContextMenu,
@@ -12,10 +10,8 @@ import {
     removeTask
 } from '../store'
 import { deleteList, deleteTask } from '../firebase'
-// icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
-// styles
 import styled from 'styled-components'
 import { PrimaryButton } from '../styledComponents'
 
@@ -86,7 +82,7 @@ const ContextMenu = props => {
         }
     }
 
-    const handleRemoveButtonPressed = event => {
+    const handleRemoveButtonPressed = () => {
         if (props.currentListContextMenu && !props.currentTaskContextMenu) {
             deleteList(props.currentListContextMenu)
             props.removeList(props.currentListContextMenu)

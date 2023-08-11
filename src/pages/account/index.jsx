@@ -1,35 +1,21 @@
-// react deps
 import React, { useState, useEffect } from 'react'
-// react-router deps
 import { useNavigate } from 'react-router'
 import { Link } from 'react-router-dom'
-// firebase
-import {
-    signOut,
-    onAuthStateChanged,
-    updatePassword,
-    updateEmail,
-    updateProfile
-} from 'firebase/auth'
+import { onAuthStateChanged, updatePassword, updateEmail, updateProfile } from 'firebase/auth'
 import { auth } from '../../firebase'
-//formik
 import { useFormik } from 'formik'
-//components
 import GridWrapper from '../../components/GridWrapper'
 import Loading from '../../components/Loading'
 import SubmitButton from '../../components/form/SubmitButton'
 import ErrorMessage from '../../components/form/ErrorMessage'
 import SuccessMessage from '../../components/form/SuccessMessage'
-//icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
-//styles
 import {
     AppHeader,
     UserDataForm,
     Main,
     UserDataInputBox,
-    SaveDataBtn,
     Spacer,
     UserDataSubmitButton
 } from './styles'
@@ -82,7 +68,7 @@ const Account = () => {
                     .then(() => {
                         setEmailSuccess(true)
                     })
-                    .catch(error => {
+                    .catch(() => {
                         setEmailError(true)
                     })
             } else {
@@ -101,7 +87,7 @@ const Account = () => {
                     .then(() => {
                         setFirstNameSuccess(true)
                     })
-                    .catch(error => {
+                    .catch(() => {
                         setFirstNameError(true)
                     })
             } else {
@@ -117,7 +103,7 @@ const Account = () => {
                     .then(() => {
                         setLastNameSuccess(true)
                     })
-                    .catch(error => {
+                    .catch(() => {
                         setLastNameError(true)
                     })
             } else {
@@ -166,7 +152,7 @@ const Account = () => {
                 .then(() => {
                     alert('Pomyslnie zmieniono haslo')
                 })
-                .catch(error => {
+                .catch(() => {
                     alert('nie udało sie zmienic hasla...')
                 })
         }

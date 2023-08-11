@@ -1,22 +1,16 @@
-// react deps
 import { useRef } from 'react'
-// redux
 import { connect } from 'react-redux'
 import { getAllLists, getContextMenuCoords, setContextMenuCoords, setTaskDone } from '../../store'
-//firebse
-import { updateTaskDescription } from '../../firebase'
-//icons
+import { updateTaskDescription, updateTaskDone } from '../../firebase'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
-//styles
 import { EditBtn, DoneBtn, TaskBox, TaskContent } from './style'
 import EditableDescription from './EditableDescription'
-import { updateTaskDone } from '../../firebase'
 
 const Task = ({ description, setContextMenuCoords, listId, taskId, isDone, setTaskDone }) => {
     const optionButtonRef = useRef()
 
-    const showTaskContextModal = event => {
+    const showTaskContextModal = () => {
         console.log(
             'contains?: ',
             window.innerWidth > optionButtonRef.current.getBoundingClientRect().x + 160
@@ -42,7 +36,7 @@ const Task = ({ description, setContextMenuCoords, listId, taskId, isDone, setTa
         }
     }
 
-    const handleTaskStateChange = event => {
+    const handleTaskStateChange = () => {
         updateTaskDone(listId, taskId, !isDone)
         setTaskDone(listId, taskId, !isDone)
     }
