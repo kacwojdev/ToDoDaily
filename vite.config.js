@@ -8,7 +8,8 @@ export default defineConfig(({ command, mode }) => {
     return {
         resolve: {
             alias: {
-                '@img': resolve(__dirname, 'src/Assets/')
+                '@img': resolve(__dirname, 'src/Assets/'),
+                '@fonts': resolve(__dirname, 'src/fonts/')
             }
         },
 
