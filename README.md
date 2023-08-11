@@ -8,6 +8,20 @@ ToDoDaily an app made for cleaning your daily mess.
 
 https://tododaily.pl
 
+## How to run
+
+Clone repository with command:
+`git clone git@github.com:kacwojdev/ToDoDaily.git`
+
+Move to directory:
+`cd ToDoDaily`
+
+Install neccessary dependencies:
+`npm install`
+
+Run app locally:
+`npm run start`
+
 You can sign in to app using this tests credentials:
 
 -   Email: kubakowalski@gmail.com
