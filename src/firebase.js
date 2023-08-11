@@ -61,6 +61,7 @@ const updateTaskDone = async (listId, taskId, isDone) => {
     })
 }
 
+// eslint-disable-next-line no-unused-vars
 const settingsQuery = async cb => {
     await getDocs(collection(db, 'users', auth.currentUser.uid, 'settings'))
     cb(false)
