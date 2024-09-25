@@ -6,7 +6,7 @@ ToDoDaily an app made for cleaning your daily mess.
 
 ## Links
 
-https://tododaily.pl
+[https://tododaily.pl](https://tododailyapp.netlify.app/)
 
 ## How to run
 
